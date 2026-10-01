@@ -19,6 +19,7 @@ Projectregels (mobile first, huisstijl, werkwijze) → **[CLAUDE.md](CLAUDE.md)*
 Conversietechnieken en waar ze zitten → **[MARKETING-TECHNIEKEN.md](MARKETING-TECHNIEKEN.md)**.
 Kritische review van v0.2 → **[REVIEW.md](REVIEW.md)**.
 Berichten/notificaties inrichten als organisator + contactformulier → **[BERICHTEN-EN-NOTIFICATIES.md](BERICHTEN-EN-NOTIFICATIES.md)**.
+Live tijden/uitslagen uit de KNSB-API (wat kan, wat nodig is) → **[LIVE-UITSLAGEN.md](LIVE-UITSLAGEN.md)**.
 
 > **Mobile first.** Alles wordt eerst voor de telefoon ontworpen en getest (390×844); desktop toont dezelfde telefoonweergave gecentreerd.
 
