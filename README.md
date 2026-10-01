@@ -7,9 +7,9 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 - **Start** – kies de toernooien die je bezoekt
 - **Home** – eerstvolgende toernooi, countdown, tickets, laatste bericht, praktische tegels, upsell
 - **Toernooien** – alle 5 NL-toernooien + internationale World Cups (info)
-- **Toernooi-detail** – tabs Info · Programma · Tickets · Praktisch · Plattegrond
+- **Toernooi-detail** – tabs Info · Programma · Tickets · Praktisch (incl. plattegrond)
 - **Tickets** – directe links naar tickets.schaatsen.nl per toernooi
-- **Berichten** – chat-feed met polls, beeld, CTA's en voorbeeld van de automatische flow
+- **Berichten** – feed die na aanmelden binnenkomt: polls, beeld, CTA's, push-opt-in, delen; voorbeeld van de automatische flow
 - **Meer** – mijn toernooien, FAQ, contact, socials, partners
 
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.

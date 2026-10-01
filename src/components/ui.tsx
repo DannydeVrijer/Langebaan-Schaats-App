@@ -4,6 +4,7 @@ import { useApp } from '../state';
 import { tournaments, nlDate, type Tournament } from '../data/tournaments';
 import { messages } from '../data/messages';
 import { stats, testimonials, type Testimonial } from '../data/site';
+import { track } from '../track';
 
 /* ---------- iconen (inline SVG, geen externe libs) ---------- */
 const I = {
@@ -150,7 +151,7 @@ export function Countdown({ iso }: { iso: string }) {
   );
 }
 
-export function HeroCard({ t, tall = false }: { t: Tournament; tall?: boolean }) {
+export function HeroCard({ t, tall = false, hideCountdown = false }: { t: Tournament; tall?: boolean; hideCountdown?: boolean }) {
   const { selected } = useApp();
   const going = selected.includes(t.id);
   return (
@@ -166,10 +167,12 @@ export function HeroCard({ t, tall = false }: { t: Tournament; tall?: boolean })
       <span className="eyebrow">{t.venue} · {t.city}</span>
       <h2 className="display" style={{ marginTop: 4 }}>{t.name}</h2>
       <span className="muted small" style={{ marginTop: 4 }}>{nlDate(t.start, { weekday: 'short', day: 'numeric', month: 'short' })} – {nlDate(t.end, { weekday: 'short', day: 'numeric', month: 'short' })}</span>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 10, gap: 8 }}>
-        <MiniCountdown iso={t.start} />
-        {t.scarcity && <span className="scarcity">{t.scarcity}</span>}
-      </div>
+      {!hideCountdown && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 10, gap: 8 }}>
+          <MiniCountdown iso={t.start} />
+          {t.scarcity && <span className="scarcity">{t.scarcity}</span>}
+        </div>
+      )}
     </Link>
   );
 }
@@ -231,6 +234,7 @@ export function ShareButton({ text, label = 'Nodig een vriend uit', className = 
   const [done, setDone] = useState(false);
   const share = async () => {
     const url = location.href.split('#')[0];
+    track('share', { text });
     try {
       if (navigator.share) await navigator.share({ title: 'Beleef de magie van schaatsen', text, url });
       else { await navigator.clipboard.writeText(`${text} ${url}`); setDone(true); setTimeout(() => setDone(false), 2000); }

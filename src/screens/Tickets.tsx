@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useApp } from '../state';
 import { tournaments, dateRange } from '../data/tournaments';
 import { TopBar, Icon, StatusPill, MiniCountdown, Badge, SocialProof, Urgency } from '../components/ui';
+import { track } from '../track';
 
 export default function Tickets() {
   const { selected, email, setEmail } = useApp();
@@ -33,7 +34,7 @@ export default function Tickets() {
             <div style={{ marginTop: 10 }}><Urgency t={t} /></div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginTop: 12 }}>
               <span className="small">Vanaf <strong>{t.priceFrom}</strong></span>
-              {t.ticketUrl && <a className="btn btn-primary" style={{ width: 'auto', padding: '11px 16px', fontSize: 12 }} href={t.ticketUrl} target="_blank" rel="noreferrer">Koop tickets <Icon name="external" /></a>}
+              {t.ticketUrl && <a className="btn btn-primary" style={{ width: 'auto', padding: '11px 16px', fontSize: 12 }} href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'tickets' })}>Koop tickets <Icon name="external" /></a>}
             </div>
           </div>
         ))}
@@ -61,7 +62,7 @@ export default function Tickets() {
         {email ? (
           <p className="small" style={{ marginTop: 8, marginBottom: 0 }}><span className="pill ok">Aangemeld</span> &nbsp;We mailen je zodra het definitieve programma bekend is.</p>
         ) : (
-          <form onSubmit={(e) => { e.preventDefault(); if (draft.includes('@')) setEmail(draft.trim()); }}>
+          <form onSubmit={(e) => { e.preventDefault(); if (draft.includes('@')) { setEmail(draft.trim()); track('email_signup'); } }}>
             <p className="muted small" style={{ marginTop: 8, marginBottom: 0 }}>Ontvang het definitieve tijdschema en de pre-sale van het volgende toernooi 24 uur eerder dan de rest.</p>
             <div className="inline-form">
               <input type="email" inputMode="email" placeholder="je@e-mail.nl" value={draft} onChange={(e) => setDraft(e.target.value)} />

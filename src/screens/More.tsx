@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../state';
 import { faq, sponsors, socials, tournaments } from '../data/tournaments';
-import { TopBar, Icon } from '../components/ui';
+import { TopBar, Icon, ShareButton, Quotes } from '../components/ui';
 
 export default function More() {
   const { selected, toggle, reset, pushOptIn, setPushOptIn } = useApp();
@@ -28,7 +28,18 @@ export default function More() {
         <button className="btn btn-ghost" onClick={() => setPushOptIn(!pushOptIn)}>{pushOptIn ? 'Meldingen uitzetten' : 'Meldingen aanzetten'}</button>
       </div>
 
+      <div className="card">
+        <div className="card-title-row"><h3 className="display">Samen naar Thialf</h3><Icon name="users" /></div>
+        <p className="muted small" style={{ marginBottom: 12 }}>Schaatsen is leuker samen. Stuur de app door en plan jullie toernooi.</p>
+        <ShareButton text="Ga je mee schaatsen kijken in Thialf? Alles staat in deze app:" />
+      </div>
+
       <section className="section">
+        <div className="section-head"><h3 className="display">Wat schaatsers en fans zeggen</h3></div>
+        <Quotes />
+      </section>
+
+      <section className="section" id="faq">
         <div className="section-head"><h3 className="display">Veelgestelde vragen</h3></div>
         {faq.map((f) => (
           <details className="faq" key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>

@@ -1,5 +1,7 @@
 # Kritische review – conceptversie 0.2
 
+> Doorgevoerd in 0.2.1: punt 5 (home ingekort: quotes en delen naar Meer, één countdown), 9 (vier tabs, plattegrond onder Praktisch), 10 (chat-invoer vervangen door FAQ-ingang), 14 deels (meet-events via `src/track.ts` → dataLayer; GA4/GTM nog koppelen).
+
 Eerlijke beoordeling van de app zoals hij nu is. Gesorteerd op impact.
 
 ## 1. Fundamenteel

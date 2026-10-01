@@ -4,6 +4,7 @@ import { useApp } from '../state';
 import { messages, plannedFlow, arrivalOffsetsMin } from '../data/messages';
 import { byId } from '../data/tournaments';
 import { BackLink, BrandMark, Icon, ShareButton } from '../components/ui';
+import { track } from '../track';
 
 const fmtTime = (ms: number) => new Date(ms).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
 const fmtDay = (ms: number) => {
@@ -14,8 +15,6 @@ const fmtDay = (ms: number) => {
 
 export default function Messages() {
   const { pollAnswers, answerPoll, onboardedAt, seen, markSeen, pushOptIn, setPushOptIn } = useApp();
-  const [sent, setSent] = useState<string[]>([]);
-  const [draft, setDraft] = useState('');
   const [showFlow, setShowFlow] = useState(false);
   const [visible, setVisible] = useState(seen);
   const [typing, setTyping] = useState(false);
@@ -33,7 +32,7 @@ export default function Messages() {
     return () => clearTimeout(t);
   }, [visible]); // eslint-disable-line
 
-  useEffect(() => { endRef.current?.scrollIntoView({ block: 'end' }); }, [visible, typing, sent.length]);
+  useEffect(() => { endRef.current?.scrollIntoView({ block: 'end' }); }, [visible, typing]);
 
   let lastDay = '';
   const shown = messages.slice(0, visible);
@@ -63,13 +62,13 @@ export default function Messages() {
                 <div className="bubble">
                   {m.text}
                   {m.kind === 'image' && <img src={m.image} alt="" />}
-                  {m.kind === 'cta' && <div className="cta"><a className="btn btn-primary" href={m.href} target="_blank" rel="noreferrer">{m.label} <Icon name="external" /></a></div>}
+                  {m.kind === 'cta' && <div className="cta"><a className="btn btn-primary" href={m.href} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { source: 'chat', message: m.id })}>{m.label} <Icon name="external" /></a></div>}
                   {m.kind === 'route' && <div className="cta"><Link className="btn btn-secondary" to={`/toernooi/${m.tournamentId}?tab=programma`}>Programma {byId(m.tournamentId)?.shortName}</Link></div>}
                   {m.kind === 'optin' && (
                     <div className="cta">
                       {pushOptIn
                         ? <span className="pill ok">Meldingen staan aan</span>
-                        : <button className="btn btn-primary" onClick={() => setPushOptIn(true)}>Zet meldingen aan</button>}
+                        : <button className="btn btn-primary" onClick={() => { setPushOptIn(true); track('push_optin', { source: 'chat' }); }}>Zet meldingen aan</button>}
                     </div>
                   )}
                   {m.kind === 'share' && <div className="cta"><ShareButton text="Ga je mee schaatsen kijken in Thialf? Alles staat in deze app:" className="btn btn-primary" /></div>}
@@ -79,7 +78,7 @@ export default function Messages() {
                         const chosen = pollAnswers[m.id] === o.id;
                         const answered = !!pollAnswers[m.id];
                         return (
-                          <button key={o.id} className={chosen ? 'chosen' : ''} onClick={() => answerPoll(m.id, o.id)}>
+                          <button key={o.id} className={chosen ? 'chosen' : ''} onClick={() => { answerPoll(m.id, o.id); track('poll_answer', { poll: m.id, option: o.id }); }}>
                             {o.label}{answered && <span className="pct">{o.pct}%</span>}
                           </button>
                         );
@@ -110,9 +109,6 @@ export default function Messages() {
           </div>
         )}
 
-        {sent.map((s, i) => (
-          <div className="msg" key={i}><div className="bubble me">{s}<div className="meta" style={{ color: 'rgba(255,255,255,.6)' }}>Nu · bezorgd</div></div></div>
-        ))}
         <div ref={endRef} />
       </div>
 
@@ -135,10 +131,10 @@ export default function Messages() {
         </div>
       )}
 
-      <form className="composer" onSubmit={(e) => { e.preventDefault(); if (draft.trim()) { setSent((s) => [...s, draft.trim()]); setDraft(''); } }}>
-        <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Stel een vraag…" />
-        <button type="submit" aria-label="Verstuur"><Icon name="send" /></button>
-      </form>
+      <Link to="/meer" className="composer" style={{ textDecoration: 'none' }}>
+        <span style={{ flex: 1, padding: '12px 14px', background: 'rgba(10,20,45,.9)', border: '1px solid var(--line-strong)', borderRadius: 999, color: 'var(--text-muted)', fontSize: 14 }}>Een vraag? Bekijk de veelgestelde vragen</span>
+        <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--white)', color: 'var(--ink-900)', display: 'grid', placeItems: 'center' }}><Icon name="info" /></span>
+      </Link>
     </div>
   );
 }

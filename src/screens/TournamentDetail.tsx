@@ -4,13 +4,13 @@ import { useApp } from '../state';
 import { byId, dateRange, nlDate, venueInfo } from '../data/tournaments';
 import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Badge, SocialProof, Urgency, ShareButton, Quotes } from '../components/ui';
 import { usps, copy } from '../data/site';
+import { track } from '../track';
 
 const TABS = [
   { id: 'info', label: 'Info' },
   { id: 'programma', label: 'Programma' },
   { id: 'tickets', label: 'Tickets' },
   { id: 'praktisch', label: 'Praktisch' },
-  { id: 'plattegrond', label: 'Plattegrond' },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
 
@@ -49,8 +49,8 @@ export default function TournamentDetail() {
       </div>
 
       <div className="btn-row" style={{ marginTop: 12 }}>
-        {t.ticketUrl && <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer">Koop tickets <Icon name="external" /></a>}
-        <button className={`btn ${going ? 'btn-secondary' : 'btn-ghost'}`} onClick={() => { toggle(t.id); setToast(going ? 'Verwijderd uit mijn toernooien' : 'Toegevoegd aan mijn toernooien'); }}>
+        {t.ticketUrl && <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail' })}>Koop tickets <Icon name="external" /></a>}
+        <button className={`btn ${going ? 'btn-secondary' : 'btn-ghost'}`} onClick={() => { toggle(t.id); track(going ? 'tournament_remove' : 'tournament_add', { tournament: t.id }); setToast(going ? 'Verwijderd uit mijn toernooien' : 'Toegevoegd aan mijn toernooien'); }}>
           {going ? <><Icon name="check" /> Ik ga</> : '+ Ik ga'}
         </button>
       </div>
@@ -168,8 +168,9 @@ export default function TournamentDetail() {
         </>
       )}
 
-      {tab === 'plattegrond' && (
+      {tab === 'praktisch' && (
         <>
+          <h3 className="display" style={{ margin: '22px 0 10px' }}>Plattegrond</h3>
           <div className="map-placeholder">
             <svg viewBox="0 0 320 200" fill="none"><rect x="30" y="20" width="260" height="160" rx="80" stroke="white" strokeWidth="10"/><rect x="70" y="50" width="180" height="100" rx="50" stroke="white" strokeWidth="3"/></svg>
             <div className="lbl">
@@ -186,7 +187,7 @@ export default function TournamentDetail() {
       )}
 
       {t.ticketUrl && tab !== 'tickets' && (
-        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer">{copy.ctaPrimary} <Icon name="external" /></a>
+        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail-sticky' })}>{copy.ctaPrimary} <Icon name="external" /></a>
       )}
       <div style={{ height: 70 }} />
       {toast && <Toast text={toast} onDone={() => setToast(null)} />}
