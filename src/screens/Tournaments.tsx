@@ -10,7 +10,10 @@ export default function Tournaments() {
       <h1 className="display" style={{ marginTop: 6, marginBottom: 16 }}>Toernooien in<br />Nederland</h1>
       <div className="list">
         {tournaments.map((t) => (
-          <HeroCard key={t.id} t={t} />
+          <div key={t.id}>
+            <HeroCard t={t} />
+            {t.ticketUrl && <a className="btn btn-secondary" style={{ marginTop: 8 }} href={t.ticketUrl} target="_blank" rel="noreferrer">Koop tickets <Icon name="external" /></a>}
+          </div>
         ))}
       </div>
 

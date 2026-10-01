@@ -8,7 +8,8 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 - **Home** – eerstvolgende toernooi, countdown, tickets, laatste bericht, praktische tegels, upsell
 - **Toernooien** – alle 5 NL-toernooien + internationale World Cups (info)
 - **Toernooi-detail** – tabs Info · Programma · Tickets · Praktisch (incl. plattegrond)
-- **Tickets** – directe links naar tickets.schaatsen.nl per toernooi
+- **Schaatsers** – toppers per team, afstanden, persoonlijke records, ploeggenoten (filter op team/afstand)
+- **Tickets** – overzicht met directe links naar tickets.schaatsen.nl (bereikbaar via Home en Toernooien; niet meer in de navigatie)
 - **Berichten** – feed die na aanmelden binnenkomt: polls, beeld, CTA's, push-opt-in, delen; voorbeeld van de automatische flow
 - **Meer** – mijn toernooien, FAQ, contact, socials, partners
 
@@ -17,6 +18,7 @@ Wat de Ajax Fan App wel heeft en dit concept (nog) niet → **[FEATURE-GAP.md](F
 Projectregels (mobile first, huisstijl, werkwijze) → **[CLAUDE.md](CLAUDE.md)**.
 Conversietechnieken en waar ze zitten → **[MARKETING-TECHNIEKEN.md](MARKETING-TECHNIEKEN.md)**.
 Kritische review van v0.2 → **[REVIEW.md](REVIEW.md)**.
+Berichten/notificaties inrichten als organisator + contactformulier → **[BERICHTEN-EN-NOTIFICATIES.md](BERICHTEN-EN-NOTIFICATIES.md)**.
 
 > **Mobile first.** Alles wordt eerst voor de telefoon ontworpen en getest (390×844); desktop toont dezelfde telefoonweergave gecentreerd.
 
@@ -42,6 +44,7 @@ Op je telefoon: open de link in Safari/Chrome → *Zet op beginscherm* → de ap
 src/
   data/tournaments.ts   toernooien, programma, praktische info, FAQ, partners
   data/messages.ts      berichtenfeed + voorbeeld-flow
+  data/skaters.ts       teams en schaatsers (PR's deels placeholder)
   screens/              Onboarding, Home, Tournaments, TournamentDetail, Tickets, Messages, More
   components/ui.tsx     iconen, merk, TrackRing, kaarten, nav, countdown
   state.tsx             gekozen toernooien & poll-antwoorden (localStorage)

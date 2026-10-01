@@ -9,6 +9,7 @@ import TournamentDetail from './screens/TournamentDetail';
 import Tickets from './screens/Tickets';
 import Messages from './screens/Messages';
 import More from './screens/More';
+import Skaters, { SkaterDetail } from './screens/Skaters';
 
 function ScrollTop() {
   const { pathname, search } = useLocation();
@@ -34,6 +35,8 @@ function Shell() {
             <Route path="/toernooien" element={<Tournaments />} />
             <Route path="/toernooi/:id" element={<TournamentDetail />} />
             <Route path="/tickets" element={<Tickets />} />
+            <Route path="/schaatsers" element={<Skaters />} />
+            <Route path="/schaatser/:id" element={<SkaterDetail />} />
             <Route path="/berichten" element={<Messages />} />
             <Route path="/meer" element={<More />} />
             <Route path="*" element={<Navigate to="/" replace />} />

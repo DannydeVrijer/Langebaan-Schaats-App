@@ -98,7 +98,7 @@ export function BottomNav() {
   const items = [
     { to: '/', label: 'Home', icon: 'home' as const },
     { to: '/toernooien', label: 'Toernooien', icon: 'calendar' as const },
-    { to: '/tickets', label: 'Tickets', icon: 'ticket' as const },
+    { to: '/schaatsers', label: 'Schaatsers', icon: 'skate' as const },
     { to: '/berichten', label: 'Berichten', icon: 'chat' as const, badge: unread },
     { to: '/meer', label: 'Meer', icon: 'more' as const },
   ];

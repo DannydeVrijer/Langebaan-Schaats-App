@@ -26,6 +26,17 @@ Prioriteit: **A** = nodig voor een bruikbare v1 · **B** = maakt het persoonlijk
 | C | Historie: vorige winnaars, records in Thialf | storytelling |
 | C | Livestream/TV-info (NOS, ESPN?) voor wie niet komt | |
 
+## 1b. Schaatsers & teams
+
+| Prio | Item |
+|---|---|
+| A | Definitieve teamsamenstelling 2026/27 (nu: 2025/26 + transferoverzicht) |
+| A | Persoonlijke records per schaatser (bron: speedskatingresults.com / KNSB) – nu `[PR]` |
+| A | Portretfoto's (vierkant, rechtenvrij voor app) |
+| B | Hoogtepunten/titels per schaatser, korte bio in eigen woorden |
+| B | Startlijsten per toernooi → "waar zie je X?" |
+| C | Favoriete schaatser volgen (meldingen bij haar/zijn races) |
+
 ## 2. Praktisch – Thialf (generiek, één keer aanleveren)
 
 | Prio | Item |

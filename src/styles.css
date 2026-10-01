@@ -455,3 +455,12 @@ details.faq p { margin-top: 8px; color: var(--text-muted); font-size: 14px; }
   width: min(100% - 36px, calc(var(--max-w) - 36px)); z-index: 15;
   box-shadow: 0 10px 30px rgba(0,0,0,.5);
 }
+
+/* ---------- schaatsers ---------- */
+.avatar-ini { display: grid; place-items: center; border-radius: 50%; flex: none; color: #fff; font-family: var(--font-display); font-weight: 700; letter-spacing: .04em; border: 1px solid rgba(255,255,255,.25); }
+.chip.on { background: var(--white); color: var(--ink-900); border-color: var(--white); }
+.chips button.chip { cursor: pointer; }
+table.pb { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.pb td { padding: 8px 0; border-bottom: 1px solid var(--line); }
+table.pb td.t { text-align: right; font-family: var(--font-display); font-size: 18px; letter-spacing: .04em; }
+table.pb tr:last-child td { border-bottom: 0; }

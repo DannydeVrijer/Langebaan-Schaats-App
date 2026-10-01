@@ -69,7 +69,7 @@ export default function More() {
 
       <div className="divider" />
       <button className="btn btn-ghost" onClick={() => { reset(); nav('/'); }}>Opnieuw beginnen (reset demo)</button>
-      <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.2 · #MVS</p>
+      <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.4 · #MVS</p>
     </div>
   );
 }

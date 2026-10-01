@@ -47,6 +47,8 @@ Gebaseerd op de CLOSE-brochure (Close app / SDK / White label) en de Ajax Fan Ap
 | Sponsorcontent / partnerblokken | ✅ | 🟡 logo-strip | Partnerafspraken + content |
 | Reisadvies op maat (auto/OV/fiets) met live verkeersinfo | ✅ | 🟡 poll + statisch antwoord | Koppeling verkeersdata/NS, parkeerstatus |
 | Live uitslagen / tijden | n.v.t. (voetbal: score) | ❌ | ISU/KNSB resultatenfeed |
+| Spelers-/schaatsersprofielen (selectie, records) | ✅ (Ajax: selectie) | 🟡 teams + toppers, PR's deels | Foto's, PR's, startlijsten |
+| Contactformulier naar klantenservice | ✅ | ❌ | Formulierdienst → schaatsen@houseofsports.nl (zie BERICHTEN-EN-NOTIFICATIES.md) |
 | Meertalig (NL/DE/EN) | ✅ | ❌ | i18n-laag + EN-content |
 
 ## E. Onderzoek & data
