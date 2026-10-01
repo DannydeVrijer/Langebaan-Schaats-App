@@ -191,12 +191,12 @@ export function Badge({ kind }: { kind: NonNullable<Tournament['badge']> }) {
 export function MiniCountdown({ iso }: { iso: string }) {
   const calc = () => Math.max(0, new Date(iso + 'T12:00:00').getTime() - Date.now());
   const [ms, setMs] = useState(calc);
-  useEffect(() => { const t = setInterval(() => setMs(calc()), 30_000); return () => clearInterval(t); }, [iso]); // eslint-disable-line
-  const d = Math.floor(ms / 86_400_000), h = Math.floor((ms / 3_600_000) % 24), m = Math.floor((ms / 60_000) % 60);
+  useEffect(() => { const t = setInterval(() => setMs(calc()), 1000); return () => clearInterval(t); }, [iso]); // eslint-disable-line
+  const d = Math.floor(ms / 86_400_000), h = Math.floor((ms / 3_600_000) % 24), m = Math.floor((ms / 60_000) % 60), sec = Math.floor((ms / 1000) % 60);
   if (ms === 0) return <span className="pill live">Nu bezig</span>;
   return (
     <span className="mini-cd" aria-label={`Nog ${d} dagen`}>
-      <b>{d}</b><i>d</i><b>{String(h).padStart(2, '0')}</b><i>u</i><b>{String(m).padStart(2, '0')}</b><i>m</i>
+      <b>{d}</b><i>d</i><b>{String(h).padStart(2, '0')}</b><i>u</i><b>{String(m).padStart(2, '0')}</b><i>m</i><b>{String(sec).padStart(2, '0')}</b><i>s</i>
     </span>
   );
 }
