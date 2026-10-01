@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useApp } from '../state';
 import { tournaments, nlDate, type Tournament } from '../data/tournaments';
 import { messages } from '../data/messages';
-import { stats, testimonials, type Testimonial } from '../data/site';
+import { testimonials, type Testimonial } from '../data/site';
 import { track } from '../track';
 
 /* ---------- iconen (inline SVG, geen externe libs) ---------- */
@@ -163,16 +163,10 @@ export function HeroCard({ t, tall = false, hideCountdown = false }: { t: Tourna
         <StatusPill status={t.ticketStatus} />
         {going && <span className="pill" style={{ background: 'var(--white)', color: 'var(--ink-900)', borderColor: 'var(--white)' }}>✓ Ik ga</span>}
       </span>
-      {t.badge && <span style={{ marginBottom: 8 }}><Badge kind={t.badge} /></span>}
       <span className="eyebrow">{t.venue} · {t.city}</span>
       <h2 className="display" style={{ marginTop: 4 }}>{t.name}</h2>
       <span className="muted small" style={{ marginTop: 4 }}>{nlDate(t.start, { weekday: 'short', day: 'numeric', month: 'short' })} – {nlDate(t.end, { weekday: 'short', day: 'numeric', month: 'short' })}</span>
-      {!hideCountdown && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 10, gap: 8 }}>
-          <MiniCountdown iso={t.start} />
-          {t.scarcity && <span className="scarcity">{t.scarcity}</span>}
-        </div>
-      )}
+      {!hideCountdown && <div style={{ marginTop: 10 }}><MiniCountdown iso={t.start} /></div>}
     </Link>
   );
 }
@@ -243,13 +237,6 @@ export function ShareButton({ text, label = 'Nodig een vriend uit', className = 
   return <button className={className} onClick={share}><Icon name="share" /> {done ? 'Link gekopieerd' : label}</button>;
 }
 
-export function Stats() {
-  return (
-    <div className="stats">
-      {stats.map((x) => <div className="st" key={x.l}><span className="n">{x.n}{x.suffix && <small>{x.suffix}</small>}</span><span className="l">{x.l}</span></div>)}
-    </div>
-  );
-}
 
 export function Quotes({ role }: { role?: Testimonial['role'] }) {
   const list = role ? testimonials.filter((q) => q.role === role) : testimonials;

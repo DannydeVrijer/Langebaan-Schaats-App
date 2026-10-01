@@ -1,5 +1,7 @@
 # Marketing- en conversietechnieken in de app
 
+> **Status v0.3:** alle signalen zonder geverifieerde bron zijn uit de app gehaald (early-bird, schaarste, fan-aantallen, badges, keuzeladder, oude campagnecijfers). De componenten bestaan nog in `src/components/ui.tsx` (`SocialProof`, `Urgency`, `Badge`, `MiniCountdown`) en gaan pas aan zodra de velden in `src/data/tournaments.ts` met echte data gevuld zijn. Onderstaande tabel is het plan, niet de huidige staat.
+
 Gebaseerd op Cialdini (*Influence*), Wouters & Groen (*Online Invloed* / Fogg-model), Brunson (*DotCom Secrets*: value ladder, hook-story-offer) en het rapport *De Staat van Marketing 2025-2026* (first-party data, community-first, UGC > polish). Plus de campagnesite magievanschaatsen.nl.
 
 | # | Principe | Waar in de app | Status |

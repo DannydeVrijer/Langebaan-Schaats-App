@@ -22,18 +22,17 @@ export type Tournament = {
   country: 'NL' | 'INT';
   ticketUrl?: string;
   ticketStatus: 'onsale' | 'soon' | 'offsale' | 'soldout';
-  priceFrom?: string;
   hero: string;
   description: string;
   highlights: string[];
   program: ProgramDay[];
   todo?: string[];
-  /* --- conversie-signalen (placeholders tot koppeling met ticketshop) --- */
-  fansGoing?: string;        // sociale bewijskracht: "[12.400]"
-  scarcity?: string;         // schaarste: "Nog 8% beschikbaar" / "Zaterdag bijna vol"
-  earlyBirdUntil?: string;   // urgentie: ISO-datum waarna prijs stijgt
+  /* --- conversie-signalen: alleen vullen met geverifieerde data (zie MARKETING-TECHNIEKEN.md) --- */
+  fansGoing?: string;        // sociale bewijskracht, bron: ticketshop
+  scarcity?: string;         // schaarste, bron: live beschikbaarheid
+  earlyBirdUntil?: string;   // urgentie, bron: prijsplanning
   badge?: 'populair' | 'laatste-kans' | 'nieuw';
-  lossFrame?: string;        // loss aversion: "Enige World Cup in Nederland dit seizoen"
+  lossFrame?: string;        // één feitelijke zin waarom dit toernooi uniek is
 };
 
 const THIALF = 'Thialf';
@@ -44,10 +43,6 @@ const stdProgramNote = 'Definitief tijdschema volgt zodra de ISU/KNSB dit public
 export const tournaments: Tournament[] = [
   {
     id: 'wckt',
-    fansGoing: '[8.200]',
-    scarcity: 'Zondag: nog [12]% beschikbaar',
-    earlyBirdUntil: '2026-10-15',
-    badge: 'nieuw',
     lossFrame: 'Hier worden de startplekken voor het hele seizoen verdeeld.',
     slug: 'wk-kwalificatie-toernooi',
     name: 'World Cup Kwalificatietoernooi',
@@ -60,8 +55,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/7ea4c49ff00f41d3acc549e0fdab376f/tickets',
     ticketStatus: 'onsale',
-    priceFrom: '[prijs]',
-    hero: asset('img/hero-skater.png'),
+        hero: asset('img/hero-skater.png'),
     description:
       'De seizoensopener in Thialf. Drie dagen lang strijden de beste Nederlandse schaatsers om de felbegeerde startplekken voor de ISU World Cups en kampioenschappen. Niets is zeker, alles staat op scherp.',
     highlights: ['Startbewijzen World Cup & EK', 'Alle afstanden', 'Nederlandse top compleet'],
@@ -86,10 +80,6 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'wc-heerenveen',
-    fansGoing: '[12.400]',
-    scarcity: 'Zaterdag bijna uitverkocht',
-    earlyBirdUntil: '2026-11-01',
-    badge: 'populair',
     lossFrame: 'De enige World Cup in Nederland dit seizoen.',
     slug: 'isu-world-cup-heerenveen',
     name: 'ISU World Cup Heerenveen',
@@ -102,8 +92,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/f98606597b26473a9dd75d9747fa8ef7/tickets',
     ticketStatus: 'onsale',
-    priceFrom: '[prijs]',
-    hero: asset('img/hero-jutta.png'),
+        hero: asset('img/hero-jutta.png'),
     description:
       'De enige World Cup in Nederland dit seizoen. De complete wereldtop komt naar Heerenveen en de Nederlandse ploeg verdedigt de eer op eigen ijs. Drie dagen topsport in het luidste schaatsstadion ter wereld.',
     highlights: ['Wereldtop aanwezig', 'Massastart & teamsprint', 'Fan village'],
@@ -128,8 +117,6 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-allround-sprint',
-    fansGoing: '[6.900]',
-    earlyBirdUntil: '2026-12-01',
     slug: 'nk-allround-sprint',
     name: 'NK Allround & Sprint',
     shortName: 'NK Allround',
@@ -141,8 +128,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/0a16c472d0284f24bb9a3a1f7d746efa/tickets',
     ticketStatus: 'onsale',
-    priceFrom: '[prijs]',
-    hero: asset('img/hero-skater.png'),
+        hero: asset('img/hero-skater.png'),
     description:
       'Tussen Kerst en Oud & Nieuw: het klassieke NK Allround en NK Sprint in één weekend. Vier afstanden, één klassement, één kampioen. Plus de tickets naar het EK.',
     highlights: ['Allround- én sprintkampioen', 'Kwalificatie EK', 'Feestdagen in Thialf'],
@@ -162,9 +148,6 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'ek-allround-sprint',
-    fansGoing: '[10.100]',
-    scarcity: 'Zondag (finale): nog [20]% beschikbaar',
-    earlyBirdUntil: '2026-12-15',
     lossFrame: 'Een EK in Thialf: dat gebeurt niet elk jaar.',
     slug: 'ek-allround-sprint',
     name: 'ISU EK Allround & Sprint',
@@ -177,8 +160,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/a1096461a27146138172f9dfc7402c05/tickets',
     ticketStatus: 'onsale',
-    priceFrom: '[prijs]',
-    hero: asset('img/hero-jutta.png'),
+        hero: asset('img/hero-jutta.png'),
     description:
       'De Europese titelstrijd allround en sprint, in Heerenveen. Drie dagen waarin Nederland, Noorwegen, Italië en de rest van Europa om de titels strijden — en het publiek het verschil maakt.',
     highlights: ['Europese titels', 'Internationale sfeer', 'Oranje thuisvoordeel'],
@@ -202,9 +184,6 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-afstanden',
-    fansGoing: '[7.300]',
-    earlyBirdUntil: '2027-01-08',
-    badge: 'laatste-kans',
     lossFrame: 'Laatste toernooi in Thialf dit seizoen.',
     slug: 'nk-afstanden',
     name: 'NK Afstanden',
@@ -217,8 +196,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/15b22d2a3f7249ce8a7d77c06bd410a9/tickets',
     ticketStatus: 'onsale',
-    priceFrom: '[prijs]',
-    hero: asset('img/hero-skater.png'),
+        hero: asset('img/hero-skater.png'),
     description:
       'Per afstand één Nederlands kampioen én de laatste kans op een WK-ticket. Het NK Afstanden is traditioneel het toernooi waar de grootste verrassingen vallen.',
     highlights: ['Alle afstanden', 'Laatste WK-kwalificatie', 'Nationale titels'],

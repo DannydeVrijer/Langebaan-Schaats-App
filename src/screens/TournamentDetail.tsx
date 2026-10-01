@@ -2,8 +2,8 @@ import { useParams, useSearchParams, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { byId, dateRange, nlDate, venueInfo } from '../data/tournaments';
-import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Badge, SocialProof, Urgency, ShareButton, Quotes } from '../components/ui';
-import { usps, copy } from '../data/site';
+import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Quotes } from '../components/ui';
+import { copy } from '../data/site';
 import { track } from '../track';
 
 const TABS = [
@@ -34,18 +34,14 @@ export default function TournamentDetail() {
         <TrackRing className="ring" />
         <DateChip iso={t.start} />
         <span className="status"><StatusPill status={t.ticketStatus} /></span>
-        {t.badge && <span style={{ marginBottom: 8 }}><Badge kind={t.badge} /></span>}
         <span className="eyebrow">{t.venue} · {t.city}</span>
         <h1 className="display" style={{ fontSize: 32, marginTop: 4 }}>{t.name}</h1>
         <span className="muted small" style={{ marginTop: 4 }}>{dateRange(t)}</span>
-        <div style={{ marginTop: 10 }}><SocialProof t={t} /></div>
       </div>
 
       <div className="card highlight" style={{ marginTop: 12 }}>
-        <div className="card-title-row"><span className="eyebrow">Countdown</span>{t.scarcity && <span className="scarcity">{t.scarcity}</span>}</div>
+        <div className="card-title-row"><span className="eyebrow">Countdown</span></div>
         <Countdown iso={t.start} />
-        {t.lossFrame && <p className="small" style={{ margin: '10px 0 0', color: 'var(--ice-200)' }}>{t.lossFrame}</p>}
-        <div style={{ marginTop: 10 }}><Urgency t={t} /></div>
       </div>
 
       <div className="btn-row" style={{ marginTop: 12 }}>
@@ -66,17 +62,9 @@ export default function TournamentDetail() {
           <p style={{ fontSize: 16 }}>{t.subtitle}</p>
           <p className="muted">{t.description}</p>
           <div className="chips" style={{ margin: '14px 0' }}>{t.highlights.map((h) => <span key={h} className="chip">{h}</span>)}</div>
-          <p className="manifest" style={{ margin: '18px 0' }}>{copy.manifest[0]}<br /><b>{copy.manifest[2]}</b></p>
+          {t.lossFrame && <p className="muted" style={{ marginTop: -4 }}>{t.lossFrame}</p>}
           <Quotes role="schaatser" />
-          <div className="list" style={{ marginTop: 14 }}>
-            {usps.map((u) => <div key={u.t} className="row" style={{ alignItems: 'flex-start' }}><span className="body"><span className="title">{u.t}</span><span className="sub">{u.s}</span></span></div>)}
-          </div>
-          <div className="card">
-            <div className="card-title-row"><h3 className="display">Samen gaan?</h3><Icon name="users" /></div>
-            <p className="muted small" style={{ marginBottom: 10 }}>Stuur dit toernooi door naar wie je meeneemt.</p>
-            <ShareButton text={`Ga je mee naar ${t.name} (${dateRange(t)}) in Thialf?`} />
-          </div>
-          <div className="card">
+          <div className="card" style={{ marginTop: 14 }}>
             <div className="card-title-row"><h3 className="display">Deelnemers</h3><span className="pill soon">Volgt</span></div>
             <p className="muted small" style={{ margin: 0 }}>Startlijsten en de Nederlandse selectie worden hier getoond zodra bekend. [aanleveren: bron/feed]</p>
           </div>
@@ -123,12 +111,7 @@ export default function TournamentDetail() {
         <>
           <div className="card highlight">
             <div className="card-title-row"><h3 className="display">Tickets</h3><StatusPill status={t.ticketStatus} /></div>
-            <dl className="kv">
-              <dt>Vanaf</dt><dd>{t.priceFrom ?? '—'}</dd>
-              <dt>Verkoop via</dt><dd>tickets.schaatsen.nl</dd>
-              <dt>Categorieën</dt><dd>[aanleveren: tribunes/vakken + prijzen]</dd>
-              <dt>Kortingen</dt><dd>[aanleveren: kids, studenten, groepen, passe-partout]</dd>
-            </dl>
+            <p className="muted small" style={{ margin: 0 }}>Verkoop via de officiële shop op tickets.schaatsen.nl. [aanleveren: categorieën, prijzen, kortingen]</p>
             {t.ticketUrl && (
               <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer" style={{ marginTop: 14 }}>
                 Koop tickets – officiële shop <Icon name="external" />
@@ -138,10 +121,6 @@ export default function TournamentDetail() {
           <div className="card">
             <h3 className="display">Arrangementen & lounges</h3>
             <p className="muted small" style={{ marginTop: 8 }}>Beleef het toernooi met een hospitality-arrangement: lounge, catering en de beste plekken. [aanleveren: aanbod + link offerte/boeking]</p>
-          </div>
-          <div className="card">
-            <h3 className="display">Mijn tickets</h3>
-            <p className="muted small" style={{ marginTop: 8 }}>In een volgende versie zie je hier je eigen e-tickets (QR), vak en ingang — gekoppeld aan je bestelling. [beslissen: koppeling ticketshop]</p>
           </div>
         </>
       )}

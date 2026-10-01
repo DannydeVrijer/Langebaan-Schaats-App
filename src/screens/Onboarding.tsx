@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../state';
 import { tournaments, nlDate, asset } from '../data/tournaments';
-import { Icon, TrackRing, Chevrons, Stats } from '../components/ui';
-import { copy } from '../data/site';
+import { Icon, TrackRing, Chevrons } from '../components/ui';
 
 export default function Onboarding() {
   const { selected, toggle, finishOnboarding } = useApp();
@@ -21,8 +20,7 @@ export default function Onboarding() {
         <p className="muted" style={{ marginTop: 12 }}>
           Kies de toernooien die jij gaat bezoeken. Je krijgt dan precies wat je nodig hebt: programma, tickets, route en een seintje op het juiste moment. Aanpassen kan altijd.
         </p>
-        <div style={{ margin: '14px 0 4px' }}><Stats /></div>
-        <p className="faint small" style={{ marginTop: 6 }}>{copy.proofLine}</p>
+
 
         <div className="list" style={{ marginTop: 18 }}>
           {tournaments.map((t) => {

@@ -3,12 +3,6 @@
  * Cijfers en quotes dateren van seizoen '24/25 → bevestigen/actualiseren (zie CONTENT-CHECKLIST.md).
  */
 
-export const stats = [
-  { n: '>83.000', l: 'bezoekers vorig schaatsseizoen' },
-  { n: '5', l: 'grootse schaatsevenementen dit seizoen' },
-  { n: '8,9', l: 'gemiddeld cijfer voor de eventbeleving', suffix: '/10' },
-];
-
 export const usps = [
   { t: 'Schaatsen zit in ons DNA', s: 'Van de Elfstedentocht tot natuurijs: zodra het vriest, gaan de schaatsen aan. Vrijheid, sport en plezier in één.' },
   { t: 'Het schaatshart van de wereld', s: 'Thialf is dé plek waar topschaatsers geschiedenis schrijven en fans samenkomen voor spannende races.' },
@@ -31,6 +25,5 @@ export const copy = {
   manifest: ['Het betoverende theater waar helden opstaan.', 'Grootheden op het ijs. Fans op de banken.', 'Dichterbij ga je niet komen. Meer ga je niet voelen.'],
   ctaPrimary: 'Ja, dit wil ik live meemaken',
   ctaSecondary: 'Bekijk beschikbaarheid',
-  proofLine: 'Duizenden schaatsfans gingen je voor.',
   closing: 'Boek je tickets en juich je favoriete schaatsers naar de overwinning.',
 };

@@ -2,9 +2,8 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../state';
 import { tournaments, dateRange, daysUntil, venueInfo } from '../data/tournaments';
 import { messages } from '../data/messages';
-import { TopBar, HeroCard, Countdown, Icon, nextTournament, Chevrons, SocialProof, Urgency } from '../components/ui';
+import { TopBar, HeroCard, Countdown, Icon, nextTournament, Chevrons } from '../components/ui';
 import { track } from '../track';
-import { copy } from '../data/site';
 
 export default function Home() {
   const { selected, seen, pushOptIn, setPushOptIn } = useApp();
@@ -13,7 +12,6 @@ export default function Home() {
   const others = tournaments.filter((t) => !selected.includes(t.id));
   const latest = messages[Math.min(seen, messages.length) - 1] ?? messages[0];
   const d = daysUntil(next.start);
-  const pct = Math.round((selected.length / tournaments.length) * 100);
 
   return (
     <div className="screen">
@@ -30,13 +28,11 @@ export default function Home() {
           <span className="small muted">{dateRange(next)}</span>
         </div>
         <Countdown iso={next.start} />
-        <div style={{ marginTop: 12 }}><SocialProof t={next} /></div>
-        {next.lossFrame && <p className="small" style={{ margin: '10px 0 0', color: 'var(--ice-200)' }}>{next.lossFrame}</p>}
-        <div style={{ marginTop: 12 }}><Urgency t={next} /></div>
+        {next.lossFrame && <p className="small muted" style={{ margin: '12px 0 0' }}>{next.lossFrame}</p>}
         <div className="btn-row" style={{ marginTop: 14 }}>
           {next.ticketUrl && (
             <a className="btn btn-primary" href={next.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: next.id, source: 'home' })}>
-              {copy.ctaPrimary} <Icon name="external" />
+              Koop tickets <Icon name="external" />
             </a>
           )}
           <Link className="btn btn-secondary" to={`/toernooi/${next.id}?tab=programma`}>Programma</Link>
@@ -66,8 +62,7 @@ export default function Home() {
           <h3 className="display">Jouw seizoen</h3>
           <span className="small muted">{selected.length} van {tournaments.length}</span>
         </div>
-        <div className="progress"><i style={{ width: `${pct}%` }} /></div>
-        <div className="list" style={{ marginTop: 12 }}>
+        <div className="list">
           {mine.map((t) => (
             <Link key={t.id} to={`/toernooi/${t.id}`} className="row">
               <span className="ico"><Icon name="skate" /></span>
@@ -76,11 +71,6 @@ export default function Home() {
             </Link>
           ))}
         </div>
-        {others.length > 0 && (
-          <p className="small muted" style={{ marginTop: 10 }}>
-            Nog {others.length} toernooi{others.length > 1 ? 'en' : ''} te gaan dit seizoen — maak je seizoen compleet.
-          </p>
-        )}
       </section>
 
       {/* Laatste bericht */}
