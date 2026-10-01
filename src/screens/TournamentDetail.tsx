@@ -2,7 +2,8 @@ import { useParams, useSearchParams, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { byId, dateRange, nlDate, venueInfo } from '../data/tournaments';
-import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast } from '../components/ui';
+import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Badge, SocialProof, Urgency, ShareButton, Quotes } from '../components/ui';
+import { usps, copy } from '../data/site';
 
 const TABS = [
   { id: 'info', label: 'Info' },
@@ -33,13 +34,22 @@ export default function TournamentDetail() {
         <TrackRing className="ring" />
         <DateChip iso={t.start} />
         <span className="status"><StatusPill status={t.ticketStatus} /></span>
+        {t.badge && <span style={{ marginBottom: 8 }}><Badge kind={t.badge} /></span>}
         <span className="eyebrow">{t.venue} · {t.city}</span>
         <h1 className="display" style={{ fontSize: 32, marginTop: 4 }}>{t.name}</h1>
         <span className="muted small" style={{ marginTop: 4 }}>{dateRange(t)}</span>
+        <div style={{ marginTop: 10 }}><SocialProof t={t} /></div>
+      </div>
+
+      <div className="card highlight" style={{ marginTop: 12 }}>
+        <div className="card-title-row"><span className="eyebrow">Countdown</span>{t.scarcity && <span className="scarcity">{t.scarcity}</span>}</div>
+        <Countdown iso={t.start} />
+        {t.lossFrame && <p className="small" style={{ margin: '10px 0 0', color: 'var(--ice-200)' }}>{t.lossFrame}</p>}
+        <div style={{ marginTop: 10 }}><Urgency t={t} /></div>
       </div>
 
       <div className="btn-row" style={{ marginTop: 12 }}>
-        {t.ticketUrl && <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer">Tickets <Icon name="external" /></a>}
+        {t.ticketUrl && <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer">Koop tickets <Icon name="external" /></a>}
         <button className={`btn ${going ? 'btn-secondary' : 'btn-ghost'}`} onClick={() => { toggle(t.id); setToast(going ? 'Verwijderd uit mijn toernooien' : 'Toegevoegd aan mijn toernooien'); }}>
           {going ? <><Icon name="check" /> Ik ga</> : '+ Ik ga'}
         </button>
@@ -56,9 +66,15 @@ export default function TournamentDetail() {
           <p style={{ fontSize: 16 }}>{t.subtitle}</p>
           <p className="muted">{t.description}</p>
           <div className="chips" style={{ margin: '14px 0' }}>{t.highlights.map((h) => <span key={h} className="chip">{h}</span>)}</div>
+          <p className="manifest" style={{ margin: '18px 0' }}>{copy.manifest[0]}<br /><b>{copy.manifest[2]}</b></p>
+          <Quotes role="schaatser" />
+          <div className="list" style={{ marginTop: 14 }}>
+            {usps.map((u) => <div key={u.t} className="row" style={{ alignItems: 'flex-start' }}><span className="body"><span className="title">{u.t}</span><span className="sub">{u.s}</span></span></div>)}
+          </div>
           <div className="card">
-            <span className="eyebrow">Countdown</span>
-            <div style={{ marginTop: 10 }}><Countdown iso={t.start} /></div>
+            <div className="card-title-row"><h3 className="display">Samen gaan?</h3><Icon name="users" /></div>
+            <p className="muted small" style={{ marginBottom: 10 }}>Stuur dit toernooi door naar wie je meeneemt.</p>
+            <ShareButton text={`Ga je mee naar ${t.name} (${dateRange(t)}) in Thialf?`} />
           </div>
           <div className="card">
             <div className="card-title-row"><h3 className="display">Deelnemers</h3><span className="pill soon">Volgt</span></div>
@@ -115,7 +131,7 @@ export default function TournamentDetail() {
             </dl>
             {t.ticketUrl && (
               <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer" style={{ marginTop: 14 }}>
-                Naar de ticketshop <Icon name="external" />
+                Koop tickets – officiële shop <Icon name="external" />
               </a>
             )}
           </div>
@@ -169,6 +185,10 @@ export default function TournamentDetail() {
         </>
       )}
 
+      {t.ticketUrl && tab !== 'tickets' && (
+        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer">{copy.ctaPrimary} <Icon name="external" /></a>
+      )}
+      <div style={{ height: 70 }} />
       {toast && <Toast text={toast} onDone={() => setToast(null)} />}
     </div>
   );

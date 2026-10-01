@@ -1,25 +1,16 @@
 import { Link } from 'react-router-dom';
-import { useApp } from '../state';
 import { tournaments, internationalEvents, dateRange } from '../data/tournaments';
 import { TopBar, HeroCard, Icon } from '../components/ui';
 
 export default function Tournaments() {
-  const { selected } = useApp();
   return (
     <div className="screen">
-      <TopBar unread={1} />
+      <TopBar />
       <span className="eyebrow">Seizoen 2026 / 2027</span>
       <h1 className="display" style={{ marginTop: 6, marginBottom: 16 }}>Toernooien in<br />Nederland</h1>
       <div className="list">
         {tournaments.map((t) => (
-          <div key={t.id} style={{ position: 'relative' }}>
-            <HeroCard t={t} />
-            {selected.includes(t.id) && (
-              <span className="pill" style={{ position: 'absolute', bottom: 14, right: 14, background: 'var(--white)', color: 'var(--ink-900)', borderColor: 'var(--white)' }}>
-                <Icon name="check" /> Ik ga
-              </span>
-            )}
-          </div>
+          <HeroCard key={t.id} t={t} />
         ))}
       </div>
 

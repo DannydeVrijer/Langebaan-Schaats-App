@@ -28,6 +28,12 @@ export type Tournament = {
   highlights: string[];
   program: ProgramDay[];
   todo?: string[];
+  /* --- conversie-signalen (placeholders tot koppeling met ticketshop) --- */
+  fansGoing?: string;        // sociale bewijskracht: "[12.400]"
+  scarcity?: string;         // schaarste: "Nog 8% beschikbaar" / "Zaterdag bijna vol"
+  earlyBirdUntil?: string;   // urgentie: ISO-datum waarna prijs stijgt
+  badge?: 'populair' | 'laatste-kans' | 'nieuw';
+  lossFrame?: string;        // loss aversion: "Enige World Cup in Nederland dit seizoen"
 };
 
 const THIALF = 'Thialf';
@@ -38,8 +44,13 @@ const stdProgramNote = 'Definitief tijdschema volgt zodra de ISU/KNSB dit public
 export const tournaments: Tournament[] = [
   {
     id: 'wckt',
+    fansGoing: '[8.200]',
+    scarcity: 'Zondag: nog [12]% beschikbaar',
+    earlyBirdUntil: '2026-10-15',
+    badge: 'nieuw',
+    lossFrame: 'Hier worden de startplekken voor het hele seizoen verdeeld.',
     slug: 'wk-kwalificatie-toernooi',
-    name: 'World Cup Kwalificatie Toernooi',
+    name: 'World Cup Kwalificatietoernooi',
     shortName: 'WCKT',
     subtitle: 'Wie schaatst dit seizoen voor Oranje?',
     start: '2026-10-30',
@@ -75,6 +86,11 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'wc-heerenveen',
+    fansGoing: '[12.400]',
+    scarcity: 'Zaterdag bijna uitverkocht',
+    earlyBirdUntil: '2026-11-01',
+    badge: 'populair',
+    lossFrame: 'De enige World Cup in Nederland dit seizoen.',
     slug: 'isu-world-cup-heerenveen',
     name: 'ISU World Cup Heerenveen',
     shortName: 'World Cup',
@@ -112,6 +128,8 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-allround-sprint',
+    fansGoing: '[6.900]',
+    earlyBirdUntil: '2026-12-01',
     slug: 'nk-allround-sprint',
     name: 'NK Allround & Sprint',
     shortName: 'NK Allround',
@@ -144,6 +162,10 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'ek-allround-sprint',
+    fansGoing: '[10.100]',
+    scarcity: 'Zondag (finale): nog [20]% beschikbaar',
+    earlyBirdUntil: '2026-12-15',
+    lossFrame: 'Een EK in Thialf: dat gebeurt niet elk jaar.',
     slug: 'ek-allround-sprint',
     name: 'ISU EK Allround & Sprint',
     shortName: 'EK',
@@ -180,6 +202,10 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-afstanden',
+    fansGoing: '[7.300]',
+    earlyBirdUntil: '2027-01-08',
+    badge: 'laatste-kans',
+    lossFrame: 'Laatste toernooi in Thialf dit seizoen.',
     slug: 'nk-afstanden',
     name: 'NK Afstanden',
     shortName: 'NK Afstanden',
@@ -282,6 +308,8 @@ export const dateRange = (t: Tournament) => {
     ? `${s.getDate()} – ${e.getDate()} ${month(e)} ${e.getFullYear()}`
     : `${s.getDate()} ${month(s)} – ${e.getDate()} ${month(e)} ${e.getFullYear()}`;
 };
+
+export const hoursUntil = (iso: string) => Math.max(0, Math.round((new Date(iso + 'T00:00:00').getTime() - Date.now()) / 3_600_000));
 
 export const daysUntil = (iso: string) => {
   const now = new Date();

@@ -74,6 +74,17 @@ Per toernooi een reeks automatische berichten. Teksten mag ik schrijven; ik heb 
 
 Verder nodig: **wie beheert de berichten** (CMS/flow-tool of handmatig), tone of voice-document, emoji ja/nee, of er een echte chat/klantenservice achter zit.
 
+## 4b. Conversie-signalen (zie MARKETING-TECHNIEKEN.md)
+
+| Prio | Item |
+|---|---|
+| A | Echte cijfers: bezoekers vorig seizoen, beleving-score (nu '24/25 van magievanschaatsen.nl), fans per toernooi |
+| A | Schaarste-bron: live beschikbaarheid per sessie (ticketshop-export of handmatig) |
+| A | Early-bird/prijsstijging-data per toernooi |
+| B | Testimonials: toestemming + actuele quotes (Nuis, Leerdam, Huizinga + fans) |
+| B | Referral-aanbod (vriend meenemen = ?), pre-sale-belofte voor e-mailabonnees |
+| B | UGC: hashtag #MVS-content, foto's van fans in Thialf |
+
 ## 5. Merk & media
 
 | Prio | Item |

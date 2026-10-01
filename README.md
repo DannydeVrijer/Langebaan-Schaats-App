@@ -15,6 +15,8 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.
 Wat de Ajax Fan App wel heeft en dit concept (nog) niet → **[FEATURE-GAP.md](FEATURE-GAP.md)**.
 Projectregels (mobile first, huisstijl, werkwijze) → **[CLAUDE.md](CLAUDE.md)**.
+Conversietechnieken en waar ze zitten → **[MARKETING-TECHNIEKEN.md](MARKETING-TECHNIEKEN.md)**.
+Kritische review van v0.2 → **[REVIEW.md](REVIEW.md)**.
 
 > **Mobile first.** Alles wordt eerst voor de telefoon ontworpen en getest (390×844); desktop toont dezelfde telefoonweergave gecentreerd.
 

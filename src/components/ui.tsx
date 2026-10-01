@@ -2,6 +2,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useApp } from '../state';
 import { tournaments, nlDate, type Tournament } from '../data/tournaments';
+import { messages } from '../data/messages';
+import { stats, testimonials, type Testimonial } from '../data/site';
 
 /* ---------- iconen (inline SVG, geen externe libs) ---------- */
 const I = {
@@ -27,6 +29,8 @@ const I = {
   send: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12l16-8-6 16-2-7z"/></svg>,
   skate: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 18h16M6 18l1-9h7l3 5h3M8 9V5"/></svg>,
   external: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>,
+  share: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>,
+  users: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"/></svg>,
   globe: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>,
 };
 export const Icon = ({ name, className }: { name: keyof typeof I; className?: string }) => (
@@ -61,7 +65,9 @@ export const Chevrons = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function TopBar({ unread = 0 }: { unread?: number }) {
+export function TopBar() {
+  const { seen } = useApp();
+  const unread = Math.max(0, messages.length - seen);
   return (
     <header className="topbar">
       <Link to="/" className="brand">
@@ -86,12 +92,13 @@ export function BackLink({ to = '/', label = 'Terug' }: { to?: string; label?: s
 }
 
 export function BottomNav() {
-  const { selected } = useApp();
+  const { selected, seen } = useApp();
+  const unread = Math.max(0, messages.length - seen);
   const items = [
     { to: '/', label: 'Home', icon: 'home' as const },
     { to: '/toernooien', label: 'Toernooien', icon: 'calendar' as const },
     { to: '/tickets', label: 'Tickets', icon: 'ticket' as const },
-    { to: '/berichten', label: 'Berichten', icon: 'chat' as const, badge: 1 },
+    { to: '/berichten', label: 'Berichten', icon: 'chat' as const, badge: unread },
     { to: '/meer', label: 'Meer', icon: 'more' as const },
   ];
   if (!selected.length) return null;
@@ -99,7 +106,7 @@ export function BottomNav() {
     <nav className="bottom-nav">
       {items.map((it) => (
         <NavLink key={it.to} to={it.to} end={it.to === '/'} className={({ isActive }) => (isActive ? 'active' : '')}>
-          <Icon name={it.icon} />
+          <span className="nav-ico">{I[it.icon]}</span>
           {it.label}
           {it.badge ? <span className="badge">{it.badge}</span> : null}
         </NavLink>
@@ -144,15 +151,25 @@ export function Countdown({ iso }: { iso: string }) {
 }
 
 export function HeroCard({ t, tall = false }: { t: Tournament; tall?: boolean }) {
+  const { selected } = useApp();
+  const going = selected.includes(t.id);
   return (
     <Link to={`/toernooi/${t.id}`} className={`hero-card ${tall ? 'tall' : ''}`}>
       <img className="bg" src={t.hero} alt="" />
       <TrackRing className="ring" />
       <DateChip iso={t.start} />
-      <span className="status"><StatusPill status={t.ticketStatus} /></span>
+      <span className="status" style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
+        <StatusPill status={t.ticketStatus} />
+        {going && <span className="pill" style={{ background: 'var(--white)', color: 'var(--ink-900)', borderColor: 'var(--white)' }}>✓ Ik ga</span>}
+      </span>
+      {t.badge && <span style={{ marginBottom: 8 }}><Badge kind={t.badge} /></span>}
       <span className="eyebrow">{t.venue} · {t.city}</span>
       <h2 className="display" style={{ marginTop: 4 }}>{t.name}</h2>
       <span className="muted small" style={{ marginTop: 4 }}>{nlDate(t.start, { weekday: 'short', day: 'numeric', month: 'short' })} – {nlDate(t.end, { weekday: 'short', day: 'numeric', month: 'short' })}</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 10, gap: 8 }}>
+        <MiniCountdown iso={t.start} />
+        {t.scarcity && <span className="scarcity">{t.scarcity}</span>}
+      </div>
     </Link>
   );
 }
@@ -166,4 +183,80 @@ export const nextTournament = (ids: string[]) => {
 export function Toast({ text, onDone }: { text: string; onDone: () => void }) {
   useEffect(() => { const t = setTimeout(onDone, 2200); return () => clearTimeout(t); }, [onDone]);
   return <div className="toast">{text}</div>;
+}
+
+export function Badge({ kind }: { kind: NonNullable<Tournament['badge']> }) {
+  const txt = { populair: 'Populairste keuze', 'laatste-kans': 'Laatste kans', nieuw: 'Seizoensopener' }[kind];
+  return <span className={`badge-top ${kind === 'laatste-kans' ? 'laatste' : ''}`}>{txt}</span>;
+}
+
+/** Compacte countdown voor kaarten/lijsten: dagen · uren · minuten. */
+export function MiniCountdown({ iso }: { iso: string }) {
+  const calc = () => Math.max(0, new Date(iso + 'T12:00:00').getTime() - Date.now());
+  const [ms, setMs] = useState(calc);
+  useEffect(() => { const t = setInterval(() => setMs(calc()), 30_000); return () => clearInterval(t); }, [iso]); // eslint-disable-line
+  const d = Math.floor(ms / 86_400_000), h = Math.floor((ms / 3_600_000) % 24), m = Math.floor((ms / 60_000) % 60);
+  if (ms === 0) return <span className="pill live">Nu bezig</span>;
+  return (
+    <span className="mini-cd" aria-label={`Nog ${d} dagen`}>
+      <b>{d}</b><i>d</i><b>{String(h).padStart(2, '0')}</b><i>u</i><b>{String(m).padStart(2, '0')}</b><i>m</i>
+    </span>
+  );
+}
+
+/** Sociale bewijskracht: "x fans gaan al". Cijfers zijn placeholders tot koppeling met ticketshop. */
+export function SocialProof({ t }: { t: Tournament }) {
+  if (!t.fansGoing) return null;
+  return (
+    <div className="proof">
+      <span className="avatars"><span /><span /><span /></span>
+      <span><strong>{t.fansGoing}</strong> fans gaan al</span>
+    </div>
+  );
+}
+
+/** Urgentie: early-bird deadline met countdown. */
+export function Urgency({ t }: { t: Tournament }) {
+  if (!t.earlyBirdUntil || new Date(t.earlyBirdUntil) < new Date()) return null;
+  return (
+    <div className="urgency">
+      <span>Early-bird prijs nog <strong>t/m {nlDate(t.earlyBirdUntil, { day: 'numeric', month: 'long' })}</strong></span>
+      <MiniCountdown iso={t.earlyBirdUntil} />
+    </div>
+  );
+}
+
+/** Deel-knop (Web Share API, met fallback naar kopiëren). */
+export function ShareButton({ text, label = 'Nodig een vriend uit', className = 'btn btn-secondary' }: { text: string; label?: string; className?: string }) {
+  const [done, setDone] = useState(false);
+  const share = async () => {
+    const url = location.href.split('#')[0];
+    try {
+      if (navigator.share) await navigator.share({ title: 'Beleef de magie van schaatsen', text, url });
+      else { await navigator.clipboard.writeText(`${text} ${url}`); setDone(true); setTimeout(() => setDone(false), 2000); }
+    } catch { /* geannuleerd */ }
+  };
+  return <button className={className} onClick={share}><Icon name="share" /> {done ? 'Link gekopieerd' : label}</button>;
+}
+
+export function Stats() {
+  return (
+    <div className="stats">
+      {stats.map((x) => <div className="st" key={x.l}><span className="n">{x.n}{x.suffix && <small>{x.suffix}</small>}</span><span className="l">{x.l}</span></div>)}
+    </div>
+  );
+}
+
+export function Quotes({ role }: { role?: Testimonial['role'] }) {
+  const list = role ? testimonials.filter((q) => q.role === role) : testimonials;
+  return (
+    <div className="quotes">
+      {list.map((q) => (
+        <div className="quote" key={q.name}>
+          <p>{q.quote}</p>
+          <div className="who">{q.name}<span>{q.role === 'schaatser' ? 'Schaatser' : 'Fan'}</span></div>
+        </div>
+      ))}
+    </div>
+  );
 }

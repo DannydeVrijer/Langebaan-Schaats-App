@@ -4,11 +4,11 @@ import { faq, sponsors, socials, tournaments } from '../data/tournaments';
 import { TopBar, Icon } from '../components/ui';
 
 export default function More() {
-  const { selected, toggle, reset } = useApp();
+  const { selected, toggle, reset, pushOptIn, setPushOptIn } = useApp();
   const nav = useNavigate();
   return (
     <div className="screen">
-      <TopBar unread={1} />
+      <TopBar />
       <h1 className="display" style={{ marginBottom: 16 }}>Meer</h1>
 
       <div className="card">
@@ -23,8 +23,9 @@ export default function More() {
       </div>
 
       <div className="card">
-        <div className="card-title-row"><h3 className="display">Meldingen</h3><span className="pill soon">Concept</span></div>
-        <p className="muted small" style={{ margin: 0 }}>Push-notificaties voor programma-wijzigingen, verkeersinfo en live-momenten. [beslissen: push via PWA of native]</p>
+        <div className="card-title-row"><h3 className="display">Meldingen</h3><span className={`pill ${pushOptIn ? 'ok' : ''}`}>{pushOptIn ? 'Aan' : 'Uit'}</span></div>
+        <p className="muted small" style={{ margin: '0 0 10px' }}>Programma-wijzigingen, verkeersinfo en live-momenten. Gemiddeld 3 per toernooi. [techniek: web push / native]</p>
+        <button className="btn btn-ghost" onClick={() => setPushOptIn(!pushOptIn)}>{pushOptIn ? 'Meldingen uitzetten' : 'Meldingen aanzetten'}</button>
       </div>
 
       <section className="section">
@@ -57,7 +58,7 @@ export default function More() {
 
       <div className="divider" />
       <button className="btn btn-ghost" onClick={() => { reset(); nav('/'); }}>Opnieuw beginnen (reset demo)</button>
-      <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.1 · #MVS</p>
+      <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.2 · #MVS</p>
     </div>
   );
 }

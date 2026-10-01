@@ -9,6 +9,8 @@ import { asset } from './tournaments';
 
 export type Message =
   | { id: string; kind: 'text'; day: string; time: string; text: string }
+  | { id: string; kind: 'optin'; day: string; time: string; text: string }
+  | { id: string; kind: 'share'; day: string; time: string; text: string }
   | { id: string; kind: 'image'; day: string; time: string; text: string; image: string }
   | { id: string; kind: 'cta'; day: string; time: string; text: string; label: string; href: string }
   | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[] }
@@ -21,7 +23,7 @@ export const messages: Message[] = [
   },
   {
     id: 'm2', kind: 'image', day: 'Vandaag', time: '09:01',
-    text: 'Het seizoen begint over een paar weken met het World Cup Kwalificatie Toernooi. Niets is zeker, alles staat op scherp. Dit is waar het seizoen begint.',
+    text: 'Het seizoen begint over een paar weken met het World Cup Kwalificatietoernooi. Niets is zeker, alles staat op scherp. Dit is waar het seizoen begint.',
     image: asset('img/hero-skater.png'),
   },
   {
@@ -44,7 +46,18 @@ export const messages: Message[] = [
     text: 'Wil je het programma van het WCKT alvast bekijken?',
     tournamentId: 'wckt',
   },
+  {
+    id: 'm6', kind: 'optin', day: 'Vandaag', time: '09:05',
+    text: 'Zet meldingen aan, dan hoor je het als eerste bij programma-wijzigingen, verkeersinfo op de dag zelf en als er extra kaarten vrijkomen. Gemiddeld 3 berichten per toernooi, geen spam.',
+  },
+  {
+    id: 'm7', kind: 'share', day: 'Vandaag', time: '09:06',
+    text: 'Schaatsen is leuker samen. Wie neem jij mee naar Thialf? Stuur deze app door, dan plannen jullie samen.',
+  },
 ];
+
+/** Minuten na aanmelden waarop elk bericht ‘binnenkomt’ (demo; in productie bepaalt de flow-tool dit). */
+export const arrivalOffsetsMin: Record<string, number> = { m1: 0, m2: 1, m3: 2, m4: 3, m5: 4, m6: 5, m7: 6 };
 
 /** Voorbeelden van geautomatiseerde berichten die later in de flow komen (ter inspiratie, zie CONTENT-CHECKLIST.md). */
 export const plannedFlow = [

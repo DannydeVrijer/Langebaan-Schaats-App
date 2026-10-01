@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../state';
 import { tournaments, nlDate, asset } from '../data/tournaments';
-import { Icon, TrackRing, Chevrons } from '../components/ui';
+import { Icon, TrackRing, Chevrons, Stats } from '../components/ui';
+import { copy } from '../data/site';
 
 export default function Onboarding() {
   const { selected, toggle, finishOnboarding } = useApp();
@@ -18,8 +19,10 @@ export default function Onboarding() {
         <span className="eyebrow">Seizoen 2026 / 2027 · Thialf</span>
         <h1 className="display" style={{ marginTop: 6 }}>Beleef de magie<br />van schaatsen</h1>
         <p className="muted" style={{ marginTop: 12 }}>
-          Kies de toernooien die jij gaat bezoeken. Je krijgt dan precies de info die je nodig hebt — programma, tickets, route en een seintje op het juiste moment.
+          Kies de toernooien die jij gaat bezoeken. Je krijgt dan precies wat je nodig hebt: programma, tickets, route en een seintje op het juiste moment. Aanpassen kan altijd.
         </p>
+        <div style={{ margin: '14px 0 4px' }}><Stats /></div>
+        <p className="faint small" style={{ marginTop: 6 }}>{copy.proofLine}</p>
 
         <div className="list" style={{ marginTop: 18 }}>
           {tournaments.map((t) => {
@@ -47,10 +50,10 @@ export default function Onboarding() {
             style={{ opacity: selected.length ? 1 : .4 }}
             onClick={() => { finishOnboarding(); nav('/'); }}
           >
-            {selected.length ? `Verder met ${selected.length} toernooi${selected.length > 1 ? 'en' : ''}` : 'Kies minimaal één toernooi'}
+            {selected.length ? `Start mijn seizoen (${selected.length})` : 'Kies minimaal één toernooi'}
             <Chevrons className="chev" />
           </button>
-          <p className="faint small" style={{ textAlign: 'center', marginTop: 10 }}>Je kunt dit later altijd aanpassen onder ‘Meer’.</p>
+          <p className="faint small" style={{ textAlign: 'center', marginTop: 10 }}>Gratis · geen account nodig · later aanpassen onder ‘Meer’</p>
         </div>
       </div>
     </div>
