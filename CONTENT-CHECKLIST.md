@@ -31,8 +31,8 @@ Prioriteit: **A** = nodig voor een bruikbare v1 · **B** = maakt het persoonlijk
 | Prio | Item |
 |---|---|
 | A | Definitieve teamsamenstelling 2026/27 (nu: 2025/26 + transferoverzicht) |
-| A | Persoonlijke records per schaatser (bron: speedskatingresults.com / KNSB) – nu `[PR]` |
-| A | Portretfoto's (vierkant, rechtenvrij voor app) |
+| ✓ | Persoonlijke records per schaatser – ingevuld vanuit KNSB live-api (1 okt 2026); Jordan Stolz ontbreekt daar |
+| A | Portretfoto's: nu KNSB-foto's uit 2020 via hotlink (15 van 25) – rechten checken + actuele portretten aanleveren |
 | B | Hoogtepunten/titels per schaatser, korte bio in eigen woorden |
 | B | Startlijsten per toernooi → "waar zie je X?" |
 | C | Favoriete schaatser volgen (meldingen bij haar/zijn races) |

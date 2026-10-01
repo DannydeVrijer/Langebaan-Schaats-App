@@ -4,11 +4,14 @@ import { teams, skaters, teamById, skaterById, initials, allDistances, type Dist
 import { TopBar, BackLink, Icon } from '../components/ui';
 import { track } from '../track';
 
-function Avatar({ name, color, size = 44 }: { name: string; color: string; size?: number }) {
+function Avatar({ name, color, size = 44, photo }: { name: string; color: string; size?: number; photo?: string }) {
+  const [broken, setBroken] = useState(false);
+  if (photo && !broken) return <img className="avatar-ini" src={photo} alt="" loading="lazy" onError={() => setBroken(true)} style={{ width: size, height: size, objectFit: 'cover', objectPosition: 'top', background: color }} />;
   return (
     <span className="avatar-ini" style={{ width: size, height: size, background: color, fontSize: size * 0.36 }}>{initials(name)}</span>
   );
 }
+const age = (born?: string) => born ? Math.floor((Date.now() - new Date(born).getTime()) / (365.25 * 86_400_000)) : null;
 
 export default function Skaters() {
   const [team, setTeam] = useState<string>('all');
@@ -35,7 +38,7 @@ export default function Skaters() {
           const t = teamById(s.teamId)!;
           return (
             <Link key={s.id} to={`/schaatser/${s.id}`} className="row">
-              <Avatar name={s.name} color={t.color} />
+              <Avatar name={s.name} color={t.color} photo={s.photo} />
               <span className="body">
                 <span className="title">{s.name}{s.nationality && <span className="faint small"> · {s.nationality}</span>}</span>
                 <span className="sub">{t.short} · {s.distances.join(' · ')}</span>
@@ -46,7 +49,7 @@ export default function Skaters() {
         })}
         {!list.length && <p className="muted small">Geen schaatsers met deze filters.</p>}
       </div>
-      <p className="faint small" style={{ marginTop: 16 }}>Selectie van toppers; volledige teams, foto's en records volgen. [aanleveren: complete lijst, foto's, PR's]</p>
+      <p className="faint small" style={{ marginTop: 16 }}>Selectie van toppers per team. Records en foto's: KNSB. [aanleveren: volledige teams, actuele portretten]</p>
     </div>
   );
 }
@@ -61,10 +64,10 @@ export function SkaterDetail() {
     <div className="screen">
       <BackLink to="/schaatsers" label="Schaatsers" />
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
-        <Avatar name={s.name} color={t.color} size={64} />
+        <Avatar name={s.name} color={t.color} size={72} photo={s.photo} />
         <div>
           <h1 className="display" style={{ fontSize: 28 }}>{s.name}</h1>
-          <span className="muted small">{t.name}{s.nationality ? ` · ${s.nationality}` : ''}</span>
+          <span className="muted small">{t.name}{s.nationality ? ` · ${s.nationality}` : ''}{age(s.born) ? ` · ${age(s.born)} jaar` : ''}</span>
         </div>
       </div>
       <p className="muted">{s.bio}</p>
@@ -74,12 +77,12 @@ export function SkaterDetail() {
         <div className="card-title-row"><h3 className="display">Persoonlijke records</h3></div>
         <table className="pb">
           <tbody>
-            {s.distances.filter((d) => s.pb[d]).map((d) => (
-              <tr key={d}><td>{d}</td><td className="t">{s.pb[d]}</td></tr>
+            {(Object.keys(s.pb) as Distance[]).map((d) => (
+              <tr key={d}><td>{d}{s.pbMeta?.[d] && <span className="faint" style={{ fontSize: 11, display: 'block' }}>{s.pbMeta[d]}</span>}</td><td className="t">{s.pb[d]}</td></tr>
             ))}
           </tbody>
         </table>
-        {Object.values(s.pb).some((v) => v === '[PR]') && <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>[PR] = nog aan te leveren / te verifiëren (bron: speedskatingresults.com)</p>}
+        <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>{Object.values(s.pb).some((v) => v === '[PR]') ? 'Geen records in de KNSB-database (internationale schaatser).' : 'Bron: KNSB live-uitslagen, 1 okt 2026'}</p>
       </div>
 
       {s.highlights && (
@@ -100,7 +103,7 @@ export function SkaterDetail() {
           <div className="list">
             {teammates.map((m) => (
               <Link key={m.id} to={`/schaatser/${m.id}`} className="row">
-                <Avatar name={m.name} color={t.color} size={38} />
+                <Avatar name={m.name} color={t.color} size={38} photo={m.photo} />
                 <span className="body"><span className="title">{m.name}</span><span className="sub">{m.distances.join(' · ')}</span></span>
                 <span className="arrow"><Icon name="chev" /></span>
               </Link>
