@@ -42,27 +42,42 @@ export const icons = I;
 /* ---------- merk ---------- */
 export const BrandMark = ({ size = 34 }: { size?: number }) => (
   <svg className="brand-mark" width={size} height={size} viewBox="0 0 512 512" aria-hidden>
-    <defs><radialGradient id="bm" cx="50%" cy="60%" r="70%"><stop offset="0" stopColor="#2E6FD6"/><stop offset="1" stopColor="#050A1A"/></radialGradient></defs>
+    <defs><radialGradient id="bm" cx="50%" cy="60%" r="70%"><stop offset="0" stopColor="#2B4F85"/><stop offset="1" stopColor="#0B1526"/></radialGradient></defs>
     <rect width="512" height="512" rx="112" fill="url(#bm)"/>
     <g fill="none" stroke="#fff"><rect x="116" y="76" width="280" height="360" rx="140" strokeWidth="30"/><rect x="166" y="126" width="180" height="260" rx="90" strokeWidth="12" opacity=".45"/></g>
     <path d="M232 214l44 42-44 42" fill="none" stroke="#fff" strokeWidth="22" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-/** De oval ‘baan’-ring uit de huisstijl, decoratief. */
-export const TrackRing = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <svg className={className} style={style} viewBox="0 0 230 260" fill="none" aria-hidden>
-    <rect x="18" y="14" width="194" height="232" rx="97" stroke="white" strokeWidth="14" opacity=".95"/>
-    <rect x="48" y="44" width="134" height="172" rx="67" stroke="white" strokeWidth="5" opacity=".45"/>
-    <rect x="70" y="66" width="90" height="128" rx="45" stroke="white" strokeWidth="2" opacity=".25"/>
+/** De oval ‘baan’-ring uit de MVS-stylesheet (Oval – Vertical): twee ringen met een lichtverloop. */
+export const TrackRing = ({ className, style, horizontal }: { className?: string; style?: React.CSSProperties; horizontal?: boolean }) => (
+  <svg className={className} style={style} viewBox={horizontal ? '0 0 260 230' : '0 0 230 260'} fill="none" aria-hidden>
+    <defs>
+      <linearGradient id="mvs-ring" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#FFFFFF" />
+        <stop offset=".55" stopColor="#A8CFFD" />
+        <stop offset="1" stopColor="#A8CFFD" stopOpacity=".15" />
+      </linearGradient>
+    </defs>
+    <g transform={horizontal ? 'translate(260 0) rotate(90)' : undefined}>
+      <rect x="18" y="14" width="194" height="232" rx="97" stroke="url(#mvs-ring)" strokeWidth="16" />
+      <rect x="52" y="48" width="126" height="164" rx="63" stroke="url(#mvs-ring)" strokeWidth="8" opacity=".8" />
+    </g>
   </svg>
 );
 
+/** Arrows uit de stylesheet: drie gestapelde chevrons omhoog, wit naar lichtblauw. */
 export const Chevrons = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 60 40" fill="none" aria-hidden>
-    <path d="M4 4l16 16L4 36" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" opacity=".45"/>
-    <path d="M24 4l16 16-16 16" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" opacity=".75"/>
-    <path d="M44 4l16 16-16 16" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg className={className} viewBox="0 0 60 60" fill="none" aria-hidden>
+    <defs>
+      <linearGradient id="mvs-arrow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stopColor="#FFFFFF" />
+        <stop offset="1" stopColor="#A8CFFD" stopOpacity=".35" />
+      </linearGradient>
+    </defs>
+    <path d="M8 22L30 6l22 16" stroke="url(#mvs-arrow)" strokeWidth="7" strokeLinejoin="round" strokeLinecap="round" />
+    <path d="M8 38L30 22l22 16" stroke="url(#mvs-arrow)" strokeWidth="7" strokeLinejoin="round" strokeLinecap="round" opacity=".7" />
+    <path d="M8 54L30 38l22 16" stroke="url(#mvs-arrow)" strokeWidth="7" strokeLinejoin="round" strokeLinecap="round" opacity=".4" />
   </svg>
 );
 

@@ -4,8 +4,8 @@
   "description": "Alles over de langebaantoernooien in Thialf: programma, tickets, praktische info en persoonlijke berichten.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#060C1F",
-  "theme_color": "#060C1F",
+  "background_color": "#13233A",
+  "theme_color": "#13233A",
   "lang": "nl",
   "icons": [
     { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },

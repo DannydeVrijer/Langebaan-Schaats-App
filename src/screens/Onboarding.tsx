@@ -11,7 +11,7 @@ export default function Onboarding() {
     <div className="screen" style={{ paddingBottom: 24 }}>
       <div className="onboard-hero">
         <img src={asset('img/hero-jutta.png')} alt="" />
-        <TrackRing style={{ position: 'absolute', right: -60, top: 20, width: 260, opacity: .5 }} />
+        <TrackRing style={{ position: 'absolute', right: -60, top: 20, width: 240, opacity: .4 }} />
       </div>
 
       <div className="onboard-body">

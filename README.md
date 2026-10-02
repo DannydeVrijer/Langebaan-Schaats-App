@@ -17,7 +17,7 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.
 Wat de Ajax Fan App wel heeft en dit concept (nog) niet → **[FEATURE-GAP.md](FEATURE-GAP.md)**.
-Projectregels (mobile first, huisstijl, werkwijze) → **[CLAUDE.md](CLAUDE.md)**.
+Projectregels (mobile first, huisstijl volgens MVS Stylesheet 2026, werkwijze) → **[CLAUDE.md](CLAUDE.md)**.
 Conversietechnieken en waar ze zitten → **[MARKETING-TECHNIEKEN.md](MARKETING-TECHNIEKEN.md)**.
 Kritische review van v0.2 → **[REVIEW.md](REVIEW.md)**.
 Berichten/notificaties inrichten als organisator + contactformulier → **[BERICHTEN-EN-NOTIFICATIES.md](BERICHTEN-EN-NOTIFICATIES.md)**.
@@ -52,7 +52,7 @@ src/
   components/ui.tsx     iconen, merk, TrackRing, kaarten, nav, countdown
   state.tsx             gekozen toernooien & poll-antwoorden (localStorage)
   styles.css            huisstijl-tokens en componenten
-public/fonts/           Sportize (display-font)
+public/fonts/           Sportize (koppen) + Hanken Grotesk (bodytekst)
 public/img/             key visuals
 ```
 

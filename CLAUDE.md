@@ -8,10 +8,12 @@
 - Beeld en fonts lokaal; lettergrootte body ≥ 14 px; geen horizontale scroll behalve bewust (tabs, dag-chips).
 - Performance: geen zware libraries toevoegen zonder reden; bundel klein houden (nu ~95 kB gzip).
 
-## Huisstijl
+## Huisstijl (bron: MVS Stylesheet Typo/Color 2026)
 - Tokens staan in `src/styles.css` (`:root`). Nieuwe kleuren/afstanden daar toevoegen, niet hardcoden.
-- Display-font Sportize (uppercase) voor koppen/knoppen/labels; systeemfont voor lopende tekst.
-- Motieven: oval-ring (`TrackRing`), chevrons (`Chevrons`), donker ijsblauw met lichte gloed.
+- Kleuren: lichtblauw `#A8CFFD` (`--mvs-ice`), middenblauw `#2B4F85` (`--mvs-blue`), navy `#13233A` (`--mvs-navy`), wit, zwart. Alle andere tinten zijn afgeleiden van deze vijf.
+- Typografie: **headlines** Sportize Extra Bold (800, uppercase, wit) → `.display`; **sublines** Sportize Regular (400, uppercase, lichtblauw) → `.subline` / `.eyebrow`; **bodytekst** Hanken Grotesk (lokaal in `public/fonts/`, SIL OFL).
+- Knoppen/CTA: witte trapeziumvorm (breder boven, schuine zijkanten via `clip-path`, `--cta-slant`) met zwarte Sportize Extra Bold-tekst → `.btn-primary`; `.btn-secondary` is dezelfde vorm in middenblauw.
+- Motieven: oval-ring verticaal/horizontaal (`TrackRing`, prop `horizontal`), gestapelde pijlen omhoog (`Chevrons`), wit → lichtblauw verloop; donkere navy-achtergrond met ijsblauwe gloed.
 - Toon: "Beleef de magie van schaatsen" – direct, warm, geen jargon. NL, je-vorm.
 
 ## Werkwijze
