@@ -30,9 +30,9 @@ Prioriteit: **A** = nodig voor een bruikbare v1 · **B** = maakt het persoonlijk
 
 | Prio | Item |
 |---|---|
-| A | Definitieve teamsamenstelling 2026/27 (nu: 2025/26 + transferoverzicht) |
+| A | Definitieve teamsamenstelling 2026/27 (nu: 2025/26 + transferoverzicht; 6 schaatsers staan op 'overig') |
 | ✓ | Persoonlijke records per schaatser – ingevuld vanuit KNSB live-api (1 okt 2026); Jordan Stolz ontbreekt daar |
-| A | Portretfoto's: nu KNSB-foto's uit 2020 via hotlink (15 van 25) – rechten checken + actuele portretten aanleveren |
+| A | Portretfoto's: nu TeamNL-portretten (41 van 47) via hotlink naar teamnl.org – **rechten met TeamNL/NOC*NSF regelen** vóór livegang; daarna lokaal opslaan met `scripts/download-photos.sh` |
 | B | Hoogtepunten/titels per schaatser, korte bio in eigen woorden |
 | B | Startlijsten per toernooi → "waar zie je X?" |
 | C | Favoriete schaatser volgen (meldingen bij haar/zijn races) |
