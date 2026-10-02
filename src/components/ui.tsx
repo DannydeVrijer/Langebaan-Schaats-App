@@ -78,7 +78,7 @@ export function TopBar() {
           <span className="display">Schaatsen</span>
         </span>
       </Link>
-      <Link to="/berichten" className="icon-btn" aria-label="Berichten">
+      <Link to="/berichten" className="icon-btn" aria-label={unread ? `Berichten, ${unread} ongelezen` : 'Berichten'}>
         <Icon name="bell" />
         {unread > 0 && <span className="dot" />}
       </Link>
@@ -136,14 +136,14 @@ export function DateChip({ iso }: { iso: string }) {
   );
 }
 
-export function Countdown({ iso }: { iso: string }) {
+export function Countdown({ iso, compact = false }: { iso: string; compact?: boolean }) {
   const calc = () => Math.max(0, new Date(iso + 'T12:00:00').getTime() - Date.now());
   const [ms, setMs] = useState(calc);
   useEffect(() => { const t = setInterval(() => setMs(calc()), 1000); return () => clearInterval(t); }, [iso]); // eslint-disable-line
   const d = Math.floor(ms / 86_400_000), h = Math.floor((ms / 3_600_000) % 24), m = Math.floor((ms / 60_000) % 60), s = Math.floor((ms / 1000) % 60);
   const units = [[d, 'dagen'], [h, 'uur'], [m, 'min'], [s, 'sec']] as const;
   return (
-    <div className="countdown">
+    <div className={`countdown ${compact ? 'compact' : ''}`}>
       {units.map(([n, l]) => (
         <div className="unit" key={l}><span className="n">{String(n).padStart(2, '0')}</span><span className="l">{l}</span></div>
       ))}
@@ -250,4 +250,29 @@ export function Quotes({ role }: { role?: Testimonial['role'] }) {
       ))}
     </div>
   );
+}
+
+/** Placeholder-tekst: in demo-modus zichtbaar als [aanleveren …], voor fans "Volgt binnenkort". */
+export function Ph({ text }: { text: string }) {
+  const { demo } = useApp();
+  if (!text.includes('[')) return <>{text}</>;
+  if (demo) return <>{text}</>;
+  const clean = text.replace(/\s*\[[^\]]*\]\s*/g, ' ').trim();
+  return <>{clean ? clean + ' ' : ''}<span className="faint">Volgt binnenkort.</span></>;
+}
+
+/** Agenda-bestand (.ics) voor een toernooi of de gekozen dagen. */
+export function downloadIcs(t: Tournament, days: string[] = []) {
+  const fmt = (iso: string) => iso.replace(/-/g, '');
+  const addDay = (iso: string) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + 1); return fmt(d.toISOString().slice(0, 10)); };
+  const events = (days.length ? days.map((d) => [d, d]) : [[t.start, t.end]]).map(([a, b], i) => [
+    'BEGIN:VEVENT', `UID:${t.id}-${a}-${i}@schaatsen-app`, `DTSTAMP:${fmt(new Date().toISOString().slice(0, 10))}T000000Z`,
+    `DTSTART;VALUE=DATE:${fmt(a)}`, `DTEND;VALUE=DATE:${addDay(b)}`, `SUMMARY:${t.name} – Thialf`,
+    `LOCATION:Thialf, Pim Mulierlaan 1, Heerenveen`, `DESCRIPTION:${t.subtitle}. Tickets: ${t.ticketUrl ?? ''}`, 'END:VEVENT',
+  ].join('\r\n'));
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Beleef de magie van schaatsen//NL', ...events, 'END:VCALENDAR'].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `${t.slug}.ics`; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

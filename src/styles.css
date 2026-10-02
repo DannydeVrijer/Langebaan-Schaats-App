@@ -24,8 +24,8 @@
   --ice-100: #EAF2FF;
   --white: #FFFFFF;
   --text: #F3F7FF;
-  --text-muted: rgba(234, 242, 255, 0.68);
-  --text-faint: rgba(234, 242, 255, 0.42);
+  --text-muted: rgba(234, 242, 255, 0.78);
+  --text-faint: rgba(234, 242, 255, 0.58);
   --line: rgba(255, 255, 255, 0.10);
   --line-strong: rgba(255, 255, 255, 0.22);
   --glass: rgba(255, 255, 255, 0.06);
@@ -465,3 +465,16 @@ table.pb { width: 100%; border-collapse: collapse; font-size: 14px; }
 table.pb td { padding: 8px 0; border-bottom: 1px solid var(--line); }
 table.pb td.t { text-align: right; font-family: var(--font-display); font-size: 18px; letter-spacing: .04em; }
 table.pb tr:last-child td { border-bottom: 0; }
+
+/* ---------- v0.5 ---------- */
+:focus-visible { outline: 2px solid var(--ice-300); outline-offset: 2px; border-radius: 6px; }
+.countdown.compact .unit { padding: 6px 4px; }
+.countdown.compact .n { font-size: 22px; }
+.countdown.compact .l { font-size: 9px; }
+.fav { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--text-faint); flex: none; font-size: 20px; }
+.fav.on { color: var(--warn); }
+.fav.on svg { fill: var(--warn); }
+.tl-item.done { opacity: .45; }
+.tl-item.next .what { color: var(--white); font-size: 17px; }
+.tl-item.next::before { background: var(--danger); box-shadow: 0 0 0 4px rgba(255,122,122,.25); }
+.update-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--nav-h) + 16px); background: #fff; color: #060C1F; padding: 10px 14px; border-radius: 999px; font: 600 13px system-ui, sans-serif; z-index: 50; box-shadow: 0 10px 30px rgba(0,0,0,.4); cursor: pointer; }

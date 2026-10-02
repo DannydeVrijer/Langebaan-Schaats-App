@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { teams, skaters, teamById, skaterById, initials, allDistances, type Distance } from '../data/skaters';
 import { TopBar, BackLink, Icon } from '../components/ui';
+import { useApp } from '../state';
 import { track } from '../track';
 
 function Avatar({ name, color, size = 44, photo }: { name: string; color: string; size?: number; photo?: string }) {
@@ -14,9 +15,12 @@ function Avatar({ name, color, size = 44, photo }: { name: string; color: string
 const age = (born?: string) => born ? Math.floor((Date.now() - new Date(born).getTime()) / (365.25 * 86_400_000)) : null;
 
 export default function Skaters() {
+  const { favorites, toggleFavorite } = useApp();
   const [team, setTeam] = useState<string>('all');
   const [dist, setDist] = useState<Distance | 'all'>('all');
-  const list = skaters.filter((s) => (team === 'all' || s.teamId === team) && (dist === 'all' || s.distances.includes(dist)));
+  const list = skaters
+    .filter((s) => (team === 'all' || s.teamId === team) && (dist === 'all' || s.distances.includes(dist)))
+    .sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)));
 
   return (
     <div className="screen">
@@ -43,19 +47,21 @@ export default function Skaters() {
                 <span className="title">{s.name}{s.nationality && <span className="faint small"> · {s.nationality}</span>}</span>
                 <span className="sub">{t.short} · {s.distances.join(' · ')}</span>
               </span>
-              <span className="arrow"><Icon name="chev" /></span>
+              <button className={`fav ${favorites.includes(s.id) ? 'on' : ''}`} aria-label={favorites.includes(s.id) ? 'Verwijder favoriet' : 'Maak favoriet'} onClick={(e) => { e.preventDefault(); toggleFavorite(s.id); track('favorite_toggle', { skater: s.id }); }}><Icon name="star" /></button>
             </Link>
           );
         })}
         {!list.length && <p className="muted small">Geen schaatsers met deze filters.</p>}
       </div>
-      <p className="faint small" style={{ marginTop: 16 }}>Selectie van toppers per team. Records en foto's: KNSB. [aanleveren: volledige teams, actuele portretten]</p>
+      <p className="muted small" style={{ marginTop: 12 }}>Tik op ★ om een favoriet te kiezen. Binnenkort: een seintje 5 minuten voordat je favoriet start.</p>
+      <p className="faint small" style={{ marginTop: 8 }}>Selectie van toppers per team. Records en foto's: KNSB. [aanleveren: volledige teams, actuele portretten]</p>
     </div>
   );
 }
 
 export function SkaterDetail() {
   const { id } = useParams();
+  const { favorites, toggleFavorite } = useApp();
   const s = skaterById(id ?? '');
   if (!s) return <Navigate to="/schaatsers" replace />;
   const t = teamById(s.teamId)!;
@@ -71,7 +77,10 @@ export function SkaterDetail() {
         </div>
       </div>
       <p className="muted">{s.bio}</p>
-      <div className="chips" style={{ margin: '12px 0 18px' }}>{s.distances.map((d) => <span key={d} className="chip on">{d}</span>)}</div>
+      <div className="chips" style={{ margin: '12px 0 14px' }}>{s.distances.map((d) => <span key={d} className="chip on">{d}</span>)}</div>
+      <button className={`btn ${favorites.includes(s.id) ? 'btn-primary' : 'btn-secondary'}`} style={{ marginBottom: 14 }} onClick={() => { toggleFavorite(s.id); track('favorite_toggle', { skater: s.id }); }}>
+        <Icon name="star" /> {favorites.includes(s.id) ? 'Favoriet – je krijgt een seintje als ' + s.name.split(' ')[0] + ' start' : 'Maak favoriet'}
+      </button>
 
       <div className="card">
         <div className="card-title-row"><h3 className="display">Persoonlijke records</h3></div>

@@ -10,5 +10,21 @@ createRoot(document.getElementById('root')!).render(
 );
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => navigator.serviceWorker.register(import.meta.env.BASE_URL + 'sw.js').catch(() => {}));
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register(import.meta.env.BASE_URL + 'sw.js');
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        w?.addEventListener('statechange', () => {
+          if (w.state === 'installed' && navigator.serviceWorker.controller) {
+            const el = document.createElement('button');
+            el.className = 'update-toast';
+            el.textContent = 'Nieuwe versie beschikbaar – tik om te vernieuwen';
+            el.onclick = () => location.reload();
+            document.body.appendChild(el);
+          }
+        });
+      });
+    } catch { /* geen sw */ }
+  });
 }

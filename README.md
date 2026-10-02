@@ -5,13 +5,13 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 ## Schermen
 
 - **Start** – kies de toernooien die je bezoekt
-- **Home** – eerstvolgende toernooi, countdown, tickets, laatste bericht, praktische tegels, upsell
+- **Home** – eerstvolgende toernooi, countdown, tickets, meldingen, jouw seizoen/dagen, favorieten, laatste bericht, praktisch. Op een wedstrijddag: **dag-modus** (nu op het ijs, volgende rit, live, onderweg & binnen)
 - **Toernooien** – alle 5 NL-toernooien + internationale World Cups (info)
-- **Toernooi-detail** – tabs Info · Programma · Tickets · Praktisch (incl. plattegrond)
-- **Schaatsers** – toppers per team, afstanden, persoonlijke records, ploeggenoten (filter op team/afstand)
+- **Toernooi-detail** – tabs Programma (mijn dag, deuren open, nu/volgende, live-link) · Info (wat staat er op het spel, toppers aan de start) · Praktisch (reisvolgorde, plattegrond, checklist); agenda (.ics), delen, sticky koopknop
+- **Schaatsers** – toppers per team, foto's, afstanden, officiële PR's, favoriet-ster (favorieten eerst), ploeggenoten
 - **Tickets** – overzicht met directe links naar tickets.schaatsen.nl (bereikbaar via Home en Toernooien; niet meer in de navigatie)
 - **Berichten** – feed die na aanmelden binnenkomt: polls, beeld, CTA's, push-opt-in, delen; voorbeeld van de automatische flow
-- **Meer** – mijn toernooien, FAQ, contact, socials, partners
+- **Meer** – mijn toernooien, meldingen, delen, quotes, FAQ, contact, socials, partners, demo-/fan-weergave
 
 **Roadmap: alle paden, bezoekersreis, ontbrekende info en aanbevelingen → [ROADMAP.md](ROADMAP.md)**
 

@@ -33,6 +33,8 @@ export type Tournament = {
   earlyBirdUntil?: string;   // urgentie, bron: prijsplanning
   badge?: 'populair' | 'laatste-kans' | 'nieuw';
   lossFrame?: string;        // één feitelijke zin waarom dit toernooi uniek is
+  topSkaters?: string[];     // schaatser-id's (zie skaters.ts) die (naar verwachting) aan de start staan
+  liveUrl?: string;          // liveresults.schaatsen.nl event-pagina zodra bekend
 };
 
 const THIALF = 'Thialf';
@@ -43,6 +45,8 @@ const stdProgramNote = 'Definitief tijdschema volgt zodra de ISU/KNSB dit public
 export const tournaments: Tournament[] = [
   {
     id: 'wckt',
+    topSkaters: ['jenning-de-boo','femke-kok','kjeld-nuis','patrick-roest','joy-beune','joep-wennemars'],
+    liveUrl: 'https://liveresults.schaatsen.nl/events',
     lossFrame: 'Hier worden de startplekken voor het hele seizoen verdeeld.',
     slug: 'wk-kwalificatie-toernooi',
     name: 'World Cup Kwalificatietoernooi',
@@ -80,6 +84,8 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'wc-heerenveen',
+    topSkaters: ['jordan-stolz','femke-kok','jenning-de-boo','jutta-leerdam','joy-beune','bart-swings'],
+    liveUrl: 'https://liveresults.schaatsen.nl/events',
     lossFrame: 'De enige World Cup in Nederland dit seizoen.',
     slug: 'isu-world-cup-heerenveen',
     name: 'ISU World Cup Heerenveen',
@@ -117,6 +123,8 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-allround-sprint',
+    topSkaters: ['patrick-roest','joy-beune','jenning-de-boo','femke-kok','marijke-groenewoud','merijn-scheperkamp'],
+    liveUrl: 'https://liveresults.schaatsen.nl/events',
     slug: 'nk-allround-sprint',
     name: 'NK Allround & Sprint',
     shortName: 'NK Allround',
@@ -148,6 +156,8 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'ek-allround-sprint',
+    topSkaters: ['patrick-roest','joy-beune','kjeld-nuis','femke-kok','antoinette-rijpma-de-jong','joep-wennemars'],
+    liveUrl: 'https://liveresults.schaatsen.nl/events',
     lossFrame: 'Een EK in Thialf: dat gebeurt niet elk jaar.',
     slug: 'ek-allround-sprint',
     name: 'ISU EK Allround & Sprint',
@@ -184,6 +194,8 @@ export const tournaments: Tournament[] = [
   },
   {
     id: 'nk-afstanden',
+    topSkaters: ['jenning-de-boo','femke-kok','joep-wennemars','marijke-groenewoud','chris-huizinga','jorrit-bergsma'],
+    liveUrl: 'https://liveresults.schaatsen.nl/events',
     lossFrame: 'Laatste toernooi in Thialf dit seizoen.',
     slug: 'nk-afstanden',
     name: 'NK Afstanden',
@@ -251,6 +263,34 @@ export const venueInfo = {
   lockers: '[aanleveren: garderobe/kluisjes]',
   familyInfo: '[aanleveren: kinderen t/m x jaar gratis? Kids-activiteiten?]',
 };
+
+/** Praktische info in reisvolgorde. Teksten tussen [ ] zijn placeholders. */
+export const journey = [
+  { id: 'aankomst', title: 'Aankomst', items: [
+    { icon: 'car', t: 'Met de auto', s: venueInfo.parking },
+    { icon: 'train', t: 'Trein + bus', s: venueInfo.publicTransport },
+    { icon: 'skate', t: 'Fiets', s: venueInfo.bike },
+  ]},
+  { id: 'binnenkomen', title: 'Binnenkomen', items: [
+    { icon: 'ticket', t: 'Ingang per vak', s: '[aanleveren: welke ingang bij welk vak/tribune; toon je e-ticket (QR) op je telefoon]' },
+    { icon: 'calendar', t: 'Deuren open', s: venueInfo.doorsOpen },
+    { icon: 'rules', t: 'Wat mag mee', s: '[aanleveren: tassenbeleid, eten/drinken, camera\'s, vlaggen/spandoeken, toeters]' },
+  ]},
+  { id: 'binnen', title: 'In Thialf', items: [
+    { icon: 'food', t: 'Eten & drinken', s: venueInfo.food },
+    { icon: 'map', t: 'Toiletten, EHBO, garderobe', s: venueInfo.lockers },
+    { icon: 'info', t: 'Wifi & opladen', s: '[aanleveren: gratis wifi? netwerknaam; oplaadpunten]' },
+  ]},
+  { id: 'iedereen', title: 'Kinderen & toegankelijkheid', items: [
+    { icon: 'star', t: 'Kinderen & gezin', s: venueInfo.familyInfo },
+    { icon: 'access', t: 'Toegankelijkheid', s: venueInfo.accessibility },
+  ]},
+  { id: 'vertrek', title: 'Vertrek', items: [
+    { icon: 'car', t: 'Na afloop', s: '[aanleveren: uitstroom parkeren, laatste bus/trein, verloren voorwerpen]' },
+  ]},
+] as const;
+
+export const dayChecklist = ['E-ticket op je telefoon (en opgeladen)', 'Pinpas – Thialf is cashless [bevestigen]', 'Warme laag: op de tribune is het ±8 °C', 'Oranje aan 🧡', 'Favoriete schaatsers gekozen in de app'];
 
 export const faq = [
   { q: 'Hoe ontvang ik mijn tickets?', a: '[aanleveren] Bijv.: Je tickets ontvang je per e-mail als e-ticket. Toon de QR-code op je telefoon bij de ingang.' },

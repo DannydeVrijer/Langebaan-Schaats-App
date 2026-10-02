@@ -14,7 +14,7 @@ const fmtDay = (ms: number) => {
 };
 
 export default function Messages() {
-  const { pollAnswers, answerPoll, onboardedAt, seen, markSeen, pushOptIn, setPushOptIn } = useApp();
+  const { pollAnswers, answerPoll, onboardedAt, seen, markSeen, pushOptIn, setPushOptIn, demo } = useApp();
   const [showFlow, setShowFlow] = useState(false);
   const [visible, setVisible] = useState(seen);
   const [typing, setTyping] = useState(false);
@@ -97,22 +97,17 @@ export default function Messages() {
           <div className="msg"><span className="avatar"><Icon name="skate" /></span><div className="bubble typing"><i /><i /><i /></div></div>
         )}
 
-        {pollAnswers['m3'] && visible >= 4 && (
-          <div className="msg">
+        {messages.filter((m) => m.kind === 'poll' && pollAnswers[m.id] && shown.includes(m)).map((m) => m.kind === 'poll' && (
+          <div className="msg" key={m.id + '-fu'}>
             <span className="avatar"><Icon name="skate" /></span>
-            <div className="bubble">
-              {pollAnswers['m3'] === 'car' && 'Top! Drie dagen voor het toernooi sturen we je de parkeerinfo en actuele verkeersinfo rond Heerenveen. Tip: koop je parkeerticket vooraf, dan sta je niet in de rij. [link aanleveren]'}
-              {pollAnswers['m3'] === 'train' && 'Goed bezig 🌱 Vanaf station Heerenveen is het ca. 25 min lopen of een korte busrit. We sturen je op de dag zelf de actuele reisinfo. [pendelbus bevestigen]'}
-              {pollAnswers['m3'] === 'bike' && 'Lekker fris! Bij Thialf is een fietsenstalling. We houden het weer voor je in de gaten ☀️'}
-              <div className="meta">Nu</div>
-            </div>
+            <div className="bubble">{m.followUps[pollAnswers[m.id]]}<div className="meta">Nu</div></div>
           </div>
-        )}
+        ))}
 
         <div ref={endRef} />
       </div>
 
-      {visible >= messages.length && (
+      {demo && visible >= messages.length && (
         <div className="card" style={{ marginTop: 24 }}>
           <button className="card-title-row" style={{ width: '100%' }} onClick={() => setShowFlow((v) => !v)}>
             <h3 className="display">Geplande berichten (voorbeeld-flow)</h3>

@@ -133,7 +133,9 @@ Beslissingen die jij/HoS moet nemen: (1) toestemming KNSB voor API, (2) wel/geen
 
 ---
 
-## 6. Kritische review & aanbevelingen (ter goedkeuring vóór ik bouw)
+## 6. Kritische review & aanbevelingen
+
+> **Doorgevoerd in v0.5 (2 okt):** 1 t/m 15. Punt 16 (echte afzender + logo) wacht op aanlevering. Dag-modus (10/L) en favorieten (11) werken lokaal; de startmelding zelf vereist push (F) en live data (C).
 
 ### Toernooipagina
 1. **Van 4 naar 3 tabs**: Programma · Info · Praktisch. "Tickets" is al de sticky knop; de tab is dubbel.

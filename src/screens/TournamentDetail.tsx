@@ -1,78 +1,165 @@
-import { useParams, useSearchParams, Navigate } from 'react-router-dom';
+import { useParams, useSearchParams, Navigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useApp } from '../state';
-import { byId, dateRange, nlDate, venueInfo } from '../data/tournaments';
-import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Quotes } from '../components/ui';
-import { copy } from '../data/site';
+import { byId, dateRange, nlDate, daysUntil, journey, dayChecklist } from '../data/tournaments';
+import { skaterById, teamById } from '../data/skaters';
+import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Ph, ShareButton, icons, downloadIcs } from '../components/ui';
 import { track } from '../track';
 
 const TABS = [
-  { id: 'info', label: 'Info' },
   { id: 'programma', label: 'Programma' },
-  { id: 'tickets', label: 'Tickets' },
+  { id: 'info', label: 'Info' },
   { id: 'praktisch', label: 'Praktisch' },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
+
+const today = () => new Date().toISOString().slice(0, 10);
+const nowHM = () => new Date().toTimeString().slice(0, 5);
 
 export default function TournamentDetail() {
   const { id } = useParams();
   const [sp, setSp] = useSearchParams();
   const t = byId(id ?? '');
-  const { selected, toggle } = useApp();
-  const [day, setDay] = useState(0);
+  const { selected, toggle, days, toggleDay, demo } = useApp();
   const [toast, setToast] = useState<string | null>(null);
   if (!t) return <Navigate to="/toernooien" replace />;
-  const tab = (sp.get('tab') as TabId) || 'info';
+
+  const dUntil = daysUntil(t.start);
+  const isLive = today() >= t.start && today() <= t.end;
+  const defaultTab: TabId = dUntil <= 14 ? 'programma' : 'info';
+  const tab = (sp.get('tab') as TabId) || defaultTab;
   const going = selected.includes(t.id);
+  const myDays = days[t.id] ?? [];
+
+  // programma: standaard de dag van vandaag, anders de eerste gekozen dag, anders dag 1
+  const dayIdx0 = Math.max(0, t.program.findIndex((d) => d.date === today()) >= 0
+    ? t.program.findIndex((d) => d.date === today())
+    : t.program.findIndex((d) => myDays.includes(d.date)));
+  const [dayState, setDay] = useState<number | null>(null);
+  const day = dayState ?? dayIdx0;
+  const prog = t.program[day];
+  const doors = prog.items.find((i) => /deuren/i.test(i.what));
+  const races = prog.items.filter((i) => !/deuren/i.test(i.what));
+  const isToday = prog.date === today();
+  const nextIdx = isToday ? races.findIndex((r) => r.time > nowHM()) : -1;
 
   return (
     <div className="screen">
       <BackLink to="/toernooien" label="Toernooien" />
 
-      <div className="hero-card tall" style={{ cursor: 'default' }}>
+      <div className="hero-card" style={{ cursor: 'default', minHeight: 230 }}>
         <img className="bg" src={t.hero} alt="" />
         <TrackRing className="ring" />
         <DateChip iso={t.start} />
-        <span className="status"><StatusPill status={t.ticketStatus} /></span>
+        <span className="status">{isLive ? <span className="pill live">Live</span> : <StatusPill status={t.ticketStatus} />}</span>
         <span className="eyebrow">{t.venue} · {t.city}</span>
-        <h1 className="display" style={{ fontSize: 32, marginTop: 4 }}>{t.name}</h1>
+        <h1 className="display" style={{ fontSize: 30, marginTop: 4 }}>{t.name}</h1>
         <span className="muted small" style={{ marginTop: 4 }}>{dateRange(t)}</span>
       </div>
 
-      <div className="card highlight" style={{ marginTop: 12 }}>
-        <div className="card-title-row"><span className="eyebrow">Countdown</span></div>
-        <Countdown iso={t.start} />
-      </div>
+      {!isLive && (
+        <div className="card" style={{ marginTop: 10, padding: '12px 14px' }}>
+          <Countdown iso={t.start} compact />
+        </div>
+      )}
 
-      <div className="btn-row" style={{ marginTop: 12 }}>
-        {t.ticketUrl && <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail' })}>Koop tickets <Icon name="external" /></a>}
+      <div className="btn-row" style={{ marginTop: 10 }}>
         <button className={`btn ${going ? 'btn-secondary' : 'btn-ghost'}`} onClick={() => { toggle(t.id); track(going ? 'tournament_remove' : 'tournament_add', { tournament: t.id }); setToast(going ? 'Verwijderd uit mijn toernooien' : 'Toegevoegd aan mijn toernooien'); }}>
           {going ? <><Icon name="check" /> Ik ga</> : '+ Ik ga'}
         </button>
+        <button className="btn btn-ghost" aria-label="Zet in je agenda" onClick={() => { downloadIcs(t, myDays); track('calendar_add', { tournament: t.id }); }}><Icon name="calendar" /> Agenda</button>
+        <ShareButton className="btn btn-ghost" label="Delen" text={`Ga je mee naar ${t.name} (${dateRange(t)}) in Thialf?`} />
       </div>
 
-      <div className="tabs">
+      <div className="tabs" role="tablist">
         {TABS.map((tb) => (
-          <button key={tb.id} className={`tab ${tab === tb.id ? 'active' : ''}`} onClick={() => setSp({ tab: tb.id })}>{tb.label}</button>
+          <button key={tb.id} role="tab" aria-selected={tab === tb.id} className={`tab ${tab === tb.id ? 'active' : ''}`} onClick={() => setSp({ tab: tb.id })}>{tb.label}</button>
         ))}
       </div>
+
+      {tab === 'programma' && (
+        <>
+          <div className="card" style={{ padding: 12, marginBottom: 12 }}>
+            <span className="eyebrow">Mijn dag(en)</span>
+            <p className="muted small" style={{ margin: '4px 0 8px' }}>Kies de dag(en) waarop je komt. Dan zie je het juiste programma en krijg je alleen berichten over jouw dag.</p>
+            <div className="chips">
+              {t.program.map((d) => (
+                <button key={d.date} className={`chip ${myDays.includes(d.date) ? 'on' : ''}`} onClick={() => { toggleDay(t.id, d.date); if (!going) toggle(t.id); track('day_toggle', { tournament: t.id, day: d.date }); }}>
+                  {myDays.includes(d.date) ? '✓ ' : ''}{d.label} {new Date(d.date + 'T12:00:00').getDate()} {nlDate(d.date, { month: 'short' }).replace('.', '')}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="day-tabs">
+            {t.program.map((d, i) => (
+              <button key={d.date} className={`day-tab ${day === i ? 'active' : ''}`} onClick={() => setDay(i)}>
+                {d.label} {new Date(d.date + 'T12:00:00').getDate()} {nlDate(d.date, { month: 'short' }).replace('.', '')}{myDays.includes(d.date) ? ' ✓' : ''}
+              </button>
+            ))}
+          </div>
+
+          {doors && (
+            <div className="row" style={{ marginBottom: 12, background: 'rgba(255,255,255,.1)' }}>
+              <span className="ico"><Icon name="ticket" /></span>
+              <span className="body"><span className="title">Deuren open {doors.time}</span><span className="sub"><Ph text={doors.note ?? 'Kom op tijd: de eerste rit start kort na opening.'} /></span></span>
+            </div>
+          )}
+
+          <div className="timeline">
+            {races.map((it, i) => {
+              const state = !isToday ? '' : i < nextIdx || nextIdx === -1 ? 'done' : i === nextIdx ? 'next' : '';
+              return (
+                <div key={i} className={`tl-item ${state}`}>
+                  <div className="time">{it.time}{state === 'next' && <span className="pill live" style={{ marginLeft: 8 }}>Volgende</span>}{state === 'done' && <span className="faint small" style={{ marginLeft: 8 }}>afgelopen</span>}</div>
+                  <div className="what">{it.what}</div>
+                  {it.note && <div className="note"><Ph text={it.note} /></div>}
+                </div>
+              );
+            })}
+          </div>
+          <p className="faint small">Concept-tijdschema; definitieve tijden volgen van de KNSB.</p>
+
+          <a className="btn btn-secondary" href={t.liveUrl ?? 'https://liveresults.schaatsen.nl/home'} target="_blank" rel="noreferrer" onClick={() => track('live_click', { tournament: t.id })}>
+            {isLive ? 'Live uitslagen' : 'Startlijsten & uitslagen (KNSB)'} <Icon name="external" />
+          </a>
+        </>
+      )}
 
       {tab === 'info' && (
         <>
           <p style={{ fontSize: 16 }}>{t.subtitle}</p>
           <p className="muted">{t.description}</p>
-          <div className="chips" style={{ margin: '14px 0' }}>{t.highlights.map((h) => <span key={h} className="chip">{h}</span>)}</div>
-          {t.lossFrame && <p className="muted" style={{ marginTop: -4 }}>{t.lossFrame}</p>}
-          <Quotes role="schaatser" />
-          <div className="card" style={{ marginTop: 14 }}>
-            <div className="card-title-row"><h3 className="display">Deelnemers</h3><span className="pill soon">Volgt</span></div>
-            <p className="muted small" style={{ margin: 0 }}>Startlijsten en de Nederlandse selectie worden hier getoond zodra bekend. [aanleveren: bron/feed]</p>
+          {t.lossFrame && (
+            <div className="card">
+              <span className="eyebrow">Wat staat er op het spel</span>
+              <p style={{ margin: '6px 0 0' }}>{t.lossFrame}</p>
+            </div>
+          )}
+          {t.topSkaters && (
+            <div className="card">
+              <div className="card-title-row"><h3 className="display">Toppers aan de start</h3><Link to="/schaatsers" className="small" style={{ color: 'var(--ice-300)' }}>Alle</Link></div>
+              <div className="list">
+                {t.topSkaters.map((sid) => { const s = skaterById(sid); if (!s) return null; const team = teamById(s.teamId)!; return (
+                  <Link key={sid} to={`/schaatser/${sid}`} className="row" style={{ padding: 10 }}>
+                    {s.photo ? <img className="avatar-ini" src={s.photo} alt="" style={{ width: 38, height: 38, objectFit: 'cover', objectPosition: 'top', background: team.color }} /> : <span className="avatar-ini" style={{ width: 38, height: 38, background: team.color, fontSize: 13 }}>{s.name.split(' ').map((p) => p[0]).slice(0, 2).join('')}</span>}
+                    <span className="body"><span className="title">{s.name}</span><span className="sub">{s.distances.join(' · ')}</span></span>
+                    <span className="arrow"><Icon name="chev" /></span>
+                  </Link>
+                ); })}
+              </div>
+              <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>Verwachte deelnemers; definitieve startlijsten volgen.</p>
+            </div>
+          )}
+          <div className="card">
+            <h3 className="display">Dit maakt dit toernooi anders</h3>
+            <ul className="muted small" style={{ margin: '8px 0 0', paddingLeft: 18, lineHeight: 1.7 }}>{t.highlights.map((h) => <li key={h}>{h}</li>)}</ul>
           </div>
           <div className="card">
-            <div className="card-title-row"><h3 className="display">Nieuws</h3></div>
-            <p className="muted small" style={{ margin: 0 }}>[aanleveren: nieuwsfeed schaatsen.nl of handmatige items per toernooi]</p>
+            <div className="card-title-row"><h3 className="display">Side-events & nieuws</h3><span className="pill soon">Volgt</span></div>
+            <p className="muted small" style={{ margin: 0 }}><Ph text="[aanleveren: fan village, meet & greet, kids-activiteiten, nieuwsitems]" /></p>
           </div>
-          {t.todo && (
+          {demo && t.todo && (
             <div className="card" style={{ borderColor: 'rgba(255,209,102,.35)' }}>
               <span className="todo">Nog aan te leveren voor dit toernooi</span>
               <ul className="muted small" style={{ margin: '8px 0 0', paddingLeft: 18 }}>{t.todo.map((x) => <li key={x}>{x}</li>)}</ul>
@@ -81,92 +168,34 @@ export default function TournamentDetail() {
         </>
       )}
 
-      {tab === 'programma' && (
+      {tab === 'praktisch' && (
         <>
-          <div className="day-tabs">
-            {t.program.map((d, i) => (
-              <button key={d.date} className={`day-tab ${day === i ? 'active' : ''}`} onClick={() => setDay(i)}>
-                {d.label} {new Date(d.date + 'T12:00:00').getDate()} {nlDate(d.date, { month: 'short' }).replace('.', '')}
-              </button>
-            ))}
-          </div>
-          <div className="timeline">
-            {t.program[day].items.map((it, i) => (
-              <div key={i} className="tl-item">
-                <div className="time">{it.time}</div>
-                <div className="what">{it.what}</div>
-                {it.note && <div className="note">{it.note}</div>}
+          {journey.map((sec) => (
+            <section key={sec.id} style={{ marginBottom: 18 }}>
+              <h3 className="display" style={{ marginBottom: 8 }}>{sec.title}</h3>
+              <div className="list">
+                {sec.items.map((it) => (
+                  <div className="row" key={it.t}><span className="ico">{icons[it.icon as keyof typeof icons]}</span><span className="body"><span className="title">{it.t}</span><span className="sub"><Ph text={it.s} /></span></span></div>
+                ))}
               </div>
-            ))}
-          </div>
-          <p className="todo">Concept-tijdschema – definitieve tijden volgen.</p>
-          <div className="card">
-            <div className="card-title-row"><h3 className="display">Live uitslagen</h3><span className="pill soon">Tijdens toernooi</span></div>
-            <p className="muted small" style={{ margin: 0 }}>Tijdens het toernooi zie je hier live tijden en uitslagen. [aanleveren: bron, bijv. ISU results/KNSB-feed of link]</p>
-          </div>
-        </>
-      )}
+            </section>
+          ))}
 
-      {tab === 'tickets' && (
-        <>
-          <div className="card highlight">
-            <div className="card-title-row"><h3 className="display">Tickets</h3><StatusPill status={t.ticketStatus} /></div>
-            <p className="muted small" style={{ margin: 0 }}>Verkoop via de officiële shop op tickets.schaatsen.nl. [aanleveren: categorieën, prijzen, kortingen]</p>
-            {t.ticketUrl && (
-              <a className="btn btn-primary" href={t.ticketUrl} target="_blank" rel="noreferrer" style={{ marginTop: 14 }}>
-                Koop tickets – officiële shop <Icon name="external" />
-              </a>
-            )}
-          </div>
-          <div className="card">
-            <h3 className="display">Arrangementen & lounges</h3>
-            <p className="muted small" style={{ marginTop: 8 }}>Beleef het toernooi met een hospitality-arrangement: lounge, catering en de beste plekken. [aanleveren: aanbod + link offerte/boeking]</p>
-          </div>
-        </>
-      )}
-
-      {tab === 'praktisch' && (
-        <>
-          <div className="list">
-            <a href={venueInfo.mapsUrl} target="_blank" rel="noreferrer" className="row">
-              <span className="ico"><Icon name="pin" /></span>
-              <span className="body"><span className="title">{venueInfo.name}</span><span className="sub">{venueInfo.address}</span></span>
-              <span className="arrow"><Icon name="external" /></span>
-            </a>
-            <div className="row"><span className="ico"><Icon name="car" /></span><span className="body"><span className="title">Parkeren</span><span className="sub">{venueInfo.parking}</span></span></div>
-            <div className="row"><span className="ico"><Icon name="train" /></span><span className="body"><span className="title">Openbaar vervoer</span><span className="sub">{venueInfo.publicTransport}</span></span></div>
-            <div className="row"><span className="ico"><Icon name="calendar" /></span><span className="body"><span className="title">Deuren open</span><span className="sub">{venueInfo.doorsOpen}</span></span></div>
-            <div className="row"><span className="ico"><Icon name="food" /></span><span className="body"><span className="title">Eten & drinken</span><span className="sub">{venueInfo.food}</span></span></div>
-            <div className="row"><span className="ico"><Icon name="access" /></span><span className="body"><span className="title">Toegankelijkheid</span><span className="sub">{venueInfo.accessibility}</span></span></div>
-            <div className="row"><span className="ico"><Icon name="star" /></span><span className="body"><span className="title">Kinderen & gezin</span><span className="sub">{venueInfo.familyInfo}</span></span></div>
-          </div>
-          <div className="card" style={{ marginTop: 12 }}>
-            <div className="card-title-row"><h3 className="display">Huisregels</h3><Icon name="rules" /></div>
-            <ul className="muted small" style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>{venueInfo.houseRules.map((r) => <li key={r}>{r}</li>)}</ul>
-          </div>
-        </>
-      )}
-
-      {tab === 'praktisch' && (
-        <>
-          <h3 className="display" style={{ margin: '22px 0 10px' }}>Plattegrond</h3>
+          <h3 className="display" style={{ marginBottom: 8 }}>Plattegrond</h3>
           <div className="map-placeholder">
             <svg viewBox="0 0 320 200" fill="none"><rect x="30" y="20" width="260" height="160" rx="80" stroke="white" strokeWidth="10"/><rect x="70" y="50" width="180" height="100" rx="50" stroke="white" strokeWidth="3"/></svg>
-            <div className="lbl">
-              <h3 className="display">Plattegrond Thialf</h3>
-              <p className="muted small" style={{ marginTop: 6 }}>[aanleveren: plattegrond met tribunes, vakken, ingangen, horeca, toiletten, EHBO, fanshop]</p>
-            </div>
+            <div className="lbl"><p className="muted small" style={{ margin: 0 }}><Ph text="[aanleveren: plattegrond met tribunes, vakken, ingangen, horeca, toiletten, EHBO, fanshop]" /></p></div>
           </div>
-          <div className="grid-2" style={{ marginTop: 12 }}>
-            {['Ingangen', 'Tribunes & vakken', 'Horeca', 'Toiletten', 'EHBO', 'Fanshop', 'Garderobe', 'Rolstoelplekken'].map((x) => (
-              <div key={x} className="tile" style={{ minHeight: 0 }}><span className="t">{x}</span><span className="s">[locatie aanleveren]</span></div>
-            ))}
+
+          <div className="card" style={{ marginTop: 18 }}>
+            <div className="card-title-row"><h3 className="display">Op de dag: niet vergeten</h3><Icon name="check" /></div>
+            <ul className="muted small" style={{ margin: 0, paddingLeft: 18, lineHeight: 1.7 }}>{dayChecklist.map((c) => <li key={c}><Ph text={c} /></li>)}</ul>
           </div>
         </>
       )}
 
-      {t.ticketUrl && tab !== 'tickets' && (
-        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail-sticky' })}>{copy.ctaPrimary} <Icon name="external" /></a>
+      {t.ticketUrl && !isLive && (
+        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail-sticky' })}>Koop tickets <Icon name="external" /></a>
       )}
       <div style={{ height: 70 }} />
       {toast && <Toast text={toast} onDone={() => setToast(null)} />}

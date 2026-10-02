@@ -13,7 +13,7 @@ export type Message =
   | { id: string; kind: 'share'; day: string; time: string; text: string }
   | { id: string; kind: 'image'; day: string; time: string; text: string; image: string }
   | { id: string; kind: 'cta'; day: string; time: string; text: string; label: string; href: string }
-  | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[] }
+  | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[]; followUps: Record<string, string> }
   | { id: string; kind: 'route'; day: string; time: string; text: string; tournamentId: string };
 
 export const messages: Message[] = [
@@ -34,6 +34,11 @@ export const messages: Message[] = [
       { id: 'train', label: 'Trein + bus 🚆', pct: 27 },
       { id: 'bike', label: 'Fiets / lopend 🚲', pct: 9 },
     ],
+    followUps: {
+      car: 'Top! Drie dagen voor het toernooi sturen we je de parkeerinfo en actuele verkeersinfo rond Heerenveen. Tip: koop je parkeerticket vooraf, dan sta je niet in de rij. [link aanleveren]',
+      train: 'Goed bezig 🌱 Vanaf station Heerenveen is het ca. 25 min lopen of een korte busrit. We sturen je op de dag zelf de actuele reisinfo. [pendelbus bevestigen]',
+      bike: 'Lekker fris! Bij Thialf is een fietsenstalling. We houden het weer voor je in de gaten ☀️',
+    },
   },
   {
     id: 'm4', kind: 'cta', day: 'Vandaag', time: '09:03',
@@ -57,7 +62,7 @@ export const messages: Message[] = [
 ];
 
 /** Minuten na aanmelden waarop elk bericht ‘binnenkomt’ (demo; in productie bepaalt de flow-tool dit). */
-export const arrivalOffsetsMin: Record<string, number> = { m1: 0, m2: 1, m3: 2, m4: 3, m5: 4, m6: 5, m7: 6 };
+export const arrivalOffsetsMin: Record<string, number> = { m1: 0, m2: 2, m3: 5, m4: 9, m5: 14, m6: 20, m7: 27 };
 
 /** Voorbeelden van geautomatiseerde berichten die later in de flow komen (ter inspiratie, zie CONTENT-CHECKLIST.md). */
 export const plannedFlow = [
