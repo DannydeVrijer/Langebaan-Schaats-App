@@ -32,7 +32,7 @@ export default function Messages() {
     return () => clearTimeout(t);
   }, [visible]); // eslint-disable-line
 
-  useEffect(() => { endRef.current?.scrollIntoView({ block: 'end' }); }, [visible, typing]);
+  useEffect(() => { const t = setTimeout(() => endRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' }), 50); return () => clearTimeout(t); }, [visible, typing, pollAnswers, pushOptIn]);
 
   let lastDay = '';
   const shown = messages.slice(0, visible);

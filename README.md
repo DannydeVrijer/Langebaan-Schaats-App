@@ -13,6 +13,8 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 - **Berichten** – feed die na aanmelden binnenkomt: polls, beeld, CTA's, push-opt-in, delen; voorbeeld van de automatische flow
 - **Meer** – mijn toernooien, FAQ, contact, socials, partners
 
+**Roadmap: alle paden, bezoekersreis, ontbrekende info en aanbevelingen → [ROADMAP.md](ROADMAP.md)**
+
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.
 Wat de Ajax Fan App wel heeft en dit concept (nog) niet → **[FEATURE-GAP.md](FEATURE-GAP.md)**.
 Projectregels (mobile first, huisstijl, werkwijze) → **[CLAUDE.md](CLAUDE.md)**.
