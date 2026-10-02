@@ -1,7 +1,7 @@
 import { HashRouter as BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AppState, useApp } from './state';
-import { BottomNav } from './components/ui';
+import { BottomNav, FloatingBell } from './components/ui';
 import Onboarding from './screens/Onboarding';
 import Home from './screens/Home';
 import Tournaments from './screens/Tournaments';
@@ -20,6 +20,7 @@ function ScrollTop() {
 function Shell() {
   const { onboarded, selected } = useApp();
   const ready = onboarded && selected.length > 0;
+  const { pathname } = useLocation();
   return (
     <div className="app">
       <ScrollTop />
@@ -43,6 +44,7 @@ function Shell() {
           </>
         )}
       </Routes>
+      {ready && pathname !== '/berichten' && <FloatingBell />}
       {ready && <BottomNav />}
     </div>
   );

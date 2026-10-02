@@ -67,8 +67,6 @@ export const Chevrons = ({ className }: { className?: string }) => (
 );
 
 export function TopBar() {
-  const { seen } = useApp();
-  const unread = Math.max(0, messages.length - seen);
   return (
     <header className="topbar">
       <Link to="/" className="brand">
@@ -78,11 +76,19 @@ export function TopBar() {
           <span className="display">Schaatsen</span>
         </span>
       </Link>
-      <Link to="/berichten" className="icon-btn" aria-label={unread ? `Berichten, ${unread} ongelezen` : 'Berichten'}>
-        <Icon name="bell" />
-        {unread > 0 && <span className="dot" />}
-      </Link>
     </header>
+  );
+}
+
+/** Zwevende berichtenknop: scrolt mee op elke pagina, toont aantal ongelezen berichten. */
+export function FloatingBell() {
+  const { seen } = useApp();
+  const unread = Math.max(0, messages.length - seen);
+  return (
+    <Link to="/berichten" className={`float-bell ${unread ? 'has' : ''}`} aria-label={unread ? `Berichten, ${unread} nieuw` : 'Berichten'}>
+      <Icon name="bell" />
+      {unread > 0 && <span className="count">{unread}</span>}
+    </Link>
   );
 }
 
