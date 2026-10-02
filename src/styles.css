@@ -502,3 +502,18 @@ table.pb tr:last-child td { border-bottom: 0; }
 @media (min-width: 560px) { .float-bell { right: calc(50% - var(--max-w) / 2 + 16px); top: 30px; } }
 .topbar { padding-right: 56px; }
 .back { padding-right: 56px; }
+
+/* ---------- smoelenboek ---------- */
+.face-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.face { position: relative; display: flex; flex-direction: column; gap: 4px; }
+.face .avatar-ini { border-radius: 14px; border: 1px solid var(--line); }
+.face-name { font-weight: 700; font-size: 13.5px; line-height: 1.2; margin-top: 4px; }
+.face-sub { font-size: 12px; color: var(--text-muted); }
+.face .fav { position: absolute; top: 4px; right: 4px; width: 34px; height: 34px; background: rgba(6,12,31,.7); backdrop-filter: blur(4px); font-size: 17px; }
+.medals { display: flex; flex-direction: column; gap: 8px; }
+.medal-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; align-items: center; }
+.medal-lbl { font-size: 14px; }
+.medal { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 15px; font-weight: 800; color: #1a1a1a; }
+.medal.gold { background: linear-gradient(135deg, #FFE27A, #D4A017); }
+.medal.silver { background: linear-gradient(135deg, #F2F2F2, #A8A8A8); }
+.medal.bronze { background: linear-gradient(135deg, #E8B27A, #9C5B2A); }

@@ -7,9 +7,10 @@ import { track } from '../track';
 
 function Avatar({ name, color, size = 44, photo }: { name: string; color: string; size?: number; photo?: string }) {
   const [broken, setBroken] = useState(false);
-  if (photo && !broken) return <img className="avatar-ini" src={photo} alt="" loading="lazy" onError={() => setBroken(true)} style={{ width: size, height: size, objectFit: 'cover', objectPosition: 'top', background: color }} />;
+  const dim = size ? { width: size, height: size } : { width: '100%', aspectRatio: '1 / 1', borderRadius: 14 };
+  if (photo && !broken) return <img className="avatar-ini" src={photo} alt={name} loading="lazy" onError={() => setBroken(true)} style={{ ...dim, objectFit: 'cover', objectPosition: 'top', background: color }} />;
   return (
-    <span className="avatar-ini" style={{ width: size, height: size, background: color, fontSize: size * 0.36 }}>{initials(name)}</span>
+    <span className="avatar-ini" style={{ ...dim, background: color, fontSize: size ? size * 0.36 : 28 }}>{initials(name)}</span>
   );
 }
 const age = (born?: string) => born ? Math.floor((Date.now() - new Date(born).getTime()) / (365.25 * 86_400_000)) : null;
@@ -18,6 +19,7 @@ export default function Skaters() {
   const { favorites, toggleFavorite } = useApp();
   const [team, setTeam] = useState<string>('all');
   const [dist, setDist] = useState<Distance | 'all'>('all');
+  const [view, setView] = useState<'grid' | 'list'>('grid');
   const list = skaters
     .filter((s) => (team === 'all' || s.teamId === team) && (dist === 'all' || s.distances.includes(dist)))
     .sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)));
@@ -36,8 +38,31 @@ export default function Skaters() {
         <button className={`chip ${dist === 'all' ? 'on' : ''}`} onClick={() => setDist('all')}>Alle afstanden</button>
         {allDistances.map((d) => <button key={d} className={`chip ${dist === d ? 'on' : ''}`} onClick={() => setDist(d)}>{d}</button>)}
       </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+        <span className="muted small">{list.length} schaatsers</span>
+        <div className="chips">
+          <button className={`chip ${view === 'grid' ? 'on' : ''}`} onClick={() => setView('grid')}>Smoelenboek</button>
+          <button className={`chip ${view === 'list' ? 'on' : ''}`} onClick={() => setView('list')}>Lijst</button>
+        </div>
+      </div>
 
-      <div className="list">
+      {view === 'grid' && (
+        <div className="face-grid">
+          {list.map((s) => {
+            const t = teamById(s.teamId)!;
+            return (
+              <Link key={s.id} to={`/schaatser/${s.id}`} className="face">
+                <Avatar name={s.name} color={t.color} size={0} photo={s.photo} />
+                <span className="face-name">{s.name}</span>
+                <span className="face-sub">{t.short}</span>
+                <button className={`fav ${favorites.includes(s.id) ? 'on' : ''}`} aria-label={favorites.includes(s.id) ? 'Verwijder favoriet' : 'Maak favoriet'} onClick={(e) => { e.preventDefault(); toggleFavorite(s.id); track('favorite_toggle', { skater: s.id }); }}><Icon name="star" /></button>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+
+      {view === 'list' && <div className="list">
         {list.map((s) => {
           const t = teamById(s.teamId)!;
           return (
@@ -51,10 +76,10 @@ export default function Skaters() {
             </Link>
           );
         })}
-        {!list.length && <p className="muted small">Geen schaatsers met deze filters.</p>}
-      </div>
-      <p className="muted small" style={{ marginTop: 12 }}>Tik op ★ om een favoriet te kiezen. Binnenkort: een seintje 5 minuten voordat je favoriet start.</p>
-      <p className="faint small" style={{ marginTop: 8 }}>Selectie van toppers per team. Records en foto's: KNSB. [aanleveren: volledige teams, actuele portretten]</p>
+      </div>}
+      {!list.length && <p className="muted small">Geen schaatsers met deze filters.</p>}
+      <p className="muted small" style={{ marginTop: 12 }}>Foto's en bio's: TeamNL. Tik op ★ om een favoriet te kiezen. Binnenkort: een seintje 5 minuten voordat je favoriet start.</p>
+      <p className="faint small" style={{ marginTop: 8 }}>[rechten: TeamNL/ANP-portretten vóór livegang regelen; teamindeling 'overig' bevestigen]</p>
     </div>
   );
 }
@@ -91,9 +116,23 @@ export function SkaterDetail() {
             ))}
           </tbody>
         </table>
-        <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>{Object.values(s.pb).some((v) => v === '[PR]') ? 'Geen records in de KNSB-database (internationale schaatser).' : 'Bron: KNSB live-uitslagen, 1 okt 2026'}</p>
+        <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>{Object.values(s.pb).some((v) => v === '[PR]') ? 'Nog geen records uit de KNSB-database.' : 'Bron: KNSB live-uitslagen, okt 2026'}</p>
       </div>
 
+      {s.medals && (
+        <div className="card">
+          <div className="card-title-row"><h3 className="display">Medailles</h3></div>
+          <div className="medals">
+            {(['os', 'wk', 'ek'] as const).filter((k) => s.medals![k]).map((k) => { const m = s.medals![k]!; return (
+              <div key={k} className="medal-row">
+                <span className="medal-lbl">{{ os: 'Olympische Spelen', wk: 'WK', ek: 'EK' }[k]}</span>
+                <span className="medal gold">{m.g}</span><span className="medal silver">{m.s}</span><span className="medal bronze">{m.b}</span>
+              </div>
+            ); })}
+          </div>
+          <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>Bron: teamnl.org</p>
+        </div>
+      )}
       {s.highlights && (
         <div className="card">
           <div className="card-title-row"><h3 className="display">Hoogtepunten</h3></div>
