@@ -10,7 +10,7 @@ function Avatar({ name, color, size = 44, photo }: { name: string; color: string
   const dim = size ? { width: size, height: size } : { width: '100%', aspectRatio: '1 / 1', borderRadius: 14 };
   if (photo && !broken) return <img className="avatar-ini" src={photo} alt={name} loading="lazy" onError={() => setBroken(true)} style={{ ...dim, objectFit: 'cover', objectPosition: 'top', background: color }} />;
   return (
-    <span className="avatar-ini" style={{ ...dim, background: color, fontSize: size ? size * 0.36 : 28 }}>{initials(name)}</span>
+    <span className="avatar-ini" style={{ ...dim, background: color, fontSize: size ? size * 0.36 : 20 }}>{initials(name)}</span>
   );
 }
 const age = (born?: string) => born ? Math.floor((Date.now() - new Date(born).getTime()) / (365.25 * 86_400_000)) : null;
