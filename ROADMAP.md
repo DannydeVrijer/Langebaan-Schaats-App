@@ -2,7 +2,9 @@
 
 Doel: dé plek waar een bezoeker van Thialf alles vindt en voelt dat hij erbij hoort. Vóór, tijdens en na het toernooi. Elke functie hieronder is beoordeeld op: wat levert het de fan op, wat is ervoor nodig, wat is de privacy-impact, hoeveel werk (S = dagen, M = 1–2 weken, L = meer), en wanneer.
 
-Status 2 okt 2026: conceptversie 0.4 (PWA). Alles tussen `[ ]` in de app is placeholder.
+Status 7 okt 2026: conceptversie 0.6 (PWA). Alles tussen `[ ]` in de app is placeholder.
+
+> **Totaalplan "next level"** (stores, insteek gast/account, live data, koppelingen Paylogic/Playable/Sportity, activaties, ISU-benchmark, kosten, fasering, beslissingen) staat in het Claude-doc *Schaatsfan App – plan naar next level* (7 okt 2026) en samengevat in `PLAN.md`.
 
 ---
 
@@ -23,12 +25,15 @@ De grootste gaten zitten in **reisdag** en **in Thialf** — precies de momenten
 
 ---
 
-## 2. Huidige functies (v0.4)
+## 2. Huidige functies (v0.6)
 
 - Start: toernooikeuze zonder account · Home: eerstvolgend toernooi, countdown met seconden, koopknop, meldingen-opt-in (voorkeur), jouw seizoen, laatste bericht, praktisch, overige toernooien
 - Toernooien: 5 Thialf-toernooien + koopknop; internationale World Cups (info)
-- Toernooi-detail: Info · Programma (concept) · Tickets · Praktisch incl. plattegrond; sticky koopknop
-- Schaatsers: 7 teams, 25 toppers, officiële PR's/leeftijd/foto (KNSB), ploeggenoten, filters
+- Toernooi-detail: Programma (mijn dag, deuren open, dweilpauzes, nu/volgende) · Info · Praktisch (reisvolgorde, parkeerticket, plattegrond, checklist); agenda/delen; sticky koopknop → Paylogic-shop **in de app** (iframe)
+- Zo werkt schaatsen: World Cup-serie, allround, sprint, NK Afstanden, massastart, basisregels, dweilpauze, tijden lezen
+- Embed-scherm: ticketshop, mijn tickets, speel & win (Playable), parkeerticket – URL's deels nog aan te leveren
+- Berichten: ook video (mp4/YouTube/Vimeo)
+- Schaatsers: 8 teams, 47 rijders, TeamNL-foto's, officiële PR's (KNSB), medailles, favorieten, smoelenboek/lijst, filters
 - Berichten: feed die na aanmelden binnenkomt; poll met vervolgantwoord; CTA; opt-in; delen; FAQ-ingang
 - Meer: toernooien aanpassen, meldingen, delen, quotes, FAQ, contact, socials, partners
 - Techniek: PWA, GitHub Pages, meet-events → dataLayer, alles lokaal opgeslagen

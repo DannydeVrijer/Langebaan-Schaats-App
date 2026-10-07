@@ -124,3 +124,13 @@ Verder nodig: **wie beheert de berichten** (CMS/flow-tool of handmatig), tone of
 4. **Beheer:** wie vult de content en de berichtenflow? Nu: data in `src/data/`.
 5. **Taal:** NL nu; EN voor EK/World Cup?
 6. **Meting:** welke KPI's (installaties, opt-in push, doorkliks naar ticketshop, enquête-respons)?
+
+
+## Toegevoegd 7 okt 2026 (plan next level)
+- [ ] Dweiltijden per blok per toernooi (nu `[ ]` in het programma; `kind: 'pauze'` in `src/data/tournaments.ts`)
+- [ ] Parkeerproduct: Paylogic-link of Thialf-parkeerpagina (`src/data/embeds.ts` → `parkeren`, en `venueInfo.parkingTicketUrl`)
+- [ ] "Mijn tickets"-URL van Paylogic (`src/data/embeds.ts` → `mijn-tickets`)
+- [ ] Playable-campagne-URL + domein-whitelist (`src/data/embeds.ts` → `game`)
+- [ ] KNSB-check op regelteksten in `src/data/uitleg.ts` (alle `[check: …]`-markeringen: valse-startregel, vlagsignalering, dweilduur, World Cup-programma)
+- [ ] Video's voor berichten (mp4 of YouTube/Vimeo-embed-URL; berichttype `video`)
+- [ ] Privacyverklaring (URL verplicht voor stores en push)

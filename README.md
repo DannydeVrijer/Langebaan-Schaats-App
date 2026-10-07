@@ -11,9 +11,12 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 - **Schaatsers** – toppers per team, foto's, afstanden, officiële PR's, favoriet-ster (favorieten eerst), ploeggenoten
 - **Tickets** – overzicht met directe links naar tickets.schaatsen.nl (bereikbaar via Home en Toernooien; niet meer in de navigatie)
 - **Berichten** – feed die na aanmelden binnenkomt: polls, beeld, CTA's, push-opt-in, delen; voorbeeld van de automatische flow
-- **Meer** – mijn toernooien, meldingen, delen, quotes, FAQ, contact, socials, partners, demo-/fan-weergave
+- **Zo werkt schaatsen** – uitleg toernooitypen, basisregels, dweilpauze, tijden lezen (`/uitleg`)
+- **Embed** – ticketshop (Paylogic), mijn tickets, speel & win, parkeerticket in de app (`/embed/…`)
+- **Meer** – mijn toernooien, meldingen, delen, Handig, quotes, FAQ, contact, socials, partners, demo-/fan-weergave
 
 **Roadmap: alle paden, bezoekersreis, ontbrekende info en aanbevelingen → [ROADMAP.md](ROADMAP.md)**
+**Totaalplan next level (stores, insteek, live data, koppelingen, kosten, fasering) → [PLAN.md](PLAN.md)**
 
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.
 Wat de Ajax Fan App wel heeft en dit concept (nog) niet → **[FEATURE-GAP.md](FEATURE-GAP.md)**.
