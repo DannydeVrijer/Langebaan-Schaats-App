@@ -196,7 +196,7 @@ export default function TournamentDetail() {
       )}
 
       {t.ticketUrl && !isLive && (
-        <a className="btn btn-primary sticky-ticket" href={t.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: t.id, source: 'detail-sticky' })}>Koop tickets <Icon name="external" /></a>
+        <Link className="btn btn-primary sticky-ticket" to={`/embed/tickets/${t.id}`} onClick={() => track('ticket_click', { tournament: t.id, source: 'detail-sticky' })}>Koop tickets <Icon name="ticket" /></Link>
       )}
       <div style={{ height: 70 }} />
       {toast && <Toast text={toast} onDone={() => setToast(null)} />}

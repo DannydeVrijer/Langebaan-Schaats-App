@@ -12,7 +12,7 @@ export default function Tournaments() {
         {tournaments.map((t) => (
           <div key={t.id}>
             <HeroCard t={t} />
-            {t.ticketUrl && <a className="btn btn-secondary" style={{ marginTop: 8 }} href={t.ticketUrl} target="_blank" rel="noreferrer">Koop tickets <Icon name="external" /></a>}
+            {t.ticketUrl && <Link className="btn btn-secondary" style={{ marginTop: 8 }} to={`/embed/tickets/${t.id}`}>Koop tickets <Icon name="ticket" /></Link>}
           </div>
         ))}
       </div>

@@ -87,9 +87,9 @@ export default function Home() {
         <Countdown iso={next.start} />
         <div className="btn-row" style={{ marginTop: 14 }}>
           {next.ticketUrl && (
-            <a className="btn btn-primary" href={next.ticketUrl} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { tournament: next.id, source: 'home' })}>
-              Koop tickets <Icon name="external" />
-            </a>
+            <Link className="btn btn-primary" to={`/embed/tickets/${next.id}`} onClick={() => track('ticket_click', { tournament: next.id, source: 'home' })}>
+              Koop tickets <Icon name="ticket" />
+            </Link>
           )}
           <Link className="btn btn-secondary" to={`/toernooi/${next.id}?tab=programma`}>Programma</Link>
         </div>
