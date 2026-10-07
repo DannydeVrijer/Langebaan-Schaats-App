@@ -12,6 +12,7 @@ export type Message =
   | { id: string; kind: 'optin'; day: string; time: string; text: string }
   | { id: string; kind: 'share'; day: string; time: string; text: string }
   | { id: string; kind: 'image'; day: string; time: string; text: string; image: string }
+  | { id: string; kind: 'video'; day: string; time: string; text: string; video: string; poster?: string }
   | { id: string; kind: 'cta'; day: string; time: string; text: string; label: string; href: string }
   | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[]; followUps: Record<string, string> }
   | { id: string; kind: 'route'; day: string; time: string; text: string; tournamentId: string };

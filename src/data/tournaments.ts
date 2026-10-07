@@ -6,7 +6,7 @@
  * aangeleverd worden — zie CONTENT-CHECKLIST.md.
  */
 
-export type SessionItem = { time: string; what: string; note?: string };
+export type SessionItem = { time: string; what: string; note?: string; kind?: 'rit' | 'pauze' | 'deuren' | 'ceremonie' };
 export type ProgramDay = { label: string; date: string; items: SessionItem[] };
 
 export type Tournament = {
@@ -67,16 +67,19 @@ export const tournaments: Tournament[] = [
       { label: 'Vr', date: '2026-10-30', items: [
         { time: '17:00', what: 'Deuren open', note: '[aanleveren: exacte tijd]' },
         { time: '18:30', what: '500m dames & heren', note: stdProgramNote },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '20:00', what: '3000m dames / 5000m heren' },
       ]},
       { label: 'Za', date: '2026-10-31', items: [
         { time: '13:00', what: 'Deuren open' },
         { time: '14:30', what: '1000m dames & heren' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:30', what: '1500m dames & heren' },
       ]},
       { label: 'Zo', date: '2026-11-01', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: '500m (2e omloop) & massastart' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:00', what: '5000m dames / 10.000m heren' },
       ]},
     ],
@@ -106,16 +109,19 @@ export const tournaments: Tournament[] = [
       { label: 'Vr', date: '2026-12-04', items: [
         { time: '16:30', what: 'Deuren open' },
         { time: '18:00', what: 'Divisie B' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '19:30', what: 'Divisie A – 500m, 1500m', note: stdProgramNote },
       ]},
       { label: 'Za', date: '2026-12-05', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: 'Divisie A – 1000m, 3000/5000m' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '17:00', what: 'Teamsprint' },
       ]},
       { label: 'Zo', date: '2026-12-06', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: 'Divisie A – 500m, 1500m' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:30', what: 'Massastart dames & heren' },
       ]},
     ],
@@ -144,11 +150,13 @@ export const tournaments: Tournament[] = [
       { label: 'Zo', date: '2026-12-27', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: 'Sprint: 500m & 1000m (dag 1)' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:00', what: 'Allround: 500m & 3000/5000m' },
       ]},
       { label: 'Ma', date: '2026-12-28', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: 'Sprint: 500m & 1000m (dag 2)' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:00', what: 'Allround: 1500m & 5000/10.000m' },
       ]},
     ],
@@ -178,6 +186,7 @@ export const tournaments: Tournament[] = [
       { label: 'Vr', date: '2027-01-08', items: [
         { time: '16:30', what: 'Deuren open' },
         { time: '18:00', what: 'Sprint 500m & Allround 500m' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '20:00', what: 'Allround 3000/5000m' },
       ]},
       { label: 'Za', date: '2027-01-09', items: [
@@ -187,6 +196,7 @@ export const tournaments: Tournament[] = [
       { label: 'Zo', date: '2027-01-10', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: 'Sprint 500m & 1000m (dag 2)' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:30', what: 'Allround 5000/10.000m – finale' },
       ]},
     ],
@@ -216,16 +226,19 @@ export const tournaments: Tournament[] = [
       { label: 'Vr', date: '2027-01-22', items: [
         { time: '17:00', what: 'Deuren open' },
         { time: '18:30', what: '500m dames & heren' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '20:00', what: '5000m heren' },
       ]},
       { label: 'Za', date: '2027-01-23', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: '1000m dames & heren' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:00', what: '3000m dames / 10.000m heren' },
       ]},
       { label: 'Zo', date: '2027-01-24', items: [
         { time: '12:00', what: 'Deuren open' },
         { time: '13:30', what: '1500m dames & heren' },
+        { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
         { time: '16:00', what: 'Massastart & 5000m dames' },
       ]},
     ],
@@ -248,6 +261,7 @@ export const venueInfo = {
   address: 'Pim Mulierlaan 1, 8443 DA Heerenveen',
   mapsUrl: 'https://maps.google.com/?q=Thialf,+Pim+Mulierlaan+1,+Heerenveen',
   parking: '[aanleveren: parkeerterreinen P1/P2/P3, tarieven, voorverkoop parkeerticket, invalidenparkeren]',
+  parkingTicketUrl: '[aanleveren: link parkeerticket in ticketshop (Paylogic-product) of Thialf-parkeerpagina]',
   publicTransport:
     'Station Heerenveen ligt op ca. 2 km van Thialf. [aanleveren: pendelbus/looproute, buslijnen, laatste trein-advies]',
   bike: '[aanleveren: fietsenstalling, bewaakt/onbewaakt]',
@@ -268,6 +282,7 @@ export const venueInfo = {
 export const journey = [
   { id: 'aankomst', title: 'Aankomst', items: [
     { icon: 'car', t: 'Met de auto', s: venueInfo.parking },
+    { icon: 'ticket', t: 'Parkeerticket vooraf', s: 'Koop je parkeerplek vooraf en rij zonder zoeken naar binnen. [aanleveren: parkeerproduct/link]', to: '/embed/parkeren' },
     { icon: 'train', t: 'Trein + bus', s: venueInfo.publicTransport },
     { icon: 'skate', t: 'Fiets', s: venueInfo.bike },
   ]},

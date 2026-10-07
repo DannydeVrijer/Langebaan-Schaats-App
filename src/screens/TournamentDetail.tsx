@@ -41,7 +41,7 @@ export default function TournamentDetail() {
   const doors = prog.items.find((i) => /deuren/i.test(i.what));
   const races = prog.items.filter((i) => !/deuren/i.test(i.what));
   const isToday = prog.date === today();
-  const nextIdx = isToday ? races.findIndex((r) => r.time > nowHM()) : -1;
+  const nextIdx = isToday ? races.findIndex((r) => r.kind !== 'pauze' && /^\d/.test(r.time) && r.time > nowHM()) : -1;
 
   return (
     <div className="screen">
@@ -110,8 +110,8 @@ export default function TournamentDetail() {
             {races.map((it, i) => {
               const state = !isToday ? '' : i < nextIdx || nextIdx === -1 ? 'done' : i === nextIdx ? 'next' : '';
               return (
-                <div key={i} className={`tl-item ${state}`}>
-                  <div className="time">{it.time}{state === 'next' && <span className="pill live" style={{ marginLeft: 8 }}>Volgende</span>}{state === 'done' && <span className="faint small" style={{ marginLeft: 8 }}>afgelopen</span>}</div>
+                <div key={i} className={`tl-item ${state} ${it.kind === 'pauze' ? 'pauze' : ''}`}>
+                  <div className="time">{it.kind === 'pauze' && <Icon name="ice" />} {it.time}{state === 'next' && <span className="pill live" style={{ marginLeft: 8 }}>Volgende</span>}{state === 'done' && <span className="faint small" style={{ marginLeft: 8 }}>afgelopen</span>}</div>
                   <div className="what">{it.what}</div>
                   {it.note && <div className="note"><Ph text={it.note} /></div>}
                 </div>
@@ -174,9 +174,10 @@ export default function TournamentDetail() {
             <section key={sec.id} style={{ marginBottom: 18 }}>
               <h3 className="display" style={{ marginBottom: 8 }}>{sec.title}</h3>
               <div className="list">
-                {sec.items.map((it) => (
-                  <div className="row" key={it.t}><span className="ico">{icons[it.icon as keyof typeof icons]}</span><span className="body"><span className="title">{it.t}</span><span className="sub"><Ph text={it.s} /></span></span></div>
-                ))}
+                {sec.items.map((it) => {
+                  const inner = <><span className="ico">{icons[it.icon as keyof typeof icons]}</span><span className="body"><span className="title">{it.t}</span><span className="sub"><Ph text={it.s} /></span></span>{'to' in it && it.to && <Icon name="chev" />}</>;
+                  return 'to' in it && it.to ? <Link className="row" key={it.t} to={it.to}>{inner}</Link> : <div className="row" key={it.t}>{inner}</div>;
+                })}
               </div>
             </section>
           ))}

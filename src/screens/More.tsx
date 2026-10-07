@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../state';
 import { faq, sponsors, socials, tournaments } from '../data/tournaments';
+import { embeds } from '../data/embeds';
 import { TopBar, Icon, ShareButton, Quotes, Ph } from '../components/ui';
 
 export default function More() {
@@ -33,6 +34,16 @@ export default function More() {
         <p className="muted small" style={{ marginBottom: 12 }}>Schaatsen is leuker samen. Stuur de app door en plan jullie toernooi.</p>
         <ShareButton text="Ga je mee schaatsen kijken in Thialf? Alles staat in deze app:" />
       </div>
+
+      <section className="section">
+        <div className="section-head"><h3 className="display">Handig</h3></div>
+        <div className="list">
+          <Link to="/uitleg" className="row"><span className="ico"><Icon name="rules" /></span><span className="body"><span className="title">Zo werkt schaatsen</span><span className="sub">World Cup, allround, sprint, regels, dweilpauze</span></span><Icon name="chev" /></Link>
+          {embeds.map((e) => (
+            <Link key={e.id} to={`/embed/${e.id}`} className="row"><span className="ico"><Icon name={e.id === 'game' ? 'star' : e.id === 'parkeren' ? 'car' : 'ticket'} /></span><span className="body"><span className="title">{e.title}</span><span className="sub"><Ph text={e.url.startsWith('[') ? e.url : 'Binnen de app'} /></span></span><Icon name="chev" /></Link>
+          ))}
+        </div>
+      </section>
 
       <section className="section">
         <div className="section-head"><h3 className="display">Wat schaatsers en fans zeggen</h3></div>

@@ -22,7 +22,7 @@ export default function Home() {
   /* ---------- DAG-MODUS: op de wedstrijddag verandert home ---------- */
   if (isLive) {
     const prog = next.program.find((p) => p.date === today());
-    const races = prog?.items.filter((i) => !/deuren/i.test(i.what)) ?? [];
+    const races = prog?.items.filter((i) => !/deuren/i.test(i.what) && i.kind !== 'pauze') ?? [];
     const doors = prog?.items.find((i) => /deuren/i.test(i.what));
     const nextIdx = races.findIndex((r) => r.time > nowHM());
     const current = nextIdx > 0 ? races[nextIdx - 1] : null;
@@ -153,7 +153,7 @@ export default function Home() {
           <Link to={`/toernooi/${next.id}?tab=praktisch`} className="tile"><Icon name="car" /><span className="t">Route & parkeren</span><span className="s">Auto, trein, fiets</span></Link>
           <Link to={`/toernooi/${next.id}?tab=praktisch`} className="tile"><Icon name="map" /><span className="t">Plattegrond</span><span className="s">Ingangen, tribunes, horeca</span></Link>
           <Link to={`/toernooi/${next.id}?tab=programma`} className="tile"><Icon name="calendar" /><span className="t">Programma</span><span className="s">Tijdschema per dag</span></Link>
-          <Link to="/meer" className="tile"><Icon name="info" /><span className="t">FAQ</span><span className="s">Veelgestelde vragen</span></Link>
+          <Link to="/uitleg" className="tile"><Icon name="rules" /><span className="t">Zo werkt schaatsen</span><span className="s">Regels, formats, dweilpauze</span></Link>
         </div>
       </section>
     </div>

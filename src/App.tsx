@@ -10,6 +10,8 @@ import Tickets from './screens/Tickets';
 import Messages from './screens/Messages';
 import More from './screens/More';
 import Skaters, { SkaterDetail } from './screens/Skaters';
+import Explain, { ExplainDetail } from './screens/Explain';
+import Embed from './screens/Embed';
 
 function ScrollTop() {
   const { pathname, search } = useLocation();
@@ -40,6 +42,10 @@ function Shell() {
             <Route path="/schaatser/:id" element={<SkaterDetail />} />
             <Route path="/berichten" element={<Messages />} />
             <Route path="/meer" element={<More />} />
+            <Route path="/uitleg" element={<Explain />} />
+            <Route path="/uitleg/:id" element={<ExplainDetail />} />
+            <Route path="/embed/:kind" element={<Embed />} />
+            <Route path="/embed/:kind/:id" element={<Embed />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </>
         )}

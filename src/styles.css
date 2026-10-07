@@ -289,6 +289,21 @@ p { line-height: 1.5; margin: 0 0 10px; }
 .tl-item .time { font-family: var(--font-display); font-size: 17px; letter-spacing: .06em; color: var(--ice-300); }
 .tl-item .what { font-weight: 600; margin-top: 2px; }
 .tl-item .note { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+.tl-item.pauze { padding: 8px 12px 10px; margin: 0 0 14px; background: var(--glass); border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); }
+.tl-item.pauze::before { background: var(--ink-700); box-shadow: 0 0 0 4px rgba(168,207,253,.12); }
+.tl-item.pauze .time { font-size: 15px; color: var(--ice-200); display: inline-flex; align-items: center; gap: 6px; }
+.tl-item.pauze .what { font-weight: 500; color: var(--text-muted); }
+.msg-video { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; margin-top: 8px; background: #000; }
+/* embed-scherm (Paylogic / Playable) */
+.embed-frame { width: 100%; height: calc(100dvh - var(--nav-h) - 120px); min-height: 420px; border: 0; border-radius: var(--radius-sm); background: var(--white); }
+/* uitleg */
+.explain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.explain-card { display: flex; flex-direction: column; gap: 6px; padding: 14px; background: var(--glass); border: 1px solid var(--line); border-radius: var(--radius-sm); min-height: 96px; }
+.explain-card .t { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 16px; line-height: 1; }
+.explain-card .s { font-size: 13px; color: var(--text-muted); }
+.explain-card .ico { font-size: 22px; color: var(--ice-300); }
+.glossary dt { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 15px; letter-spacing: .02em; margin-top: 12px; }
+.glossary dd { margin: 4px 0 0; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
 
 /* tabs in toernooi-detail */
 .tabs { display: flex; border-bottom: 1px solid var(--line); margin: 18px 0; overflow-x: auto; scrollbar-width: none; }

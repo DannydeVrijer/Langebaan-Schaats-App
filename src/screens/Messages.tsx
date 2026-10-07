@@ -62,6 +62,9 @@ export default function Messages() {
                 <div className="bubble">
                   {m.text}
                   {m.kind === 'image' && <img src={m.image} alt="" />}
+                  {m.kind === 'video' && (/youtube|youtu\.be|vimeo/.test(m.video)
+                    ? <iframe className="msg-video" src={m.video} title="video" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+                    : <video className="msg-video" src={m.video} poster={m.poster} controls playsInline preload="metadata" />)}
                   {m.kind === 'cta' && <div className="cta"><a className="btn btn-primary" href={m.href} target="_blank" rel="noreferrer" onClick={() => track('ticket_click', { source: 'chat', message: m.id })}>{m.label} <Icon name="external" /></a></div>}
                   {m.kind === 'route' && <div className="cta"><Link className="btn btn-secondary" to={`/toernooi/${m.tournamentId}?tab=programma`}>Programma {byId(m.tournamentId)?.shortName}</Link></div>}
                   {m.kind === 'optin' && (
