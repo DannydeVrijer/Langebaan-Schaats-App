@@ -16,6 +16,7 @@ Communicatie-app voor bezoekers van de langebaantoernooien in Thialf (seizoen 20
 - **Meer** – mijn toernooien, meldingen, delen, Handig, quotes, FAQ, contact, socials, partners, demo-/fan-weergave
 
 **Roadmap: alle paden, bezoekersreis, ontbrekende info en aanbevelingen → [ROADMAP.md](ROADMAP.md)**
+**Wijzigingen per versie → [CHANGELOG.md](CHANGELOG.md)** (terugdraaien: commit op GitHub → Revert)
 **Totaalplan next level (stores, insteek, live data, koppelingen, kosten, fasering) → [PLAN.md](PLAN.md)**
 
 Alles tussen `[ ]` is placeholder → zie **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)**.

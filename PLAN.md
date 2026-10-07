@@ -14,10 +14,12 @@ Volledige versie: Claude-doc *Schaatsfan App – plan naar next level*. Dit is d
 - Doorlooptijd 6–10 weken; Android eerst, iOS daarna.
 
 ## Insteek
-- Advies: combinatie – gast standaard, account optioneel op het moment dat het iets oplevert (favorieten-melding, tickets, winactie). Magic-link login, Brevo-sync alleen bij marketing-opt-in.
+- Nog niet besloten. Advies: combinatie – gast standaard, account optioneel op het moment dat het iets oplevert (favorieten-melding, tickets, winactie). Magic-link login, Brevo-sync alleen bij marketing-opt-in.
 - Web app kan live berichten/push: berichten uit CMS/backend, Web Push (Android direct, iOS na beginscherm) of native push.
 
 ## Live data
+- Bron: KNSB-tijdwaarneming; uitslagenplatform (liveresults.schaatsen.nl én live.isuresults.eu, waar ook de ISU-app uit leest) is gebouwd door SCG – Sport Computer Graphics (Tynaarlo). Feed aanvragen bij KNSB met SCG als technische partij.
+- Refresh: stadionschermen hangen direct aan de tijdwaarneming; app realistisch 1–3 s daarachter met push-verbinding (WebSocket/SSE), 3–5 s met polling. Per ronde updaten is voorwaarde.
 - Alles (tijden, snelheid, ranking, voorspelde eindtijd, je rit bijhouden) hangt aan toegang tot de KNSB-feed (`live-api.schaatsen.nl`: CORS-whitelist of tussenlaag + toestemming).
 - Thialf-tijdwaarneming levert rondetijden, snelheid per baanvak, positie. Sportity heeft geen API/export → geen bron.
 
@@ -39,6 +41,14 @@ Volledige versie: Claude-doc *Schaatsfan App – plan naar next level*. Dit is d
 
 ## Kosten (indicatie)
 Diensten < €2.000/jr; bouw €5.000–20.000 bij bureau (excl. Playable €3.000–10.000); stores $124 jaar 1.
+
+## Changelog & terugdraaien
+- `CHANGELOG.md` per versie; Git-commits tonen exact wat erbij/eraf ging; terugdraaien via Revert (GitHub) of op verzoek.
+
+## Paylogic aanleveren
+1. Nu: shop-URL's, parkeerproduct-URL, "Mijn tickets"-URL (openbaar, in chat).
+2. Later: API-toegang (Merchant ID + refresh token) via accountmanager – alleen als GitHub-secret/wachtwoordkluis, nooit in chat; verwerkersovereenkomst.
+3. Daarna: webhooks/exports voor automatische berichten na aankoop.
 
 ## Beslissingen nodig
 KNSB-feed & merk · Paylogic-API · account ja/nee · stores starten · fotorechten · Playable-licentie · afzender/beheer · content A-items · budget.

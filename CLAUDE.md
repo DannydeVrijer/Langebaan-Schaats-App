@@ -22,3 +22,4 @@
 - Routing via HashRouter (werkt op GitHub Pages); assets via `asset()` i.v.m. base path.
 - Na elke wijziging: `npm run build` moet slagen; screenshots op mobiel formaat maken bij visuele wijzigingen.
 - Commit-berichten in het Nederlands, kort en beschrijvend.
+- **Changelog verplicht:** elke wijziging (code én content) als regel in `CHANGELOG.md` onder de actuele versie: Toegevoegd/Gewijzigd/Verwijderd/Teruggedraaid + commit-code. Versienummer ook in `src/screens/More.tsx` ("Conceptversie x.y"). Terugdraaien gebeurt altijd met `git revert` (nooit history herschrijven) en krijgt een regel "Teruggedraaid".

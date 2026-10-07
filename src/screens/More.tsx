@@ -83,7 +83,7 @@ export default function More() {
       {demo && (
         <>
           <button className="btn btn-ghost" style={{ marginTop: 8 }} onClick={() => { reset(); nav('/'); }}>Opnieuw beginnen (reset demo)</button>
-          <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.5 · #MVS</p>
+          <p className="faint small" style={{ textAlign: 'center', marginTop: 14 }}>Conceptversie 0.6 · #MVS</p>
         </>
       )}
     </div>
