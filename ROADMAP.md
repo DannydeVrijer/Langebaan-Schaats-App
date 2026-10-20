@@ -89,7 +89,7 @@ De grootste gaten zitten in **reisdag** en **in Thialf** — precies de momenten
 **Privacy:** toestemming per doel, privacyverklaring, verwerkersovereenkomst Brevo (bestaat waarschijnlijk al), recht op inzage/verwijderen (knop "verwijder mijn account"), geen koppeling met ticketdata zonder apart akkoord. **Werk:** M. **Wanneer:** fase 2, ná E/F zodat de data meteen bruikbaar is.
 
 ### J. Activaties & partnercontent — *beleving + commercie*
-**In het stadion:** quiz tijdens de dweilpauze, "voorspel de winnende tijd" (dichtstbij wint), wave-timer, foto-opdracht (#MVS), spot-de-code op het scorebord, partner-winactie (bijv. Daikin: raad de temperatuur van het ijs).
+**In het stadion:** **Most OK Game (OK, gebouwd 20 okt – schattingsvraag, meest OK antwoord wint; onthulling in dweilpauze)**, quiz tijdens de dweilpauze, "voorspel de winnende tijd" (dichtstbij wint), wave-timer, foto-opdracht (#MVS), spot-de-code op het scorebord, partner-winactie (bijv. Daikin: raad de temperatuur van het ijs).
 **Thuis:** voorspel het podium, stemmen op "rit van de dag", meekijk-poll tijdens de uitzending.
 **Hoe:** activatie = berichttype met formulier/keuze + (optioneel) winnaar-selectie; aan partner te hangen met logo/branding. Vereist E (CMS) en voor winacties naam/e-mail van deelnemer.
 **Privacy:** actievoorwaarden, bewaartermijn deelnemersdata, geen doorgifte aan partner zonder opt-in. **Werk:** M. **Wanneer:** fase 2, eerste activatie bij World Cup.

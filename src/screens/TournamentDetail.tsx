@@ -110,15 +110,15 @@ export default function TournamentDetail() {
             {races.map((it, i) => {
               const state = !isToday ? '' : i < nextIdx || nextIdx === -1 ? 'done' : i === nextIdx ? 'next' : '';
               return (
-                <div key={i} className={`tl-item ${state} ${it.kind === 'pauze' ? 'pauze' : ''}`}>
-                  <div className="time">{it.kind === 'pauze' && <Icon name="ice" />} {it.time}{state === 'next' && <span className="pill live" style={{ marginLeft: 8 }}>Volgende</span>}{state === 'done' && <span className="faint small" style={{ marginLeft: 8 }}>afgelopen</span>}</div>
+                <div key={i} className={`tl-item ${state} ${it.kind === 'pauze' ? 'pauze' : ''} ${it.kind === 'ceremonie' ? 'soft' : ''}`}>
+                  <div className="time">{it.kind === 'pauze' && <Icon name="ice" />} {it.time.startsWith('[') ? <span className="faint" style={{ fontSize: 13, letterSpacing: 0, fontFamily: 'var(--font-body)' }}>tijd volgt</span> : it.time}{state === 'next' && <span className="pill live" style={{ marginLeft: 8 }}>Volgende</span>}{state === 'done' && <span className="faint small" style={{ marginLeft: 8 }}>afgelopen</span>}</div>
                   <div className="what">{it.what}</div>
                   {it.note && <div className="note"><Ph text={it.note} /></div>}
                 </div>
               );
             })}
           </div>
-          <p className="faint small">Concept-tijdschema; definitieve tijden volgen van de KNSB.</p>
+          <p className="faint small">Programma volgens magievanschaatsen.nl; kan nog wijzigen. Starttijden per afstand volgen.</p>
 
           <a className="btn btn-secondary" href={t.liveUrl ?? 'https://liveresults.schaatsen.nl/home'} target="_blank" rel="noreferrer" onClick={() => track('live_click', { tournament: t.id })}>
             {isLive ? 'Live uitslagen' : 'Startlijsten & uitslagen (KNSB)'} <Icon name="external" />
@@ -155,10 +155,22 @@ export default function TournamentDetail() {
             <h3 className="display">Dit maakt dit toernooi anders</h3>
             <ul className="muted small" style={{ margin: '8px 0 0', paddingLeft: 18, lineHeight: 1.7 }}>{t.highlights.map((h) => <li key={h}>{h}</li>)}</ul>
           </div>
-          <div className="card">
-            <div className="card-title-row"><h3 className="display">Side-events & nieuws</h3><span className="pill soon">Volgt</span></div>
-            <p className="muted small" style={{ margin: 0 }}><Ph text="[aanleveren: fan village, meet & greet, kids-activiteiten, nieuwsitems]" /></p>
-          </div>
+          {t.extras?.length ? (
+            <div className="card">
+              <h3 className="display" style={{ marginBottom: 8 }}>Extra's van onze partners</h3>
+              <div className="list">
+                {t.extras.map((e) => (
+                  <div className="row" key={e.partner}><span className="ico"><Icon name="star" /></span><span className="body"><span className="title">{e.partner}</span><span className="sub"><Ph text={e.text} /></span></span></div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="card">
+              <div className="card-title-row"><h3 className="display">Side-events & nieuws</h3><span className="pill soon">Volgt</span></div>
+              <p className="muted small" style={{ margin: 0 }}><Ph text="[aanleveren: fan village, meet & greet, kids-activiteiten, nieuwsitems]" /></p>
+            </div>
+          )}
+          {t.infoUrl && <a className="btn btn-ghost" style={{ marginTop: 12 }} href={t.infoUrl} target="_blank" rel="noreferrer">Alles over dit toernooi <Icon name="external" /></a>}
           {demo && t.todo && (
             <div className="card" style={{ borderColor: 'rgba(255,209,102,.35)' }}>
               <span className="todo">Nog aan te leveren voor dit toernooi</span>

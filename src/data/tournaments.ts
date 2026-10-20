@@ -35,6 +35,8 @@ export type Tournament = {
   lossFrame?: string;        // één feitelijke zin waarom dit toernooi uniek is
   topSkaters?: string[];     // schaatser-id's (zie skaters.ts) die (naar verwachting) aan de start staan
   liveUrl?: string;          // liveresults.schaatsen.nl event-pagina zodra bekend
+  extras?: { partner: string; text: string }[]; // partner-extra's op het event (bron: magievanschaatsen.nl)
+  infoUrl?: string;          // eventpagina magievanschaatsen.nl
 };
 
 const THIALF = 'Thialf';
@@ -58,32 +60,56 @@ export const tournaments: Tournament[] = [
     city: 'Heerenveen',
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/7ea4c49ff00f41d3acc549e0fdab376f/tickets',
+    infoUrl: 'https://www.magievanschaatsen.nl/worldcupkwalificatietoernooi',
     ticketStatus: 'onsale',
-        hero: asset('img/hero-skater.png'),
+    hero: asset('img/hero-skater.png'),
     description:
-      'De seizoensopener in Thialf. Drie dagen lang strijden de beste Nederlandse schaatsers om de felbegeerde startplekken voor de ISU World Cups en kampioenschappen. Niets is zeker, alles staat op scherp.',
-    highlights: ['Startbewijzen World Cup & EK', 'Alle afstanden', 'Nederlandse top compleet'],
+      'De seizoensopener in Thialf en dé kwalificatie voor de ISU World Cups. Drie dagen lang strijden de Nederlandse schaatstoppers – inclusief de medaillewinnaars van Milaan-Cortina – om een plek in de World Cup-ploeg. Niets is zeker, alles staat op scherp.',
+    highlights: ['Startbewijzen voor de ISU World Cups', 'Alle afstanden, massastart, teamachtervolging én sprintmarathon', 'Nederlandse top compleet'],
+    /* Bron: magievanschaatsen.nl/worldcupkwalificatietoernooi (20 okt 2026). Programma kan nog wijzigen. */
     program: [
       { label: 'Vr', date: '2026-10-30', items: [
-        { time: '17:00', what: 'Deuren open', note: '[aanleveren: exacte tijd]' },
-        { time: '18:30', what: '500m dames & heren', note: stdProgramNote },
+        { time: '16:30', what: 'Deuren open', kind: 'deuren' },
+        { time: '17:00', what: 'Stadionprogramma', kind: 'ceremonie', note: 'Entertainment en opwarmen voor de eerste rit' },
+        { time: '18:00', what: '5000m mannen', note: 'Start wedstrijden' },
         { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
-        { time: '20:00', what: '3000m dames / 5000m heren' },
+        { time: '[ ]', what: '500m mannen (1e omloop)' },
+        { time: '[ ]', what: '1500m vrouwen' },
+        { time: '[ ]', what: '500m mannen (2e omloop)' },
+        { time: '22:15', what: 'Einde programma', kind: 'ceremonie' },
       ]},
       { label: 'Za', date: '2026-10-31', items: [
-        { time: '13:00', what: 'Deuren open' },
-        { time: '14:30', what: '1000m dames & heren' },
+        { time: '12:40', what: 'Deuren open', kind: 'deuren' },
+        { time: '13:10', what: 'Stadionprogramma', kind: 'ceremonie' },
+        { time: '14:10', what: '3000m vrouwen', note: 'Start wedstrijden' },
+        { time: '[ ]', what: '500m vrouwen (1e omloop)' },
         { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
-        { time: '16:30', what: '1500m dames & heren' },
+        { time: '[ ]', what: '1500m mannen' },
+        { time: '[ ]', what: '500m vrouwen (2e omloop)' },
+        { time: '[ ]', what: 'Sprintmarathon vrouwen & mannen' },
+        { time: '17:40', what: 'Einde programma', kind: 'ceremonie' },
       ]},
       { label: 'Zo', date: '2026-11-01', items: [
-        { time: '12:00', what: 'Deuren open' },
-        { time: '13:30', what: '500m (2e omloop) & massastart' },
+        { time: '10:30', what: 'Deuren open', kind: 'deuren' },
+        { time: '11:00', what: 'Stadionprogramma', kind: 'ceremonie' },
+        { time: '12:00', what: '10.000m mannen', note: 'Start wedstrijden' },
+        { time: '[ ]', what: '5000m vrouwen' },
         { time: '[ ]', what: 'Dweilpauze', kind: 'pauze', note: '[aanleveren: dweiltijden per blok]' },
-        { time: '16:00', what: '5000m dames / 10.000m heren' },
+        { time: '[ ]', what: '1000m vrouwen' },
+        { time: '[ ]', what: '1000m mannen' },
+        { time: '[ ]', what: 'Massastart vrouwen & mannen' },
+        { time: '[ ]', what: 'Teamachtervolging vrouwen & mannen' },
+        { time: '19:00', what: 'Einde programma', kind: 'ceremonie' },
       ]},
     ],
-    todo: ['Programma per dag', 'Ticketprijzen & categorieën', 'Deelnemerslijst'],
+    extras: [
+      { partner: 'X²O', text: 'Gratis Ducky-muts, zolang de voorraad strekt.' },
+      { partner: 'Odido', text: 'Gratis laadzuilen voor je telefoon op de omloop.' },
+      { partner: 'Schaatsteam Reggeborgh', text: 'Merchandise bij de Sven Kramer-bocht; een deel van de opbrengst gaat naar de Reggeborgh Foundation.' },
+      { partner: 'Staatsloterij', text: 'Scan & Win-actie – meer info volgt.' },
+      { partner: 'Dweilpauze', text: 'Entertainment tijdens de dweilpauzes wordt later bekendgemaakt.' },
+    ],
+    todo: ['Starttijden per afstand (nu alleen blokstart/einde)', 'Ticketprijzen & categorieën', 'Deelnemerslijst', 'Dweilpauze-entertainment'],
   },
   {
     id: 'wc-heerenveen',
@@ -132,7 +158,7 @@ export const tournaments: Tournament[] = [
     topSkaters: ['patrick-roest','joy-beune','jenning-de-boo','femke-kok','marijke-groenewoud','merijn-scheperkamp'],
     liveUrl: 'https://liveresults.schaatsen.nl/events',
     slug: 'nk-allround-sprint',
-    name: 'NK Allround & Sprint',
+    name: 'OK NK Allround & Sprint',
     shortName: 'NK Allround',
     subtitle: 'Wie wordt kampioen van Nederland?',
     start: '2026-12-27',
@@ -208,7 +234,7 @@ export const tournaments: Tournament[] = [
     liveUrl: 'https://liveresults.schaatsen.nl/events',
     lossFrame: 'Laatste toernooi in Thialf dit seizoen.',
     slug: 'nk-afstanden',
-    name: 'NK Afstanden',
+    name: 'OK NK Afstanden',
     shortName: 'NK Afstanden',
     subtitle: 'De laatste tickets voor het WK',
     start: '2027-01-22',
@@ -260,22 +286,30 @@ export const venueInfo = {
   name: 'Thialf',
   address: 'Pim Mulierlaan 1, 8443 DA Heerenveen',
   mapsUrl: 'https://maps.google.com/?q=Thialf,+Pim+Mulierlaan+1,+Heerenveen',
-  parking: '[aanleveren: parkeerterreinen P1/P2/P3, tarieven, voorverkoop parkeerticket, invalidenparkeren]',
-  parkingTicketUrl: '[aanleveren: link parkeerticket in ticketshop (Paylogic-product) of Thialf-parkeerpagina]',
+  /* Bron: magievanschaatsen.nl (20 okt 2026) */
+  parking: 'Koop vooraf een parkeerticket; parkeren in de woonwijken rond Thialf wordt gecontroleerd. Afzetten kan bij de Kiss & Ride bij P1. Openbare laadpalen voor elektrische auto\'s in de omgeving. [aanleveren: parkeerterreinen en tarieven]',
+  parkingTicketUrl: '[aanleveren: link parkeerticket in ticketshop (Paylogic-product)]',
   publicTransport:
-    'Station Heerenveen ligt op ca. 2 km van Thialf. [aanleveren: pendelbus/looproute, buslijnen, laatste trein-advies]',
-  bike: '[aanleveren: fietsenstalling, bewaakt/onbewaakt]',
-  doorsOpen: '[aanleveren: standaard tijd deuren open per sessie]',
+    'Stap uit op station Heerenveen en neem de Thialf Express (Qbuzz lijn 815). De bus rijdt vanaf 1,5 uur vóór de eerste wedstrijd tot 1,5 uur na de laatste.',
+  bike: 'Fietsenstallingen bij Thialf. [aanleveren: bewaakt/onbewaakt]',
+  doorsOpen: 'Deuren open: vr 16:30 · za 12:40 · zo 10:30 (WCKT). Daarna eerst het stadionprogramma, de wedstrijden starten een uur later.',
+  bags: 'Tas maximaal A4-formaat. Geen rugzakken, sporttassen, koffers of trolleys – er zijn geen kluisjes. Kinderwagens, buggy\'s, rollators en wandeldriepoten blijven buiten (beperkte ruimte bij de informatiebalie, op eigen risico); een wandelstok mag mee.',
   houseRules: [
+    'Eten en drinken van buiten is niet toegestaan; blik, glas, flessen, koelboxen en klapstoelen blijven buiten.',
+    'Fotograferen mag vanaf de tribune met een objectief tot 55 mm.',
+    'Roken en vapen is verboden.',
+    'Op de staantribunes zijn kussens, dekens en eigen stoelen niet toegestaan.',
+    'Honden zijn niet welkom, behalve blindengeleide- en hulphonden.',
     'Legitimatie verplicht bij alcoholverkoop (NIX18).',
-    'Geen eigen eten/drinken, glas of professionele camera\'s. [bevestigen]',
-    'Vuurwerk, toeters en vlaggenstokken: [beleid aanleveren]',
-    'Rookvrij stadion.',
   ],
-  accessibility: '[aanleveren: rolstoelplaatsen, begeleiderstickets, liften, mindervalide parkeren]',
-  food: '[aanleveren: horeca-aanbod, betaalwijze (pin only?), munten/cashless]',
-  lockers: '[aanleveren: garderobe/kluisjes]',
+  accessibility: 'Mindervaliden hebben eigen tickets en een eigen tribune bij de Sven Kramer-bocht, met één begeleider per bezoeker. Rolstoelen zijn buiten die plek niet toegestaan. Er is geen aparte kolfruimte. [aanleveren: mindervalide parkeren, liften]',
+  food: 'Cateringpunten op de omloop achter de Sven Kramer-bocht, bij de West- en Oost-tribune en bij de Ireen Wüst-bocht. Betalen met muntjes van € 4,50 uit de muntautomaten (alleen pin, geen contant). Zitten kan in de Brasserie op de begane grond bij de hoofdentree.',
+  cups: 'Bekersysteem: bij de entree krijg je een recycle-token, die ruil je om voor een beker en lever je na afloop weer in. Zonder beker of token betaal je een halve munt extra.',
+  lockers: 'Geen kluisjes of garderobe – neem alleen mee wat in een A4-tas past. [aanleveren: toiletten, EHBO, verloren voorwerpen]',
+  charging: 'Gratis laadzuilen van Odido voor je telefoon op de omloop. [aanleveren: wifi]',
   familyInfo: '[aanleveren: kinderen t/m x jaar gratis? Kids-activiteiten?]',
+  tickets: 'Scan je ticket vanaf je telefoon bij de ingang; printen mag ook als de barcode leesbaar is. Omruilen naar een andere dag kan zolang er plek is; terugbetalen is niet mogelijk. Vragen over je tickets: klantenservice van Paylogic.',
+  contact: 'schaatsen@houseofsports.nl',
 };
 
 /** Praktische info in reisvolgorde. Teksten tussen [ ] zijn placeholders. */
@@ -283,46 +317,54 @@ export const journey = [
   { id: 'aankomst', title: 'Aankomst', items: [
     { icon: 'car', t: 'Met de auto', s: venueInfo.parking },
     { icon: 'ticket', t: 'Parkeerticket vooraf', s: 'Koop je parkeerplek vooraf en rij zonder zoeken naar binnen. [aanleveren: parkeerproduct/link]', to: '/embed/parkeren' },
-    { icon: 'train', t: 'Trein + bus', s: venueInfo.publicTransport },
-    { icon: 'skate', t: 'Fiets', s: venueInfo.bike },
+    { icon: 'train', t: 'Trein + Thialf Express', s: venueInfo.publicTransport },
+    { icon: 'skate', t: 'Fiets & elektrisch', s: venueInfo.bike },
   ]},
   { id: 'binnenkomen', title: 'Binnenkomen', items: [
-    { icon: 'ticket', t: 'Ingang per vak', s: '[aanleveren: welke ingang bij welk vak/tribune; toon je e-ticket (QR) op je telefoon]' },
+    { icon: 'ticket', t: 'Je ticket', s: venueInfo.tickets },
     { icon: 'calendar', t: 'Deuren open', s: venueInfo.doorsOpen },
-    { icon: 'rules', t: 'Wat mag mee', s: '[aanleveren: tassenbeleid, eten/drinken, camera\'s, vlaggen/spandoeken, toeters]' },
+    { icon: 'rules', t: 'Wat mag mee', s: venueInfo.bags },
+    { icon: 'info', t: 'Huisregels', s: venueInfo.houseRules.join(' ') },
   ]},
   { id: 'binnen', title: 'In Thialf', items: [
     { icon: 'food', t: 'Eten & drinken', s: venueInfo.food },
-    { icon: 'map', t: 'Toiletten, EHBO, garderobe', s: venueInfo.lockers },
-    { icon: 'info', t: 'Wifi & opladen', s: '[aanleveren: gratis wifi? netwerknaam; oplaadpunten]' },
+    { icon: 'ice', t: 'Beker & token', s: venueInfo.cups },
+    { icon: 'map', t: 'Kluisjes, toiletten, EHBO', s: venueInfo.lockers },
+    { icon: 'info', t: 'Opladen & wifi', s: venueInfo.charging },
   ]},
   { id: 'iedereen', title: 'Kinderen & toegankelijkheid', items: [
     { icon: 'star', t: 'Kinderen & gezin', s: venueInfo.familyInfo },
     { icon: 'access', t: 'Toegankelijkheid', s: venueInfo.accessibility },
   ]},
   { id: 'vertrek', title: 'Vertrek', items: [
-    { icon: 'car', t: 'Na afloop', s: '[aanleveren: uitstroom parkeren, laatste bus/trein, verloren voorwerpen]' },
+    { icon: 'train', t: 'Thialf Express terug', s: 'De bus naar station Heerenveen rijdt tot 1,5 uur na de laatste wedstrijd.' },
+    { icon: 'car', t: 'Met de auto', s: '[aanleveren: uitstroom parkeren, verloren voorwerpen]' },
   ]},
 ] as const;
 
-export const dayChecklist = ['E-ticket op je telefoon (en opgeladen)', 'Pinpas – Thialf is cashless [bevestigen]', 'Warme laag: op de tribune is het ±8 °C', 'Oranje aan 🧡', 'Favoriete schaatsers gekozen in de app'];
+export const dayChecklist = ['E-ticket op je telefoon (en opgeladen)', 'Pinpas – muntjes alleen met pin, geen contant', 'Tas niet groter dan A4 (geen rugzak)', 'Warme laag: op de tribune is het ±8 °C', 'Oranje aan 🧡', 'Favoriete schaatsers gekozen in de app'];
 
 export const faq = [
-  { q: 'Hoe ontvang ik mijn tickets?', a: '[aanleveren] Bijv.: Je tickets ontvang je per e-mail als e-ticket. Toon de QR-code op je telefoon bij de ingang.' },
-  { q: 'Kan ik mijn tickets doorverkopen of overdragen?', a: '[aanleveren: beleid resale/overdracht via ticketshop]' },
+  { q: 'Hoe ontvang en gebruik ik mijn tickets?', a: venueInfo.tickets },
+  { q: 'Kan ik mijn ticket omruilen of terugkrijgen?', a: 'Omruilen voor een andere dag kan zolang er nog plek is. Je geld terugkrijgen is helaas niet mogelijk. Neem contact op met de klantenservice van Paylogic.' },
   { q: 'Zijn er kortingen voor kinderen, studenten of groepen?', a: '[aanleveren]' },
   { q: 'Welke ingang moet ik gebruiken?', a: '[aanleveren: ingangen per tribune/vak, plattegrond]' },
+  { q: 'Wat mag ik meenemen?', a: venueInfo.bags + ' ' + venueInfo.houseRules.slice(0, 2).join(' ') },
   { q: 'Mag ik een vlag of spandoek meenemen?', a: '[aanleveren]' },
-  { q: 'Waar parkeer ik?', a: venueInfo.parking },
+  { q: 'Hoe kom ik bij Thialf?', a: venueInfo.publicTransport + ' Met de auto: ' + venueInfo.parking },
+  { q: 'Hoe betaal ik in Thialf?', a: venueInfo.food + ' ' + venueInfo.cups },
+  { q: 'Ik zit in een rolstoel – waar kan ik zitten?', a: venueInfo.accessibility },
   { q: 'Wat als een sessie wordt afgelast of verplaatst?', a: '[aanleveren: restitutiebeleid]' },
   { q: 'Zijn er arrangementen of lounges?', a: '[aanleveren: hospitality/lounge-aanbod + link]' },
+  { q: 'Ik heb een andere vraag', a: 'Mail naar ' + venueInfo.contact + '.' },
 ];
 
-export const sponsors = ['KNSB', 'Thialf', 'Daikin', 'Univé', '[sponsor]', '[sponsor]'];
+export const sponsors = ['KNSB', 'Thialf', 'OK', 'X²O', 'Odido', 'Reggeborgh', 'Staatsloterij', 'Daikin', 'Univé'];
 
 export const socials = [
   { label: 'Instagram', url: 'https://www.instagram.com/schaatsen.nl' },
   { label: 'TikTok', url: 'https://www.tiktok.com/@schaatsen.nl' },
+  { label: 'Facebook', url: 'https://www.facebook.com/schaatsen.nl' },
   { label: 'YouTube', url: 'https://www.youtube.com/@schaatsennl' },
   { label: 'schaatsen.nl', url: 'https://www.schaatsen.nl' },
 ];

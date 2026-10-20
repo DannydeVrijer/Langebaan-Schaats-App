@@ -293,6 +293,22 @@ p { line-height: 1.5; margin: 0 0 10px; }
 .tl-item.pauze::before { background: var(--ink-700); box-shadow: 0 0 0 4px rgba(168,207,253,.12); }
 .tl-item.pauze .time { font-size: 15px; color: var(--ice-200); display: inline-flex; align-items: center; gap: 6px; }
 .tl-item.pauze .what { font-weight: 500; color: var(--text-muted); }
+.tl-item.soft .what { font-weight: 500; color: var(--text-muted); }
+.tl-item.soft::before { background: var(--ink-700); box-shadow: none; }
+/* Most OK Game (partner-activatie) */
+.okgame { margin-top: 10px; padding: 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,.06); border: 1px solid var(--line-strong); }
+.okgame .brand { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.okgame .brand .ok { font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: .04em; padding: 3px 8px; border-radius: 4px; background: var(--white); color: var(--mvs-black); }
+.okgame .brand .name { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: 13px; letter-spacing: .06em; color: var(--ice-300); }
+.okgame .q { font-weight: 600; margin: 0 0 10px; }
+.okgame .inrow { display: flex; gap: 8px; align-items: stretch; }
+.okgame input { flex: 1; min-width: 0; font: inherit; font-size: 18px; color: var(--white); padding: 10px 12px; background: rgba(255,255,255,.08); border: 1px solid var(--line-strong); border-radius: 10px; outline: none; }
+.okgame input:focus { border-color: var(--ice-300); }
+.okgame .unit { align-self: center; color: var(--text-muted); font-size: 14px; white-space: nowrap; }
+.okgame .btn { width: auto; padding-inline: 14px; font-size: 14px; min-height: 44px; }
+.okgame .result { margin-top: 8px; font-size: 14px; color: var(--text-muted); }
+.okgame .result b { color: var(--white); }
+.okgame .reveal { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: rgba(168,207,253,.12); border: 1px solid rgba(168,207,253,.35); font-size: 14px; }
 .msg-video { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; margin-top: 8px; background: #000; }
 /* embed-scherm (Paylogic / Playable) */
 .embed-frame { width: 100%; height: calc(100dvh - var(--nav-h) - 120px); min-height: 420px; border: 0; border-radius: var(--radius-sm); background: var(--white); }

@@ -134,3 +134,10 @@ Verder nodig: **wie beheert de berichten** (CMS/flow-tool of handmatig), tone of
 - [ ] KNSB-check op regelteksten in `src/data/uitleg.ts` (alle `[check: …]`-markeringen: valse-startregel, vlagsignalering, dweilduur, World Cup-programma)
 - [ ] Video's voor berichten (mp4 of YouTube/Vimeo-embed-URL; berichttype `video`)
 - [ ] Privacyverklaring (URL verplicht voor stores en push)
+
+## Toegevoegd 20 okt 2026 (magievanschaatsen.nl + Most OK Game)
+- [x] WCKT: bloktijden, afstanden, bereikbaarheid, huisregels, horeca, tickets (bron magievanschaatsen.nl, 20 okt)
+- [ ] WCKT: starttijd per afstand (nu "tijd volgt"), dweiltijden, ticketprijzen, deelnemers, dweilpauze-entertainment
+- [ ] Parkeerterreinen + tarieven; mindervalide parkeren; wifi; toiletten/EHBO/verloren voorwerpen; kinderen/gezin
+- [ ] Dezelfde pagina-info voor World Cup, NK Allround & Sprint, EK, NK Afstanden zodra die eventpagina's live zijn
+- [ ] Most OK Game (OK): juiste antwoorden (liters water ijsvloer; exact aantal zitplaatsen Thialf), prijs per vraag, onthulmoment, actievoorwaarden, OK-logo/kleuren voor de badge, aantal vragen per toernooi

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../state';
-import { messages, plannedFlow, arrivalOffsetsMin } from '../data/messages';
+import { messages, plannedFlow, arrivalOffsetsMin, type Message } from '../data/messages';
 import { byId } from '../data/tournaments';
-import { BackLink, BrandMark, Icon, ShareButton } from '../components/ui';
+import { BackLink, BrandMark, Icon, ShareButton, Ph } from '../components/ui';
 import { track } from '../track';
 
 const fmtTime = (ms: number) => new Date(ms).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
@@ -75,6 +75,7 @@ export default function Messages() {
                     </div>
                   )}
                   {m.kind === 'share' && <div className="cta"><ShareButton text="Ga je mee schaatsen kijken in Thialf? Alles staat in deze app:" className="btn btn-primary" /></div>}
+                  {m.kind === 'estimate' && <OkGame m={m} value={pollAnswers[m.id]} onAnswer={(v) => { answerPoll(m.id, v); track('estimate_answer', { game: m.id, value: v }); }} />}
                   {m.kind === 'poll' && (
                     <div className="poll">
                       {m.options.map((o) => {
@@ -133,6 +134,38 @@ export default function Messages() {
         <span style={{ flex: 1, padding: '12px 14px', background: 'rgba(10,20,45,.9)', border: '1px solid var(--line-strong)', borderRadius: 999, color: 'var(--text-muted)', fontSize: 14 }}>Een vraag? Bekijk de veelgestelde vragen</span>
         <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--white)', color: 'var(--ink-900)', display: 'grid', placeItems: 'center' }}><Icon name="info" /></span>
       </Link>
+    </div>
+  );
+}
+
+
+/** Most OK Game – schattingsvraag van partner OK. Het antwoord dat het dichtst bij zit wint. */
+function OkGame({ m, value, onAnswer }: { m: Extract<Message, { kind: 'estimate' }>; value?: string; onAnswer: (v: string) => void }) {
+  const [draft, setDraft] = useState('');
+  const { demo } = useApp();
+  const fmt = (n: number) => n.toLocaleString('nl-NL');
+  const given = value ? Number(value) : null;
+  const canReveal = m.answer != null && (demo || !!m.revealNow);
+  return (
+    <div className="okgame">
+      <div className="brand"><span className="ok">{m.partner}</span><span className="name">{m.game}</span></div>
+      <p className="q">{m.question}</p>
+      {given == null ? (
+        <form className="inrow" onSubmit={(e) => { e.preventDefault(); const n = Number(draft.replace(/\./g, '').replace(',', '.')); if (Number.isFinite(n) && draft.trim()) onAnswer(String(n)); }}>
+          <input inputMode="numeric" placeholder={m.placeholder ?? 'jouw schatting'} value={draft} onChange={(e) => setDraft(e.target.value)} aria-label={m.question} />
+          <span className="unit">{m.unit}</span>
+          <button type="submit" className="btn btn-primary">OK!</button>
+        </form>
+      ) : (
+        <div className="result">Jouw antwoord: <b>{fmt(given)} {m.unit}</b>. {m.answer == null || !canReveal ? <>Het meest OK antwoord maken we bekend {m.revealAt ?? 'later'}. {m.prize && <Ph text={`Te winnen: ${m.prize}`} />}</> : null}</div>
+      )}
+      {given != null && canReveal && m.answer != null && (
+        <div className="reveal">
+          Het juiste antwoord: <b>{fmt(m.answer)} {m.unit}</b>. Jij zat er <b>{fmt(Math.abs(given - m.answer))}</b> naast{Math.abs(given - m.answer) / m.answer < 0.05 ? ' – heel OK! 🏆' : '.'}
+          {m.answerNote && <div className="faint small" style={{ marginTop: 4 }}><Ph text={m.answerNote} /></div>}
+        </div>
+      )}
+      {given == null && m.prize && <div className="faint small" style={{ marginTop: 8 }}><Ph text={`Te winnen: ${m.prize}`} /> · Antwoorden kan tot {m.revealAt ?? 'de onthulling'}.</div>}
     </div>
   );
 }

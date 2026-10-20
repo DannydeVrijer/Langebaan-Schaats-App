@@ -4,6 +4,11 @@ Elke wijziging staat hier met datum, versie en commit-code. De exacte regels (to
 
 Formaat: **Toegevoegd** · **Gewijzigd** · **Verwijderd** · **Teruggedraaid**.
 
+## 0.7 – 20 okt 2026
+- **Toegevoegd:** partner-activatie **Most OK Game** (OK): schattingsvraag in de berichtenfeed (berichttype `estimate`), antwoord opslaan, onthulling met afwijking (demo: stoelen Thialf; liters ijs wacht op juist antwoord) · partner-extra's per toernooi (`extras`) + link naar eventpagina (`infoUrl`) · programma-items `deuren`/`ceremonie` · FAQ-vragen: omruilen, meenemen, bereikbaarheid, betalen, rolstoel · Facebook bij socials
+- **Gewijzigd (bron magievanschaatsen.nl/worldcupkwalificatietoernooi):** WCKT-programma per dag (deuren open, stadionprogramma, start, afstanden in volgorde, einde) · bereikbaarheid (Thialf Express Qbuzz 815, parkeerticket vooraf, Kiss & Ride P1) · huisregels (A4-tas, geen kluisjes, 55 mm-objectief, roken/vapen, staantribunes, honden) · toegankelijkheid (Sven Kramer-bocht, 1 begeleider) · horeca (cateringpunten, muntjes € 4,50 pin-only, Brasserie, bekersysteem) · ticketinfo (scannen, omruilen, geen restitutie, Paylogic) · contact schaatsen@houseofsports.nl · dagchecklist · partners (OK, X²O, Odido, Reggeborgh, Staatsloterij) · NK-namen met titelsponsor: "OK NK Allround & Sprint", "OK NK Afstanden"
+- **Verwijderd:** verzonnen WCKT-starttijden (18:30/20:00 etc.) – vervangen door officiële bloktijden; starttijden per afstand staan nu op "tijd volgt"
+
 ## 0.6 – 7 okt 2026
 - **Toegevoegd:** sectie "Zo werkt schaatsen" (World Cup, allround, sprint, NK Afstanden, massastart, regels, dweilpauze, tijden lezen) · dweilpauzes in het programma (tijden nog `[ ]`) · video-berichten (mp4/YouTube/Vimeo) · embed-scherm (`/embed/…`) voor Paylogic-shop, mijn tickets, speel & win, parkeren · parkeerticket-rij bij Praktisch · iconen `ice`, `flag`, `speed`, `trophy` · `PLAN.md` en dit changelog — `de3b08a`, `7251dd1`
 - **Gewijzigd:** alle "Koop tickets"-knoppen openen de Paylogic-shop in de app (iframe) in plaats van een nieuw venster — `d849844` · `[check: …]`-notities worden voor fans stil weggelaten (Ph) · Home-tegel "FAQ" → "Zo werkt schaatsen"

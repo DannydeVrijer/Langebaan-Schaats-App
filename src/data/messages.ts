@@ -15,7 +15,9 @@ export type Message =
   | { id: string; kind: 'video'; day: string; time: string; text: string; video: string; poster?: string }
   | { id: string; kind: 'cta'; day: string; time: string; text: string; label: string; href: string }
   | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[]; followUps: Record<string, string> }
-  | { id: string; kind: 'route'; day: string; time: string; text: string; tournamentId: string };
+  | { id: string; kind: 'route'; day: string; time: string; text: string; tournamentId: string }
+  /** Partner-activatie "Most OK Game": schattingsvraag, het antwoord dat het dichtst bij zit ("meest OK") wint. `answer` pas invullen bij de onthulling. */
+  | { id: string; kind: 'estimate'; day: string; time: string; text: string; partner: string; game: string; question: string; unit: string; placeholder?: string; answer?: number; answerNote?: string; prize?: string; revealAt?: string; revealNow?: boolean };
 
 export const messages: Message[] = [
   {
@@ -57,13 +59,31 @@ export const messages: Message[] = [
     text: 'Zet meldingen aan, dan hoor je het als eerste bij programma-wijzigingen, verkeersinfo op de dag zelf en als er extra kaarten vrijkomen. Gemiddeld 3 berichten per toernooi, geen spam.',
   },
   {
+    id: 'm8', kind: 'estimate', day: 'Vandaag', time: '09:07',
+    text: 'Tijd voor de Most OK Game van OK! Geen kennisvraag maar een schattingsvraag: wie het dichtst bij het juiste antwoord zit, geeft het meest OK antwoord – en wint.',
+    partner: 'OK', game: 'Most OK Game',
+    question: 'Hoeveel zitplaatsen heeft Thialf?',
+    unit: 'stoelen', placeholder: 'bijv. 10.000',
+    answer: 12500, answerNote: 'Thialf biedt plek aan 12.500 toeschouwers. [check: exact aantal zitplaatsen bij KNSB/Thialf]',
+    prize: '[aanleveren: prijs OK, bijv. tankpas]', revealAt: 'in de dweilpauze',
+  },
+  {
+    id: 'm9', kind: 'estimate', day: 'Vandaag', time: '09:08',
+    text: 'Nog eentje voor de Most OK Game: dit weet bijna niemand precies, dus schat maar raak.',
+    partner: 'OK', game: 'Most OK Game',
+    question: 'Hoeveel liter water is er nodig om de 400 meter-baan van Thialf op te bouwen?',
+    unit: 'liter', placeholder: 'bijv. 50.000',
+    answerNote: '[aanleveren: juiste antwoord van Thialf (ijsmeester)]',
+    prize: '[aanleveren: prijs OK]', revealAt: 'in de dweilpauze',
+  },
+  {
     id: 'm7', kind: 'share', day: 'Vandaag', time: '09:06',
     text: 'Schaatsen is leuker samen. Wie neem jij mee naar Thialf? Stuur deze app door, dan plannen jullie samen.',
   },
 ];
 
 /** Minuten na aanmelden waarop elk bericht ‘binnenkomt’ (demo; in productie bepaalt de flow-tool dit). */
-export const arrivalOffsetsMin: Record<string, number> = { m1: 0, m2: 2, m3: 5, m4: 9, m5: 14, m6: 20, m7: 27 };
+export const arrivalOffsetsMin: Record<string, number> = { m1: 0, m2: 2, m3: 5, m4: 9, m5: 14, m6: 20, m8: 24, m9: 26, m7: 30 };
 
 /** Voorbeelden van geautomatiseerde berichten die later in de flow komen (ter inspiratie, zie CONTENT-CHECKLIST.md). */
 export const plannedFlow = [
@@ -72,6 +92,8 @@ export const plannedFlow = [
   { trigger: 'Dag van toernooi, 08:00', text: 'Vandaag is de dag! Actuele verkeersinfo rond Heerenveen: [live]. Tot straks in Thialf 🧡' },
   { trigger: 'Locatie: in Thialf', text: 'Welkom in Thialf! Jouw ingang: [X]. Horeca-tip: [aanbieding]. Doe mee met de tribunewave om 14:00.' },
   { trigger: 'Tijdens sessie', text: 'LIVE: [naam] rijdt zojuist een baanrecord op de 1000m! 🔥' },
+  { trigger: 'Partner-activatie OK – 1 uur voor dweilpauze', text: 'Most OK Game: schattingsvraag (bijv. "Hoeveel liter water zit er in de ijsvloer?"). Antwoorden tot de dweilpauze.' },
+  { trigger: 'Partner-activatie OK – in de dweilpauze', text: 'Onthulling op het scorebord + in de app: het juiste antwoord, jouw afwijking en de winnaar met het meest OK antwoord. Prijs: [OK].' },
   { trigger: 'Direct na afloop', text: 'Bedankt voor je komst! Hoe heb je het ervaren? (sliders: sfeer, zicht, horeca, bereikbaarheid)' },
   { trigger: '1 dag na afloop', text: 'Fotoalbum van jouw dag + highlights-video. En: tickets voor [volgend toernooi] nu met early-bird korting.' },
 ];
