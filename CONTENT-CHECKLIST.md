@@ -141,3 +141,9 @@ Verder nodig: **wie beheert de berichten** (CMS/flow-tool of handmatig), tone of
 - [ ] Parkeerterreinen + tarieven; mindervalide parkeren; wifi; toiletten/EHBO/verloren voorwerpen; kinderen/gezin
 - [ ] Dezelfde pagina-info voor World Cup, NK Allround & Sprint, EK, NK Afstanden zodra die eventpagina's live zijn
 - [ ] Most OK Game (OK): juiste antwoorden (liters water ijsvloer; exact aantal zitplaatsen Thialf), prijs per vraag, onthulmoment, actievoorwaarden, OK-logo/kleuren voor de badge, aantal vragen per toernooi
+
+## Beeldbank (21 okt 2026)
+- [x] WCKT-campagnebanners (9 formaten) → `public/img/beeldbank/wckt/`
+- [ ] Key visual per toernooi zonder tekst (≥ 1600×900 en 1080×1350) voor hero's en Home
+- [ ] Partnerlogo's (SVG/PNG transparant) incl. OK, X²O, Odido, Reggeborgh, Staatsloterij
+- [ ] Rijdersportretten met gebruiksrecht (vervangt TeamNL-hotlinks)

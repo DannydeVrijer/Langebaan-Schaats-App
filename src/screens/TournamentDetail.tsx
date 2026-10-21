@@ -151,6 +151,11 @@ export default function TournamentDetail() {
               <p className="faint" style={{ fontSize: 11, margin: '8px 0 0' }}>Verwachte deelnemers; definitieve startlijsten volgen.</p>
             </div>
           )}
+          {t.banner && (
+            <Link to={`/embed/tickets/${t.id}`} className="banner-link" onClick={() => track('ticket_click', { tournament: t.id, source: 'banner' })}>
+              <img src={t.banner} alt={`${t.name} – ja, ik wil erbij zijn`} />
+            </Link>
+          )}
           <div className="card">
             <h3 className="display">Dit maakt dit toernooi anders</h3>
             <ul className="muted small" style={{ margin: '8px 0 0', paddingLeft: 18, lineHeight: 1.7 }}>{t.highlights.map((h) => <li key={h}>{h}</li>)}</ul>

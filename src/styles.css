@@ -295,6 +295,9 @@ p { line-height: 1.5; margin: 0 0 10px; }
 .tl-item.pauze .what { font-weight: 500; color: var(--text-muted); }
 .tl-item.soft .what { font-weight: 500; color: var(--text-muted); }
 .tl-item.soft::before { background: var(--ink-700); box-shadow: none; }
+/* campagnebanner uit de beeldbank */
+.banner-link { display: block; margin: 12px 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line-strong); }
+.banner-link img { width: 100%; height: auto; display: block; }
 /* Most OK Game (partner-activatie) */
 .okgame { margin-top: 10px; padding: 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,.06); border: 1px solid var(--line-strong); }
 .okgame .brand { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }

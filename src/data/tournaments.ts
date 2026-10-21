@@ -37,6 +37,7 @@ export type Tournament = {
   liveUrl?: string;          // liveresults.schaatsen.nl event-pagina zodra bekend
   extras?: { partner: string; text: string }[]; // partner-extra's op het event (bron: magievanschaatsen.nl)
   infoUrl?: string;          // eventpagina magievanschaatsen.nl
+  banner?: string;           // campagnebanner uit de beeldbank (public/img/beeldbank)
 };
 
 const THIALF = 'Thialf';
@@ -61,6 +62,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/7ea4c49ff00f41d3acc549e0fdab376f/tickets',
     infoUrl: 'https://www.magievanschaatsen.nl/worldcupkwalificatietoernooi',
+    banner: asset('img/beeldbank/wckt/wckt-banner-605x265.jpg'),
     ticketStatus: 'onsale',
     hero: asset('img/hero-skater.png'),
     description:

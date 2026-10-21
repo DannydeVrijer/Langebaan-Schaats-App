@@ -4,6 +4,10 @@ Elke wijziging staat hier met datum, versie en commit-code. De exacte regels (to
 
 Formaat: **Toegevoegd** · **Gewijzigd** · **Verwijderd** · **Teruggedraaid**.
 
+## 0.7.1 – 21 okt 2026
+- **Toegevoegd:** beeldbank `public/img/beeldbank/` (9 WCKT-campagnebanners, index in `BEELDBANK.md`) · WCKT-banner 605×265 in de berichtenfeed (m2) en op de Info-tab (klik → ticketshop) · og:image/og:title voor link-previews bij delen (banner 950×250)
+- **Niet gebruikt als hero:** banners hebben ingebakken tekst en lage resolutie; key visual zonder tekst ≥ 1600 px gevraagd
+
 ## 0.7 – 20 okt 2026
 - **Toegevoegd:** partner-activatie **Most OK Game** (OK): schattingsvraag in de berichtenfeed (berichttype `estimate`), antwoord opslaan, onthulling met afwijking (demo: stoelen Thialf; liters ijs wacht op juist antwoord) · partner-extra's per toernooi (`extras`) + link naar eventpagina (`infoUrl`) · programma-items `deuren`/`ceremonie` · FAQ-vragen: omruilen, meenemen, bereikbaarheid, betalen, rolstoel · Facebook bij socials
 - **Gewijzigd (bron magievanschaatsen.nl/worldcupkwalificatietoernooi):** WCKT-programma per dag (deuren open, stadionprogramma, start, afstanden in volgorde, einde) · bereikbaarheid (Thialf Express Qbuzz 815, parkeerticket vooraf, Kiss & Ride P1) · huisregels (A4-tas, geen kluisjes, 55 mm-objectief, roken/vapen, staantribunes, honden) · toegankelijkheid (Sven Kramer-bocht, 1 begeleider) · horeca (cateringpunten, muntjes € 4,50 pin-only, Brasserie, bekersysteem) · ticketinfo (scannen, omruilen, geen restitutie, Paylogic) · contact schaatsen@houseofsports.nl · dagchecklist · partners (OK, X²O, Odido, Reggeborgh, Staatsloterij) · NK-namen met titelsponsor: "OK NK Allround & Sprint", "OK NK Afstanden"

@@ -27,7 +27,7 @@ export const messages: Message[] = [
   {
     id: 'm2', kind: 'image', day: 'Vandaag', time: '09:01',
     text: 'Het seizoen begint over een paar weken met het World Cup Kwalificatietoernooi. Niets is zeker, alles staat op scherp. Dit is waar het seizoen begint.',
-    image: asset('img/hero-skater.png'),
+    image: asset('img/beeldbank/wckt/wckt-banner-605x265.jpg'),
   },
   {
     id: 'm3', kind: 'poll', day: 'Vandaag', time: '09:02',
