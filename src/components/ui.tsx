@@ -85,6 +85,20 @@ export const Chevrons = ({ className }: { className?: string }) => (
   </svg>
 );
 
+/** Tekstkaart in de stijl van de MVS-bewegwijzering (abri): navy verloop, ovaal-ring, Sportize-koptekst. Zelf te vullen met elke tekst. */
+export function Signage({ lines, sub, chevrons, ratio = '4 / 5', size = 34 }: { lines: string[]; sub?: string; chevrons?: boolean; ratio?: string; size?: number }) {
+  return (
+    <div className="signage" style={{ aspectRatio: ratio }} role="img" aria-label={lines.join(' ')}>
+      <TrackRing className="sg-ring" />
+      <div className="sg-text">
+        {lines.map((l) => <span key={l} className="display" style={{ fontSize: size }}>{l}</span>)}
+        {sub && <span className="subline" style={{ marginTop: 8 }}>{sub}</span>}
+        {chevrons && <Chevrons className="sg-chev" />}
+      </div>
+    </div>
+  );
+}
+
 export function TopBar() {
   return (
     <header className="topbar">

@@ -144,6 +144,6 @@ Verder nodig: **wie beheert de berichten** (CMS/flow-tool of handmatig), tone of
 
 ## Beeldbank (21 okt 2026)
 - [x] WCKT-campagnebanners (9 formaten) → `public/img/beeldbank/wckt/`
-- [ ] Key visual per toernooi zonder tekst (≥ 1600×900 en 1080×1350) voor hero's en Home
+- [x] Key visuals zonder tekst (3 abri's, 21 okt) → hero's; nog gewenst: per toernooi een eigen beeld (nu 2× hergebruikt)
 - [ ] Partnerlogo's (SVG/PNG transparant) incl. OK, X²O, Odido, Reggeborgh, Staatsloterij
 - [ ] Rijdersportretten met gebruiksrecht (vervangt TeamNL-hotlinks)

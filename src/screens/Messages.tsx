@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../state';
 import { messages, plannedFlow, arrivalOffsetsMin, type Message } from '../data/messages';
 import { byId } from '../data/tournaments';
-import { BackLink, BrandMark, Icon, ShareButton, Ph } from '../components/ui';
+import { BackLink, BrandMark, Icon, ShareButton, Ph, Signage } from '../components/ui';
 import { track } from '../track';
 
 const fmtTime = (ms: number) => new Date(ms).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
@@ -62,6 +62,7 @@ export default function Messages() {
                 <div className="bubble">
                   {m.text}
                   {m.kind === 'image' && <img src={m.image} alt="" />}
+                  {m.kind === 'sign' && <div style={{ marginTop: 8 }}><Signage lines={m.lines} sub={m.sub} chevrons={m.chevrons} ratio="16 / 10" size={30} /></div>}
                   {m.kind === 'video' && (/youtube|youtu\.be|vimeo/.test(m.video)
                     ? <iframe className="msg-video" src={m.video} title="video" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
                     : <video className="msg-video" src={m.video} poster={m.poster} controls playsInline preload="metadata" />)}

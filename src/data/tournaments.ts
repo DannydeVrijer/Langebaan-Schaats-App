@@ -64,7 +64,7 @@ export const tournaments: Tournament[] = [
     infoUrl: 'https://www.magievanschaatsen.nl/worldcupkwalificatietoernooi',
     banner: asset('img/beeldbank/wckt/wckt-banner-605x265.jpg'),
     ticketStatus: 'onsale',
-    hero: asset('img/hero-skater.png'),
+    hero: asset('img/beeldbank/keyvisual/kv-reggeborgh-landscape.jpg'),
     description:
       'De seizoensopener in Thialf en dé kwalificatie voor de ISU World Cups. Drie dagen lang strijden de Nederlandse schaatstoppers – inclusief de medaillewinnaars van Milaan-Cortina – om een plek in de World Cup-ploeg. Niets is zeker, alles staat op scherp.',
     highlights: ['Startbewijzen voor de ISU World Cups', 'Alle afstanden, massastart, teamachtervolging én sprintmarathon', 'Nederlandse top compleet'],
@@ -129,7 +129,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/f98606597b26473a9dd75d9747fa8ef7/tickets',
     ticketStatus: 'onsale',
-        hero: asset('img/hero-jutta.png'),
+    hero: asset('img/beeldbank/keyvisual/kv-leerdam-landscape.jpg'),
     description:
       'De enige World Cup in Nederland dit seizoen. De complete wereldtop komt naar Heerenveen en de Nederlandse ploeg verdedigt de eer op eigen ijs. Drie dagen topsport in het luidste schaatsstadion ter wereld.',
     highlights: ['Wereldtop aanwezig', 'Massastart & teamsprint', 'Fan village'],
@@ -170,7 +170,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/0a16c472d0284f24bb9a3a1f7d746efa/tickets',
     ticketStatus: 'onsale',
-        hero: asset('img/hero-skater.png'),
+    hero: asset('img/beeldbank/keyvisual/kv-zaanlander-duo-landscape.jpg'),
     description:
       'Tussen Kerst en Oud & Nieuw: het klassieke NK Allround en NK Sprint in één weekend. Vier afstanden, één klassement, één kampioen. Plus de tickets naar het EK.',
     highlights: ['Allround- én sprintkampioen', 'Kwalificatie EK', 'Feestdagen in Thialf'],
@@ -206,7 +206,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/a1096461a27146138172f9dfc7402c05/tickets',
     ticketStatus: 'onsale',
-        hero: asset('img/hero-jutta.png'),
+    hero: asset('img/beeldbank/keyvisual/kv-reggeborgh-landscape.jpg'),
     description:
       'De Europese titelstrijd allround en sprint, in Heerenveen. Drie dagen waarin Nederland, Noorwegen, Italië en de rest van Europa om de titels strijden — en het publiek het verschil maakt.',
     highlights: ['Europese titels', 'Internationale sfeer', 'Oranje thuisvoordeel'],
@@ -246,7 +246,7 @@ export const tournaments: Tournament[] = [
     country: 'NL',
     ticketUrl: 'https://tickets.schaatsen.nl/15b22d2a3f7249ce8a7d77c06bd410a9/tickets',
     ticketStatus: 'onsale',
-        hero: asset('img/hero-skater.png'),
+    hero: asset('img/beeldbank/keyvisual/kv-zaanlander-duo-landscape.jpg'),
     description:
       'Per afstand één Nederlands kampioen én de laatste kans op een WK-ticket. Het NK Afstanden is traditioneel het toernooi waar de grootste verrassingen vallen.',
     highlights: ['Alle afstanden', 'Laatste WK-kwalificatie', 'Nationale titels'],

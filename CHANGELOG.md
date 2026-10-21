@@ -4,6 +4,11 @@ Elke wijziging staat hier met datum, versie en commit-code. De exacte regels (to
 
 Formaat: **Toegevoegd** · **Gewijzigd** · **Verwijderd** · **Teruggedraaid**.
 
+## 0.8 – 21 okt 2026
+- **Toegevoegd:** 3 abri-key visuals (Leerdam, Reggeborgh, Zaanlander-duo) als hero's van alle 5 toernooien en de onboarding (`beeldbank/keyvisual/`) · 4 signage-beelden (`beeldbank/signage/`) · `Signage`-component + berichttype `sign` (abri-stijl tekstkaart, zelf te vullen); welkomstbericht is nu zo'n kaart · bewegwijzering als achtergrond van de plattegrond-placeholder
+- **Gewijzigd:** hero-uitsnede iets hoger (gezichten in beeld); onboarding zonder extra ring-overlay (zit in het beeld)
+- **Verwijderd:** tijdelijke hero's `hero-jutta.png`, `hero-skater.png`
+
 ## 0.7.1 – 21 okt 2026
 - **Toegevoegd:** beeldbank `public/img/beeldbank/` (9 WCKT-campagnebanners, index in `BEELDBANK.md`) · WCKT-banner 605×265 in de berichtenfeed (m2) en op de Info-tab (klik → ticketshop) · og:image/og:title voor link-previews bij delen (banner 950×250)
 - **Niet gebruikt als hero:** banners hebben ingebakken tekst en lage resolutie; key visual zonder tekst ≥ 1600 px gevraagd

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../state';
 import { tournaments, nlDate, asset } from '../data/tournaments';
-import { Icon, TrackRing, Chevrons } from '../components/ui';
+import { Icon, Chevrons } from '../components/ui';
 
 export default function Onboarding() {
   const { selected, toggle, finishOnboarding } = useApp();
@@ -10,8 +10,7 @@ export default function Onboarding() {
   return (
     <div className="screen" style={{ paddingBottom: 24 }}>
       <div className="onboard-hero">
-        <img src={asset('img/hero-jutta.png')} alt="" />
-        <TrackRing style={{ position: 'absolute', right: -60, top: 20, width: 240, opacity: .4 }} />
+        <img src={asset('img/beeldbank/keyvisual/kv-leerdam-portrait.jpg')} alt="" />
       </div>
 
       <div className="onboard-body">

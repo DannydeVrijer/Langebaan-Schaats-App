@@ -1,7 +1,7 @@
 import { useParams, useSearchParams, Navigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useApp } from '../state';
-import { byId, dateRange, nlDate, daysUntil, journey, dayChecklist } from '../data/tournaments';
+import { byId, dateRange, nlDate, daysUntil, journey, dayChecklist, asset } from '../data/tournaments';
 import { skaterById, teamById } from '../data/skaters';
 import { BackLink, TrackRing, DateChip, StatusPill, Countdown, Icon, Toast, Ph, ShareButton, icons, downloadIcs } from '../components/ui';
 import { track } from '../track';
@@ -201,7 +201,7 @@ export default function TournamentDetail() {
 
           <h3 className="display" style={{ marginBottom: 8 }}>Plattegrond</h3>
           <div className="map-placeholder">
-            <svg viewBox="0 0 320 200" fill="none"><rect x="30" y="20" width="260" height="160" rx="80" stroke="white" strokeWidth="10"/><rect x="70" y="50" width="180" height="100" rx="50" stroke="white" strokeWidth="3"/></svg>
+            <img src={asset('img/beeldbank/signage/sign-tribunes.jpg')} alt="" />
             <div className="lbl"><p className="muted small" style={{ margin: 0 }}><Ph text="[aanleveren: plattegrond met tribunes, vakken, ingangen, horeca, toiletten, EHBO, fanshop]" /></p></div>
           </div>
 

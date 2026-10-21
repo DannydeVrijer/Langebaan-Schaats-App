@@ -13,3 +13,16 @@ Aangeleverde campagnebeelden (HoS, 21 okt 2026). Alle beelden hebben ingebakken 
 | wckt/wckt-banner-300x300.jpg | 300×300 | reserve (vierkant, social) |
 
 Gewenst voor volgende levering: per toernooi een key visual zonder tekst (≥ 1600×900 en ≥ 1080×1350), rijdersportretten met rechten, partnerlogo's (SVG/PNG transparant).
+
+## Key visuals (abri-campagne, 21 okt 2026) – `keyvisual/`
+Bron: MVS_ABRI_SCHAATSER01–03 (6614×8386, zonder tekst). Per beeld een portrait (1080×1369) en landscape-crop (1600×900).
+
+| Bestand | Gebruik |
+|---|---|
+| kv-leerdam-portrait.jpg | Onboarding-hero |
+| kv-leerdam-landscape.jpg | Hero ISU World Cup |
+| kv-reggeborgh-landscape.jpg | Hero WCKT, EK |
+| kv-zaanlander-duo-landscape.jpg | Hero OK NK Allround & Sprint, OK NK Afstanden |
+
+## Signage (abri-tekstkaarten) – `signage/`
+Welkom, Tot ziens, Tribunes (Sven Kramer-bocht / West / Ireen Wüst-bocht), Volgende toernooi + QR. In de app is dezelfde stijl als component beschikbaar (`<Signage lines={[…]} />`, berichttype `sign`), dus elke tekst kan in deze vorm zonder nieuw beeld. `sign-tribunes.jpg` staat als achtergrond bij de plattegrond-placeholder.

@@ -190,7 +190,7 @@ p { line-height: 1.5; margin: 0 0 10px; }
 }
 .hero-card .bg {
   position: absolute; inset: 0; z-index: -2;
-  object-fit: cover; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%; width: 100%; height: 100%;
   opacity: .9;
 }
 .hero-card .ring {
@@ -295,6 +295,13 @@ p { line-height: 1.5; margin: 0 0 10px; }
 .tl-item.pauze .what { font-weight: 500; color: var(--text-muted); }
 .tl-item.soft .what { font-weight: 500; color: var(--text-muted); }
 .tl-item.soft::before { background: var(--ink-700); box-shadow: none; }
+/* signage-kaart (abri-stijl) */
+.signage { position: relative; overflow: hidden; border-radius: var(--radius-sm); width: 100%; display: grid; place-items: center; isolation: isolate;
+  background: radial-gradient(70% 50% at 50% 45%, #2B4F85 0%, #13233A 60%, #0B1526 100%); border: 1px solid var(--line); }
+.signage .sg-ring { position: absolute; inset: -6% -4%; width: 108%; height: 112%; z-index: 0; opacity: .55; }
+.signage .sg-text { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 16px; gap: 2px; }
+.signage .sg-text .display { line-height: 1; text-shadow: 0 2px 12px rgba(0,0,0,.5); }
+.signage .sg-chev { width: 54px; margin-top: 14px; }
 /* campagnebanner uit de beeldbank */
 .banner-link { display: block; margin: 12px 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line-strong); }
 .banner-link img { width: 100%; height: auto; display: block; }
@@ -457,6 +464,7 @@ details.faq summary { font-size: 15px; }
   border: 1px solid var(--line); display: grid; place-items: center; text-align: center; padding: 16px;
 }
 .map-placeholder svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .35; }
+.map-placeholder img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 70%; opacity: .22; filter: blur(1px); }
 .map-placeholder .lbl { position: relative; }
 .chev-deco { position: absolute; right: 16px; bottom: 16px; width: 54px; opacity: .6; }
 .toast {

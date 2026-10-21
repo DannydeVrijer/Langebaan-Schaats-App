@@ -12,6 +12,8 @@ export type Message =
   | { id: string; kind: 'optin'; day: string; time: string; text: string }
   | { id: string; kind: 'share'; day: string; time: string; text: string }
   | { id: string; kind: 'image'; day: string; time: string; text: string; image: string }
+  /** Tekstkaart in abri-stijl (eigen component, elke tekst mogelijk) */
+  | { id: string; kind: 'sign'; day: string; time: string; text: string; lines: string[]; sub?: string; chevrons?: boolean }
   | { id: string; kind: 'video'; day: string; time: string; text: string; video: string; poster?: string }
   | { id: string; kind: 'cta'; day: string; time: string; text: string; label: string; href: string }
   | { id: string; kind: 'poll'; day: string; time: string; text: string; options: { id: string; label: string; pct: number }[]; followUps: Record<string, string> }
@@ -21,7 +23,7 @@ export type Message =
 
 export const messages: Message[] = [
   {
-    id: 'm1', kind: 'text', day: 'Vandaag', time: '09:00',
+    id: 'm1', kind: 'sign', day: 'Vandaag', time: '09:00', lines: ['Welkom'], sub: 'Beleef de magie van schaatsen',
     text: 'Welkom! 🧊 Fijn dat je erbij bent. In deze app vind je alles over de toernooien die jij bezoekt: programma, tickets, praktische info en op het juiste moment een seintje van ons.',
   },
   {
