@@ -64,7 +64,7 @@ export const tournaments: Tournament[] = [
     infoUrl: 'https://www.magievanschaatsen.nl/worldcupkwalificatietoernooi',
     banner: asset('img/beeldbank/wckt/wckt-banner-605x265.jpg'),
     ticketStatus: 'onsale',
-    hero: asset('img/beeldbank/keyvisual/kv-reggeborgh-landscape.jpg'),
+    hero: asset('img/beeldbank/keyvisual/kv-entree-landscape.jpg'),
     description:
       'De seizoensopener in Thialf en dé kwalificatie voor de ISU World Cups. Drie dagen lang strijden de Nederlandse schaatstoppers – inclusief de medaillewinnaars van Milaan-Cortina – om een plek in de World Cup-ploeg. Niets is zeker, alles staat op scherp.',
     highlights: ['Startbewijzen voor de ISU World Cups', 'Alle afstanden, massastart, teamachtervolging én sprintmarathon', 'Nederlandse top compleet'],

@@ -4,6 +4,9 @@ Elke wijziging staat hier met datum, versie en commit-code. De exacte regels (to
 
 Formaat: **Toegevoegd** · **Gewijzigd** · **Verwijderd** · **Teruggedraaid**.
 
+## 0.8.1 – 29 okt 2026
+- **Toegevoegd:** entreeportret uit de aankleding van Thialf (`MVS_REGULIERE_INGANG_212x317cm`) als key visual `kv-entree-portrait/-landscape` (`beeldbank/keyvisual/`); hero van het WCKT. Zelfde beeld als het startbeeld van de ticketshop, zodat app, shop en entree één beeld hebben.
+
 ## 0.8 – 21 okt 2026
 - **Toegevoegd:** 3 abri-key visuals (Leerdam, Reggeborgh, Zaanlander-duo) als hero's van alle 5 toernooien en de onboarding (`beeldbank/keyvisual/`) · 4 signage-beelden (`beeldbank/signage/`) · `Signage`-component + berichttype `sign` (abri-stijl tekstkaart, zelf te vullen); welkomstbericht is nu zo'n kaart · bewegwijzering als achtergrond van de plattegrond-placeholder
 - **Gewijzigd:** hero-uitsnede iets hoger (gezichten in beeld); onboarding zonder extra ring-overlay (zit in het beeld)

@@ -21,8 +21,9 @@ Bron: MVS_ABRI_SCHAATSER01–03 (6614×8386, zonder tekst). Per beeld een portra
 |---|---|
 | kv-leerdam-portrait.jpg | Onboarding-hero |
 | kv-leerdam-landscape.jpg | Hero ISU World Cup |
-| kv-reggeborgh-landscape.jpg | Hero WCKT, EK |
+| kv-reggeborgh-landscape.jpg | Hero EK |
 | kv-zaanlander-duo-landscape.jpg | Hero OK NK Allround & Sprint, OK NK Afstanden |
+| kv-entree-portrait.jpg / kv-entree-landscape.jpg | Hero WCKT (entreedoek Thialf `MVS_REGULIERE_INGANG_212x317cm`, 29 okt 2026; zelfde beeld als startbeeld ticketshop) |
 
 ## Signage (abri-tekstkaarten) – `signage/`
 Welkom, Tot ziens, Tribunes (Sven Kramer-bocht / West / Ireen Wüst-bocht), Volgende toernooi + QR. In de app is dezelfde stijl als component beschikbaar (`<Signage lines={[…]} />`, berichttype `sign`), dus elke tekst kan in deze vorm zonder nieuw beeld. `sign-tribunes.jpg` staat als achtergrond bij de plattegrond-placeholder.
